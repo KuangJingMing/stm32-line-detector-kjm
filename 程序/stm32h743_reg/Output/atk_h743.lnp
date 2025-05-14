@@ -1,0 +1,22 @@
+--cpu Cortex-M7.fp.dp
+"..\..\output\startup_stm32h743xx.o"
+"..\..\output\main.o"
+"..\..\output\delay.o"
+"..\..\output\sys.o"
+"..\..\output\usart.o"
+"..\..\output\led.o"
+"..\..\output\mpu.o"
+"..\..\output\sdram.o"
+"..\..\output\lcd.o"
+"..\..\output\ltdc.o"
+"..\..\output\key.o"
+"..\..\output\24cxx.o"
+"..\..\output\myiic.o"
+"..\..\output\ctiic.o"
+"..\..\output\ft5206.o"
+"..\..\output\gt9xxx.o"
+"..\..\output\touch.o"
+--strict --scatter "..\..\Output\atk_h743.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "..\..\Output\atk_h743.map" -o ..\..\Output\atk_h743.axf
