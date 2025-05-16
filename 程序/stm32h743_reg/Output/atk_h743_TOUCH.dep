@@ -1,253 +1,0 @@
-Dependencies for Project 'atk_h743', Target 'TOUCH': (DO NOT MODIFY !)
-F (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Source\Templates\arm\startup_stm32h743xx.s)(0x6423D538)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32H743xx SETA 1"--list ..\..\output\startup_stm32h743xx.lst --xref -o ..\..\output\startup_stm32h743xx.o --depend ..\..\output\startup_stm32h743xx.d)
-F (..\..\User\main.c)(0x665993F3)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\main.o --omf_browse ..\..\output\main.crf --depend ..\..\output\main.d)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-I (..\..\Drivers\./BSP/LED/led.h)(0x6602C187)
-I (..\..\Drivers\./BSP/KEY/key.h)(0x6602C187)
-I (..\..\Drivers\./BSP/MPU/mpu.h)(0x6602C186)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./BSP/SDRAM/sdram.h)(0x6602C186)
-I (..\..\Middlewares\./USMART/usmart.h)(0x6602C186)
-I (..\..\Middlewares\./USMART/usmart_port.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/touch.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/gt9xxx.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ft5206.h)(0x6602C186)
-F (..\..\Drivers\SYSTEM\delay\delay.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\delay.o --omf_browse ..\..\output\delay.crf --depend ..\..\output\delay.d)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\SYSTEM\sys\sys.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\sys.o --omf_browse ..\..\output\sys.crf --depend ..\..\output\sys.d)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-F (..\..\Drivers\SYSTEM\usart\usart.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\usart.o --omf_browse ..\..\output\usart.crf --depend ..\..\output\usart.d)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-F (..\..\Drivers\BSP\LED\led.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\led.o --omf_browse ..\..\output\led.crf --depend ..\..\output\led.d)
-I (..\..\Drivers\./BSP/LED/led.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-F (..\..\Drivers\BSP\MPU\mpu.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\mpu.o --omf_browse ..\..\output\mpu.crf --depend ..\..\output\mpu.d)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-I (..\..\Drivers\./BSP/LED/led.h)(0x6602C187)
-I (..\..\Drivers\./BSP/MPU/mpu.h)(0x6602C186)
-F (..\..\Drivers\BSP\SDRAM\sdram.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\sdram.o --omf_browse ..\..\output\sdram.crf --depend ..\..\output\sdram.d)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/SDRAM/sdram.h)(0x6602C186)
-F (..\..\Drivers\BSP\LCD\lcd.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\lcd.o --omf_browse ..\..\output\lcd.crf --depend ..\..\output\lcd.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/LCD/lcdfont.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (..\..\Drivers\./BSP/LCD/ltdc.h)(0x6602C187)
-I (..\..\Drivers\./BSP/LCD/lcd_ex.c)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\LCD\ltdc.c)(0x66599458)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\ltdc.o --omf_browse ..\..\output\ltdc.crf --depend ..\..\output\ltdc.d)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/LCD/ltdc.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\KEY\key.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\key.o --omf_browse ..\..\output\key.crf --depend ..\..\output\key.d)
-I (..\..\Drivers\./BSP/KEY/key.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\24CXX\24cxx.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\24cxx.o --omf_browse ..\..\output\24cxx.crf --depend ..\..\output\24cxx.d)
-I (..\..\Drivers\./BSP/IIC/myiic.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/24CXX/24cxx.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\IIC\myiic.c)(0x6602C187)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\myiic.o --omf_browse ..\..\output\myiic.crf --depend ..\..\output\myiic.d)
-I (..\..\Drivers\./BSP/IIC/myiic.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\TOUCH\ctiic.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\ctiic.o --omf_browse ..\..\output\ctiic.crf --depend ..\..\output\ctiic.d)
-I (..\..\Drivers\./BSP/TOUCH/ctiic.h)(0x6602C186)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\TOUCH\ft5206.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\ft5206.o --omf_browse ..\..\output\ft5206.crf --depend ..\..\output\ft5206.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/TOUCH/touch.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/gt9xxx.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ft5206.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ctiic.h)(0x6602C186)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\TOUCH\gt9xxx.c)(0x665993F3)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\gt9xxx.o --omf_browse ..\..\output\gt9xxx.crf --depend ..\..\output\gt9xxx.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/TOUCH/touch.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/gt9xxx.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ft5206.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ctiic.h)(0x6602C186)
-I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x6602C186)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\Drivers\BSP\TOUCH\touch.c)(0x6602C186)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User-I.\RTE\_TOUCH-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx-o ..\..\output\touch.o --omf_browse ..\..\output\touch.crf --depend ..\..\output\touch.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\Drivers\./BSP/LCD/lcd.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x6602C186)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\core_cm7.h)(0x6423D538)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\..\Drivers\CMSIS\Include\cmsis_version.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x6423D538)
-I (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h)(0x6423D538)
-I (..\..\Drivers\./BSP/TOUCH/touch.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/gt9xxx.h)(0x6602C186)
-I (..\..\Drivers\./BSP/TOUCH/ft5206.h)(0x6602C186)
-I (..\..\Drivers\./BSP/24CXX/24cxx.h)(0x6602C187)
-I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x6602C186)
-F (..\..\readme.txt)(0x6602C186)()

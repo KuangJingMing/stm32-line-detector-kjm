@@ -1,0 +1,11 @@
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\lv_ll.c
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\lv_ll.h
+.\lv_ll.o: C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\lv_ll.o: C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\lv_ll.o: C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\lv_mem.h
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\../lv_conf_internal.h
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\../lv_conf_kconfig.h
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\examples\porting\../../lv_conf.h
+.\lv_ll.o: C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\lv_ll.o: ..\..\Middlewares\LVGL\GUI\lvgl\src\misc\lv_types.h
