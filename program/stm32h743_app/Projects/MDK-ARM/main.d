@@ -237,11 +237,3 @@
 .\main.o: ..\..\Middlewares\LVGL\GUI\lvgl\src/extra/libs/ffmpeg/lv_ffmpeg.h
 .\main.o: ..\..\Middlewares\LVGL\GUI\lvgl\examples\porting\lv_port_indev_template.h
 .\main.o: ..\..\Middlewares\LVGL\GUI\lvgl\examples\porting\lv_port_disp_template.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../lv_demos.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../widgets/lv_demo_widgets.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../widgets/../lv_demos.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../benchmark/lv_demo_benchmark.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../stress/lv_demo_stress.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../keypad_encoder/lv_demo_keypad_encoder.h
-.\main.o: ..\..\Middlewares\LVGL\GUI_APP\demos\music\../music/lv_demo_music.h

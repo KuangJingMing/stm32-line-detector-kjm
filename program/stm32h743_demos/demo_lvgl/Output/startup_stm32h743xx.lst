@@ -1274,12 +1274,12 @@ ARM Macro Assembler    Page 20
               00000800 
               00000200 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=.\startup_stm32h743xx.d -o.\startup_stm32h743xx.o -IC:\Users
-\kjmsd\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\4.0.0\Drivers\CMSIS\Device\ST
-\STM32H7xx\Include --predefine="__UVISION_VERSION SETA 542" --predefine="STM32H
-743xx SETA 1" --list=..\..\output\startup_stm32h743xx.lst ..\..\Drivers\CMSIS\D
-evice\ST\STM32H7xx\Source\Templates\arm\startup_stm32h743xx.s
+Command Line: --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=interwor
+k --depend=.\startup_stm32h743xx.d -o.\startup_stm32h743xx.o -IC:\Users\kjmsd\A
+ppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\4.0.0\Drivers\CMSIS\Device\ST\STM32H7
+xx\Include --predefine="__UVISION_VERSION SETA 542" --predefine="STM32H743xx SE
+TA 1" --list=..\..\output\startup_stm32h743xx.lst ..\..\Drivers\CMSIS\Device\ST
+\STM32H7xx\Source\Templates\arm\startup_stm32h743xx.s
 
 
 

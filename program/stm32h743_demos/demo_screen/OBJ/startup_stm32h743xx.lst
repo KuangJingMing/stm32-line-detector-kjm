@@ -1281,11 +1281,11 @@ ARM Macro Assembler    Page 20
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=..\obj\startup_stm32h743xx.d -o..\obj\startup_stm32h743xx.o 
--IC:\Users\kjmsd\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\4.0.0\Drivers\CMSIS
-\Device\ST\STM32H7xx\Include --predefine="__UVISION_VERSION SETA 542" --predefi
-ne="STM32H743xx SETA 1" --list=..\obj\startup_stm32h743xx.lst ..\CORE\startup_s
-tm32h743xx.s
+interwork --depend=.\startup_stm32h743xx.d -o.\startup_stm32h743xx.o -IC:\Users
+\kjmsd\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\4.0.0\Drivers\CMSIS\Device\ST
+\STM32H7xx\Include --predefine="__UVISION_VERSION SETA 542" --predefine="STM32H
+743xx SETA 1" --list=..\obj\startup_stm32h743xx.lst ..\CORE\startup_stm32h743xx
+.s
 
 
 

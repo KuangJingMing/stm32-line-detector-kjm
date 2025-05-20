@@ -252,7 +252,7 @@
 ".\img_lv_demo_music_wave_bottom_large.o"
 ".\img_lv_demo_music_wave_top.o"
 ".\img_lv_demo_music_wave_top_large.o"
---strict --scatter ".\atk_h743.sct"
+--nodebug --strict --scatter ".\atk_h743.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "..\..\Output\atk_h743.map" -o .\atk_h743.axf

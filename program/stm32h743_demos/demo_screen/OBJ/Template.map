@@ -2604,34 +2604,34 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       116          8          0          4          0       2107   delay.o
-       168         18          0          0          0       1035   key.o
-     11838        200      18288          8         90      19676   lcd.o
-        88         10          0          0          0        907   led.o
-      2274        122          0          8    2048296      10646   ltdc.o
-       344         64          0          0          0    1222407   main.o
-       576         46          0          0         52       3794   sdram.o
-        64         26        664          0       1536        852   startup_stm32h743xx.o
-       160         32          0          9          0       4123   stm32h7xx_hal.o
-       542         38          0          0          0      41867   stm32h7xx_hal_cortex.o
-       248         12          0          0          0       2127   stm32h7xx_hal_dma.o
-       622         54          0          0          0       3896   stm32h7xx_hal_gpio.o
-      1124          6          0          0          0       4833   stm32h7xx_hal_ltdc.o
-         2          0          0          0          0        470   stm32h7xx_hal_msp.o
-      3048         86          0          0          0       6148   stm32h7xx_hal_rcc.o
-      4692        118          0          0          0       7591   stm32h7xx_hal_rcc_ex.o
-       178          4          0          0          0       2848   stm32h7xx_hal_sdram.o
-       104          4          0          0          0       1264   stm32h7xx_hal_sram.o
-      4094        140         48          0          0      13260   stm32h7xx_hal_uart.o
-         2          0          0          0          0       1020   stm32h7xx_hal_uart_ex.o
-        28          0          0          0          0       3802   stm32h7xx_it.o
-       618         14          0          0          0       5968   stm32h7xx_ll_fmc.o
-       556         30          0          0          0      37469   sys.o
-       148         18         64          8          0       1310   system_stm32h7xx.o
-       456         62          0          7        328       5713   usart.o
+       116          8          0          4          0       2187   delay.o
+       168         18          0          0          0       1075   key.o
+     11838        200      18288          8         90      20076   lcd.o
+        88         10          0          0          0        947   led.o
+      2274        122          0          8    2048296      10926   ltdc.o
+       344         64          0          0          0    1222787   main.o
+       576         46          0          0         52       3914   sdram.o
+        64         26        664          0       1536        880   startup_stm32h743xx.o
+       160         32          0          9          0       4263   stm32h7xx_hal.o
+       542         38          0          0          0      42107   stm32h7xx_hal_cortex.o
+       248         12          0          0          0       2167   stm32h7xx_hal_dma.o
+       622         54          0          0          0       3996   stm32h7xx_hal_gpio.o
+      1124          6          0          0          0       4953   stm32h7xx_hal_ltdc.o
+         2          0          0          0          0        490   stm32h7xx_hal_msp.o
+      3048         86          0          0          0       6288   stm32h7xx_hal_rcc.o
+      4692        118          0          0          0       7751   stm32h7xx_hal_rcc_ex.o
+       178          4          0          0          0       2928   stm32h7xx_hal_sdram.o
+       104          4          0          0          0       1304   stm32h7xx_hal_sram.o
+      4094        140         48          0          0      13600   stm32h7xx_hal_uart.o
+         2          0          0          0          0       1060   stm32h7xx_hal_uart_ex.o
+        28          0          0          0          0       3962   stm32h7xx_it.o
+       618         14          0          0          0       6128   stm32h7xx_ll_fmc.o
+       556         30          0          0          0      37589   sys.o
+       148         18         64          8          0       1370   system_stm32h7xx.o
+       456         62          0          7        328       5873   usart.o
 
     ----------------------------------------------------------------------
-     32116       1112      19096         48    2050304    1405133   Object Totals
+     32116       1112      19096         48    2050304    1408621   Object Totals
          4          0         32          0          0          0   (incl. Generated)
         22          0          0          4          2          0   (incl. Padding)
 
@@ -2695,8 +2695,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     33586       1152      19158         48    2050400    1394873   Grand Totals
-     33586       1152      19158         48    2050400    1394873   ELF Image Totals
+     33586       1152      19158         48    2050400    1398361   Grand Totals
+     33586       1152      19158         48    2050400    1398361   ELF Image Totals
      33586       1152      19158         48          0          0   ROM Totals
 
 ==============================================================================
