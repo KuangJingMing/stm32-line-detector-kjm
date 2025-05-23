@@ -1,8 +1,4 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
 
 #include "string.h"
 #include "./BSP/LCD/lcd.h"
@@ -11,6 +7,7 @@
 #include "./BSP/TOUCH/gt9xxx.h"
 #include "./SYSTEM/usart/usart.h"
 #include "./SYSTEM/delay/delay.h"
+
 
 
 /* 注意: 除了GT9271支持10点触摸之外, 其他触摸芯片只支持 5点触摸 */
@@ -43,7 +40,7 @@ uint8_t gt9xxx_wr_reg(uint16_t reg, uint8_t *buf, uint8_t len)
         if (ret)break;
     }
 
-    ct_iic_stop();                      /* 产生一个停止条件 */
+    ct_iic_stop();  /* 产生一个停止条件 */
     return ret;
 }
 
@@ -58,22 +55,22 @@ void gt9xxx_rd_reg(uint16_t reg, uint8_t *buf, uint8_t len)
 {
     uint8_t i;
     ct_iic_start();
-    ct_iic_send_byte(GT9XXX_CMD_WR);                        /* 发送写命令 */
+    ct_iic_send_byte(GT9XXX_CMD_WR);    /* 发送写命令 */
     ct_iic_wait_ack();
-    ct_iic_send_byte(reg >> 8);                             /* 发送高8位地址 */
+    ct_iic_send_byte(reg >> 8);         /* 发送高8位地址 */
     ct_iic_wait_ack();
-    ct_iic_send_byte(reg & 0XFF);                           /* 发送低8位地址 */
+    ct_iic_send_byte(reg & 0XFF);       /* 发送低8位地址 */
     ct_iic_wait_ack();
     ct_iic_start();
-    ct_iic_send_byte(GT9XXX_CMD_RD);                        /* 发送读命令 */
+    ct_iic_send_byte(GT9XXX_CMD_RD);    /* 发送读命令 */
     ct_iic_wait_ack();
 
     for (i = 0; i < len; i++)
     {
-        buf[i] = ct_iic_read_byte(i == (len - 1) ? 0 : 1);  /* 读取数据 */
+        buf[i] = ct_iic_read_byte(i == (len - 1) ? 0 : 1);  /* 发数据 */
     }
 
-    ct_iic_stop();                                          /* 产生一个停止条件 */
+    ct_iic_stop();  /* 产生一个停止条件 */
 }
 
 /**
@@ -83,59 +80,52 @@ void gt9xxx_rd_reg(uint16_t reg, uint8_t *buf, uint8_t len)
  */
 uint8_t gt9xxx_init(void)
 {
-    GPIO_InitTypeDef gpio_init_struct;
     uint8_t temp[5];
 
-    GT9XXX_RST_GPIO_CLK_ENABLE();                           /* RST引脚时钟使能 */
-    GT9XXX_INT_GPIO_CLK_ENABLE();                           /* INT引脚时钟使能 */
+    GT9XXX_RST_GPIO_CLK_ENABLE();   /* RST引脚时钟使能 */
+    GT9XXX_INT_GPIO_CLK_ENABLE();   /* INT引脚时钟使能 */
 
-    gpio_init_struct.Pin = GT9XXX_RST_GPIO_PIN;
-    gpio_init_struct.Mode = GPIO_MODE_OUTPUT_PP;            /* 推挽输出 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                    /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;     /* 高速 */
-    HAL_GPIO_Init(GT9XXX_RST_GPIO_PORT, &gpio_init_struct); /* 初始化RST引脚 */
+    /* RST引脚模式设置, 推挽输出, 上拉 */
+    sys_gpio_set(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN,
+                 SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);
 
-    gpio_init_struct.Pin = GT9XXX_INT_GPIO_PIN;
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                /* 输入 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                    /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;     /* 高速 */
-    HAL_GPIO_Init(GT9XXX_INT_GPIO_PORT, &gpio_init_struct); /* 初始化INT引脚 */
+    /* INT引脚模式设置, 输入模式, 上拉 */
+    sys_gpio_set(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN,
+                 SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);
 
-    ct_iic_init();                                          /* 初始化电容屏的I2C总线 */
-    GT9XXX_RST(0);                                          /* 复位 */
+    
+    ct_iic_init();      /* 初始化电容屏的I2C总线 */
+    GT9XXX_RST(0);      /* 复位 */
     delay_ms(10);
-    GT9XXX_RST(1);                                          /* 释放复位 */
+    GT9XXX_RST(1);      /* 释放复位 */
     delay_ms(10);
 
     /* INT引脚模式设置, 输入模式, 浮空输入 */
-    gpio_init_struct.Pin = GT9XXX_INT_GPIO_PIN;
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                /* 输入 */
-    gpio_init_struct.Pull = GPIO_NOPULL;                    /* 不带上下拉，浮空模式 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;     /* 高速 */
-    HAL_GPIO_Init(GT9XXX_INT_GPIO_PORT, &gpio_init_struct); /* 初始化INT引脚 */
+    sys_gpio_set(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN, 
+                 SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_NONE);
 
     delay_ms(100);
-    gt9xxx_rd_reg(GT9XXX_PID_REG, temp, 4);                 /* 读取产品ID */
+    gt9xxx_rd_reg(GT9XXX_PID_REG, temp, 4); /* 读取产品ID */
     temp[4] = 0;
     /* 判断一下是否是特定的触摸屏 */
     if (strcmp((char *)temp, "911") && strcmp((char *)temp, "9147") && strcmp((char *)temp, "1158") && strcmp((char *)temp, "9271"))
     {
         return 1;   /* 若不是触摸屏用到的GT911/9147/1158/9271，则初始化失败，需硬件查看触摸IC型号以及查看时序函数是否正确 */
     }
-    printf("CTP ID:%s\r\n", temp);                          /* 打印ID */
+    printf("CTP ID:%s\r\n", temp);          /* 打印ID */
     
-    if (strcmp((char *)temp, "9271") == 0)                  /* ID==9271, 支持10点触摸 */
+    if (strcmp((char *)temp, "9271") == 0)  /* ID==9271, 支持10点触摸 */
     {
-         g_gt_tnum = 10;                                    /* 支持10点触摸屏 */
+         g_gt_tnum = 10;    /* 支持10点触摸屏 */
     }
     
     temp[0] = 0X02;
-    gt9xxx_wr_reg(GT9XXX_CTRL_REG, temp, 1);                /* 软复位GT9XXX */
+    gt9xxx_wr_reg(GT9XXX_CTRL_REG, temp, 1);    /* 软复位GT9XXX */
     
     delay_ms(10);
     
     temp[0] = 0X00;
-    gt9xxx_wr_reg(GT9XXX_CTRL_REG, temp, 1);                /* 结束复位, 进入读坐标状态 */
+    gt9xxx_wr_reg(GT9XXX_CTRL_REG, temp, 1);    /* 结束复位, 进入读坐标状态 */
 
     return 0;
 }
@@ -265,5 +255,27 @@ uint8_t gt9xxx_scan(uint8_t mode)
 
     return res;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -1,12 +1,7 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
 
 #include "./BSP/IIC/myiic.h"
 #include "./SYSTEM/delay/delay.h"
-
 
 /**
  * @brief       初始化IIC
@@ -15,23 +10,18 @@
  */
 void iic_init(void)
 {
-    GPIO_InitTypeDef gpio_init_struct;
+    IIC_SCL_GPIO_CLK_ENABLE();  /* SCL引脚时钟使能 */
+    IIC_SDA_GPIO_CLK_ENABLE();  /* SDA引脚时钟使能 */
 
-    IIC_SCL_GPIO_CLK_ENABLE();                           /* SCL引脚时钟使能 */
-    IIC_SDA_GPIO_CLK_ENABLE();                           /* SDA引脚时钟使能 */
+    /* SCL引脚模式设置,推挽输出,上拉 */
+    sys_gpio_set(IIC_SCL_GPIO_PORT, IIC_SCL_GPIO_PIN,
+                 SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);
 
-    gpio_init_struct.Pin = IIC_SCL_GPIO_PIN;
-    gpio_init_struct.Mode = GPIO_MODE_OUTPUT_PP;         /* 推挽输出 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                 /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;  /* 快速 */
-    HAL_GPIO_Init(IIC_SCL_GPIO_PORT, &gpio_init_struct); /* SCL */
-
-    gpio_init_struct.Pin = IIC_SDA_GPIO_PIN;
-    gpio_init_struct.Mode = GPIO_MODE_OUTPUT_OD;         /* 开漏输出 */
-    HAL_GPIO_Init(IIC_SDA_GPIO_PORT, &gpio_init_struct); /* SDA */
     /* SDA引脚模式设置,开漏输出,上拉, 这样就不用再设置IO方向了, 开漏输出的时候(=1), 也可以读取外部信号的高低电平 */
+    sys_gpio_set(IIC_SDA_GPIO_PORT, IIC_SDA_GPIO_PIN,
+                 SYS_GPIO_MODE_OUT, SYS_GPIO_OTYPE_OD, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);
 
-    iic_stop();                                          /* 停止总线上所有设备 */
+    iic_stop();     /* 停止总线上所有设备 */
 }
 
 /**
@@ -86,9 +76,9 @@ uint8_t iic_wait_ack(void)
     uint8_t waittime = 0;
     uint8_t rack = 0;
 
-    IIC_SDA(1);             /* 主机释放SDA线(此时外部器件可以拉低SDA线) */
+    IIC_SDA(1);     /* 主机释放SDA线(此时外部器件可以拉低SDA线) */
     iic_delay();
-    IIC_SCL(1);             /* SCL=1, 此时从机可以返回ACK */
+    IIC_SCL(1);     /* SCL=1, 此时从机可以返回ACK */
     iic_delay();
 
     while (IIC_READ_SDA)    /* 等待应答 */
@@ -103,7 +93,7 @@ uint8_t iic_wait_ack(void)
         }
     }
 
-    IIC_SCL(0);             /* SCL=0, 结束ACK检查 */
+    IIC_SCL(0);     /* SCL=0, 结束ACK检查 */
     iic_delay();
     return rack;
 }
@@ -115,13 +105,13 @@ uint8_t iic_wait_ack(void)
  */
 void iic_ack(void)
 {
-    IIC_SDA(0);             /* SCL 0 -> 1 时 SDA = 0,表示应答 */
+    IIC_SDA(0);     /* SCL 0 -> 1  时 SDA = 0,表示应答 */
     iic_delay();
-    IIC_SCL(1);             /* 产生一个时钟 */
+    IIC_SCL(1);     /* 产生一个时钟 */
     iic_delay();
     IIC_SCL(0);
     iic_delay();
-    IIC_SDA(1);             /* 主机释放SDA线 */
+    IIC_SDA(1);     /* 主机释放SDA线 */
     iic_delay();
 }
 
@@ -132,9 +122,9 @@ void iic_ack(void)
  */
 void iic_nack(void)
 {
-    IIC_SDA(1);             /* SCL 0 -> 1  时 SDA = 1,表示不应答 */
+    IIC_SDA(1);     /* SCL 0 -> 1  时 SDA = 1,表示不应答 */
     iic_delay();
-    IIC_SCL(1);             /* 产生一个时钟 */
+    IIC_SCL(1);     /* 产生一个时钟 */
     iic_delay();
     IIC_SCL(0);
     iic_delay();
@@ -156,9 +146,9 @@ void iic_send_byte(uint8_t data)
         IIC_SCL(1);
         iic_delay();
         IIC_SCL(0);
-        data <<= 1;           /* 左移1位,用于下一次发送 */
+        data <<= 1;     /* 左移1位,用于下一次发送 */
     }
-    IIC_SDA(1);               /* 发送完成, 主机释放SDA线 */
+    IIC_SDA(1);         /* 发送完成, 主机释放SDA线 */
 }
 
 /**
@@ -170,9 +160,9 @@ uint8_t iic_read_byte(uint8_t ack)
 {
     uint8_t i, receive = 0;
 
-    for (i = 0; i < 8; i++ )  /* 接收1个字节数据 */
+    for (i = 0; i < 8; i++ )    /* 接收1个字节数据 */
     {
-        receive <<= 1;        /* 高位先输出,所以先收到的数据位要左移 */
+        receive <<= 1;  /* 高位先输出,所以先收到的数据位要左移 */
         IIC_SCL(1);
         iic_delay();
 
@@ -187,15 +177,33 @@ uint8_t iic_read_byte(uint8_t ack)
 
     if (!ack)
     {
-        iic_nack();           /* 发送nACK */
+        iic_nack();     /* 发送nACK */
     }
     else
     {
-        iic_ack();            /* 发送ACK */
+        iic_ack();      /* 发送ACK */
     }
 
     return receive;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

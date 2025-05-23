@@ -1,4 +1,0 @@
---cpu Cortex-M7.fp.dp -g --apcs=interwork 
--IC:\Users\kjmsd\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\4.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include
---pd "__UVISION_VERSION SETA 542" --pd "STM32H743xx SETA 1"
---list ..\..\output\startup_stm32h743xx.lst --xref -o ..\..\output\startup_stm32h743xx.o --depend ..\..\output\startup_stm32h743xx.d "..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Source\Templates\arm\startup_stm32h743xx.s"

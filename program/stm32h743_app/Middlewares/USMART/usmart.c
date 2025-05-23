@@ -2,8 +2,8 @@
  ****************************************************************************************************
  * @file        usmart.c
  * @author      正点原子团队(ALIENTEK)
- * @version     V3.5
- * @date        2022-09-06
+ * @version     V3.4
+ * @date        2020-03-24
  * @brief       USMART 串口调试组件
  *
  *              USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
@@ -13,19 +13,16 @@
  *              制转换,例如:
  *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
  *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
- *
- * @note        USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
- *              序里面的任何函数,并执行.因此,你可以随意更改函数的输入参数(支持数字(10/16进制,支持负数)
- *              、字符串、函数入口地址等作为参数),单个函数最多支持10个输入参数,并支持函数返 回值显示.
- *              V2.1版本以后新增hex和dec两个指令.他们可以用于设置函数参数的显示格式.也可以用于数据的进
- *              制转换,例如:
- *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
- *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
+ *   @note
+ *              USMART资源占用情况@MDK 3.80A@2.0版本：
+ *              FLASH:4K~K字节(通过USMART_USE_HELP和USMART_USE_WRFUNS设置)
+ *              SRAM:72字节(最少的情况下)
+ *              SRAM计算公式:   SRAM=PARM_LEN+72-4  其中PARM_LEN必须大于等于4.
+ *              应该保证堆栈不小于100个字节.
  * @license     Copyright (c) 2020-2032, 广州市星翼电子科技有限公司
  ****************************************************************************************************
  * @attention
- *
- * 实验平台:正点原子 阿波罗 H743开发板
+ * 
  * 在线视频:www.yuanzige.com
  * 技术论坛:www.openedv.com
  * 公司网址:www.alientek.com
@@ -43,9 +40,6 @@
  * 5, 修改usmart_scan函数实现方式,改成由usmart_get_input_string获取数据流
  * 6, 修改printf函数为USMART_PRINTF宏定义
  * 7, 修改定时扫描相关函数,改用宏定义方式,方便移植
- *
- * V3.5 20201220
- * 1，修改部分代码以支持AC6编译器
  *
  ****************************************************************************************************
  */
@@ -75,13 +69,13 @@ char *sys_cmd_tab[] =
 uint8_t usmart_sys_cmd_exe(char *str)
 {
     uint8_t i;
-    char sfname[MAX_FNAME_LEN];                  /* 存放本地函数名 */
+    char sfname[MAX_FNAME_LEN];  /* 存放本地函数名 */
     uint8_t pnum;
     uint8_t rval;
     uint32_t res;
     res = usmart_get_cmdname(str, sfname, &i, MAX_FNAME_LEN);   /* 得到指令及指令长度 */
 
-    if (res)return USMART_FUNCERR;                  /* 错误的指令 */
+    if (res)return USMART_FUNCERR;  /* 错误的指令 */
 
     str += i;
 
@@ -96,7 +90,7 @@ uint8_t usmart_sys_cmd_exe(char *str)
         case 1: /* 帮助指令 */
             USMART_PRINTF("\r\n");
 #if USMART_USE_HELP
-            USMART_PRINTF("------------------------USMART V3.5------------------------ \r\n");
+            USMART_PRINTF("------------------------USMART V3.4------------------------ \r\n");
             USMART_PRINTF("    USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 \r\n");
             USMART_PRINTF("它,你可以通过串口助手调用程序里面的任何函数,并执行.因此,你可\r\n");
             USMART_PRINTF("以随意更改函数的输入参数(支持数字(10/16进制,支持负数)、字符串\r\n"),
@@ -146,7 +140,7 @@ uint8_t usmart_sys_cmd_exe(char *str)
 
             if (i == 0) /* 参数正常 */
             {
-                i = usmart_str2num(sfname, &res);       /* 记录该参数 */
+                i = usmart_str2num(sfname, &res);   /* 记录该参数 */
 
                 if (i == 0) /* 进制转换功能 */
                 {
@@ -171,7 +165,7 @@ uint8_t usmart_sys_cmd_exe(char *str)
 
             if (i == 0)     /* 参数正常 */
             {
-                i = usmart_str2num(sfname, &res);       /* 记录该参数 */
+                i = usmart_str2num(sfname, &res);   /* 记录该参数 */
 
                 if (i == 0) /* 进制转换功能 */
                 {
@@ -252,7 +246,7 @@ uint8_t usmart_sys_cmd_exe(char *str)
 void usmart_init(uint16_t tclk)
 {
 #if USMART_ENTIMX_SCAN == 1
-    usmart_timx_init(1000, tclk * 100 - 1);
+    usmart_timx_init(tclk);
 #endif
     usmart_dev.sptype = 1;  /* 十六进制显示参数 */
 }
@@ -264,26 +258,26 @@ void usmart_init(uint16_t tclk)
  */
 uint8_t usmart_cmd_rec(char *str)
 {
-    uint8_t sta, i, rval;        /* 状态 */
+    uint8_t sta, i, rval;   /* 状态 */
     uint8_t rpnum, spnum;
     char rfname[MAX_FNAME_LEN];  /* 暂存空间,用于存放接收到的函数名 */
     char sfname[MAX_FNAME_LEN];  /* 存放本地函数名 */
     sta = usmart_get_fname(str, rfname, &rpnum, &rval); /* 得到接收到的数据的函数名及参数个数 */
 
-    if (sta)return sta;                             /* 错误 */
+    if (sta)return sta; /* 错误 */
 
     for (i = 0; i < usmart_dev.fnum; i++)
     {
         sta = usmart_get_fname((char *)usmart_dev.funs[i].name, sfname, &spnum, &rval); /* 得到本地函数名及参数个数 */
 
-        if (sta)return sta;                         /* 本地解析有误 */
+        if (sta)return sta; /* 本地解析有误 */
 
-        if (usmart_strcmp(sfname, rfname) == 0)     /* 相等 */
+        if (usmart_strcmp(sfname, rfname) == 0) /* 相等 */
         {
             if (spnum > rpnum)return USMART_PARMERR;/* 参数错误(输入参数比源函数参数少) */
 
-            usmart_dev.id = i;                      /* 记录函数ID. */
-            break;                                  /* 跳出. */
+            usmart_dev.id = i;  /* 记录函数ID. */
+            break;  /* 跳出. */
         }
     }
 
@@ -312,8 +306,8 @@ void usmart_exe(void)
 {
     uint8_t id, i;
     uint32_t res;
-    uint32_t temp[MAX_PARM];        /* 参数转换,使之支持了字符串 */
-    char sfname[MAX_FNAME_LEN];     /* 存放本地函数名 */
+    uint32_t temp[MAX_PARM];     /* 参数转换,使之支持了字符串 */
+    char sfname[MAX_FNAME_LEN];  /* 存放本地函数名 */
     uint8_t pnum, rval;
     id = usmart_dev.id;
 
@@ -322,7 +316,7 @@ void usmart_exe(void)
     usmart_get_fname((char *)usmart_dev.funs[id].name, sfname, &pnum, &rval);    /* 得到本地函数名,及参数个数 */
     USMART_PRINTF("\r\n%s(", sfname);   /* 输出正要执行的函数名 */
 
-    for (i = 0; i < pnum; i++)          /* 输出参数 */
+    for (i = 0; i < pnum; i++)      /* 输出参数 */
     {
         if (usmart_dev.parmtype & (1 << i)) /* 参数是字符串 */
         {
@@ -426,8 +420,8 @@ void usmart_exe(void)
  * @brief       USMART扫描函数
  *   @note
  *              通过调用该函数,实现USMART的各个控制.该函数需要每隔一定时间被调用一次
- *              以及时执行从串口发过来的各个函数.
- *              本函数可以在中断里面调用,从而实现自动管理.
+ *              以及时执行从串口发过来的各个函数
+ *              本函数可以在中断里面调用,从而实现自动管理
  *              如果非正点原子用户,则USART_RX_STA和USART_RX_BUF[]需要用户自己实现
  *
  * @param       无
@@ -474,8 +468,7 @@ void usmart_scan(void)
                     break;
             }
         }
-    } 
- 
+    }
 }
 
 #if USMART_USE_WRFUNS == 1  /* 如果使能了读写操作 */
@@ -501,15 +494,6 @@ void write_addr(uint32_t addr, uint32_t val)
 }
 
 #endif
-
-
-
-
-
-
-
-
-
 
 
 

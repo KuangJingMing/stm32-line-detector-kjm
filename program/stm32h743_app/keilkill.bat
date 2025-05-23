@@ -26,6 +26,5 @@ del *.sct /s
 del *.map /s
 
 del *.dbgconf /s
-del *.LINGZHUNING /s
 del *.Administrator /s
 exit

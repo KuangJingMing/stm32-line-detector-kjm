@@ -7,18 +7,17 @@
 
   <Targets>
     <Target>
-      <TargetName>LVGL</TargetName>
+      <TargetName>TOUCH</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060960::V5.06 update 7 (build 960)::.\ARMCC</pArmCC>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
+      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32H743IITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32H7xx_DFP.4.0.0</PackID>
-          <PackURL>https://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32H7xx_DFP.3.0.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IRAM2(0x24000000,0x00080000) IROM(0x08000000,0x00100000) IROM2(0x08100000,0x00100000) XRAM(0x30000000,0x00048000) XRAM2(0x38000000,0x00010000) CPUTYPE("Cortex-M7") FPU3(DFPU) CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -49,15 +48,15 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\</OutputDirectory>
+          <OutputDirectory>..\..\Output\</OutputDirectory>
           <OutputName>atk_h743</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>..\..\Output\</ListingPath>
-          <HexFormatSelection>0</HexFormatSelection>
+          <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
           <BeforeCompile>
@@ -121,7 +120,7 @@
         </DllOption>
         <DebugOption>
           <OPTHX>
-            <HexSelection>0</HexSelection>
+            <HexSelection>1</HexSelection>
             <HexRangeLowAddress>0</HexRangeLowAddress>
             <HexRangeHighAddress>0</HexRangeHighAddress>
             <HexOffset>0</HexOffset>
@@ -139,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -208,7 +207,7 @@
             <Ro2Chk>0</Ro2Chk>
             <Ro3Chk>0</Ro3Chk>
             <Ir1Chk>1</Ir1Chk>
-            <Ir2Chk>0</Ir2Chk>
+            <Ir2Chk>1</Ir2Chk>
             <Ra1Chk>0</Ra1Chk>
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
@@ -278,12 +277,12 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x200000</Size>
+                <Size>0x100000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <StartAddress>0x8100000</StartAddress>
+                <Size>0x100000</Size>
               </OCR_RVCT5>
               <OCR_RVCT6>
                 <Type>0</Type>
@@ -315,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -338,10 +337,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--diag_suppress=68 --diag_suppress=111 --diag_suppress=188 --diag_suppress=223 --diag_suppress=546  --diag_suppress=1295 --locale=english --diag_suppress=550</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32H743xx</Define>
+              <MiscControls></MiscControls>
+              <Define>STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\STM32H7xx_HAL_Driver\Inc;..\..\Drivers\CMSIS\Include;..\..\Middlewares;..\..\Drivers;..\..\User;..\..\Middlewares\LVGL\GUI;..\..\Middlewares\LVGL\GUI\lvgl;..\..\Middlewares\LVGL\GUI\lvgl\src;..\..\Middlewares\LVGL\GUI\lvgl\examples\porting;..\..\Middlewares\LVGL\GUI_APP\demos\music;..\..\Middlewares\LVGL\GUI_APP</IncludePath>
+              <IncludePath>..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\CMSIS\Include;..\..\Drivers;..\..\Middlewares;..\..\User;..\..\Middlewares\LVGL\GUI;..\..\Middlewares\LVGL\GUI\lvgl;..\..\Middlewares\LVGL\GUI\lvgl\src;..\..\Middlewares\LVGL\GUI\lvgl\examples\porting;..\..\Middlewares\LVGL\GUI_APP\demos\music;..\..\STM32H7xx_HAL_Driver\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -408,7 +407,7 @@
             <File>
               <FileName>system_stm32h7xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Source\Templates\system_stm32h7xx.c</FilePath>
+              <FilePath>..\..\User\system_stm32h7xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -433,106 +432,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Drivers/STM32H7xx_HAL_Driver</GroupName>
-          <Files>
-            <File>
-              <FileName>stm32h7xx_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_cortex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_dma_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_pwr_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_rcc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_uart_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_tim_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_sram.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_ll_fmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_mdma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_sdram.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sdram.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_ltdc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_ltdc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc_ex.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Drivers/BSP</GroupName>
           <Files>
             <File>
@@ -541,14 +440,9 @@
               <FilePath>..\..\Drivers\BSP\LED\led.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\LCD\lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\KEY\key.c</FilePath>
+              <FilePath>..\..\Drivers\BSP\MPU\mpu.c</FilePath>
             </File>
             <File>
               <FileName>sdram.c</FileName>
@@ -556,19 +450,24 @@
               <FilePath>..\..\Drivers\BSP\SDRAM\sdram.c</FilePath>
             </File>
             <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\BSP\LCD\lcd.c</FilePath>
+            </File>
+            <File>
               <FileName>ltdc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\LCD\ltdc.c</FilePath>
             </File>
             <File>
-              <FileName>mpu.c</FileName>
+              <FileName>key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\MPU\mpu.c</FilePath>
+              <FilePath>..\..\Drivers\BSP\KEY\key.c</FilePath>
             </File>
             <File>
-              <FileName>pcf8574.c</FileName>
+              <FileName>24cxx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\PCF8574\pcf8574.c</FilePath>
+              <FilePath>..\..\Drivers\BSP\24CXX\24cxx.c</FilePath>
             </File>
             <File>
               <FileName>myiic.c</FileName>
@@ -596,19 +495,114 @@
               <FilePath>..\..\Drivers\BSP\TOUCH\touch.c</FilePath>
             </File>
             <File>
-              <FileName>24cxx.c</FileName>
+              <FileName>timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\24CXX\24cxx.c</FilePath>
-            </File>
-            <File>
-              <FileName>btim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\TIMER\btim.c</FilePath>
+              <FilePath>..\..\Drivers\BSP\TIMER\timer.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Middlewares/lvgl/examples/porting</GroupName>
+          <GroupName>Driver/STM32H7xx_HAL_Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>stm32h7xx_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_cortex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_dma_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_ltdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_ltdc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_mdma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_pwr_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_rcc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_sdram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sdram.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_sram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_tim_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_uart_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_ll_fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/lvgl/example/porting</GroupName>
           <Files>
             <File>
               <FileName>lv_port_disp_template.c</FileName>
@@ -736,6 +730,11 @@
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sw\lv_draw_sw_img.c</FilePath>
             </File>
             <File>
+              <FileName>lv_draw_sw_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sw\lv_draw_sw_layer.c</FilePath>
+            </File>
+            <File>
               <FileName>lv_draw_sw_letter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sw\lv_draw_sw_letter.c</FilePath>
@@ -754,6 +753,11 @@
               <FileName>lv_draw_sw_rect.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sw\lv_draw_sw_rect.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_sw_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sw\lv_draw_sw_transform.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw.c</FileName>
@@ -776,6 +780,11 @@
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\lv_draw_label.c</FilePath>
             </File>
             <File>
+              <FileName>lv_draw_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\lv_draw_layer.c</FilePath>
+            </File>
+            <File>
               <FileName>lv_draw_line.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\lv_draw_line.c</FilePath>
@@ -789,6 +798,11 @@
               <FileName>lv_draw_rect.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\lv_draw_rect.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\lv_draw_transform.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_triangle.c</FileName>
@@ -839,6 +853,16 @@
               <FileName>lv_freetype.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\libs\freetype\lv_freetype.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_fatfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\libs\fsdrv\lv_fs_fatfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_littlefs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\libs\fsdrv\lv_fs_littlefs.c</FilePath>
             </File>
             <File>
               <FileName>lv_fs_posix.c</FileName>
@@ -901,19 +925,9 @@
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\libs\sjpg\tjpgd.c</FilePath>
             </File>
             <File>
-              <FileName>lv_gridnav.c</FileName>
+              <FileName>lv_tiny_ttf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\others\gridnav\lv_gridnav.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_monkey.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\others\monkey\lv_monkey.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_snapshot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\others\snapshot\lv_snapshot.c</FilePath>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\libs\tiny_ttf\lv_tiny_ttf.c</FilePath>
             </File>
             <File>
               <FileName>lv_theme_basic.c</FileName>
@@ -1191,6 +1205,11 @@
           <GroupName>Middlewares/lvgl/src/gpu</GroupName>
           <Files>
             <File>
+              <FileName>lv_gpu_stm32_dma2d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\stm32_dma2d\lv_gpu_stm32_dma2d.c</FilePath>
+            </File>
+            <File>
               <FileName>lv_draw_sdl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sdl\lv_draw_sdl.c</FilePath>
@@ -1219,6 +1238,11 @@
               <FileName>lv_draw_sdl_label.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sdl\lv_draw_sdl_label.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_sdl_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sdl\lv_draw_sdl_layer.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sdl_line.c</FileName>
@@ -1254,11 +1278,6 @@
               <FileName>lv_draw_sdl_utils.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\sdl\lv_draw_sdl_utils.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_gpu_stm32_dma2d.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\draw\stm32_dma2d\lv_gpu_stm32_dma2d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1479,6 +1498,26 @@
               <FileName>lv_textarea.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\widgets\lv_textarea.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/LVGL/GUI_APP</GroupName>
+          <Files>
+            <File>
+              <FileName>lv_demo_music.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_demo_music_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music_list.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_demo_music_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music_main.c</FilePath>
             </File>
           </Files>
         </Group>

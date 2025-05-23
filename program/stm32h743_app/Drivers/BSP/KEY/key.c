@@ -1,8 +1,4 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
 
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
@@ -15,35 +11,22 @@
  */
 void key_init(void)
 {
-    GPIO_InitTypeDef gpio_init_struct;                          /* GPIO配置参数存储变量 */
-    KEY0_GPIO_CLK_ENABLE();                                     /* KEY0时钟使能 */
-    KEY1_GPIO_CLK_ENABLE();                                     /* KEY1时钟使能 */
-    KEY2_GPIO_CLK_ENABLE();                                     /* KEY2时钟使能 */
-    WKUP_GPIO_CLK_ENABLE();                                     /* WKUP时钟使能 */
+    KEY0_GPIO_CLK_ENABLE(); /* KEY0时钟使能 */
+    KEY1_GPIO_CLK_ENABLE(); /* KEY1时钟使能 */
+    KEY2_GPIO_CLK_ENABLE(); /* KEY2时钟使能 */
+    WKUP_GPIO_CLK_ENABLE(); /* WKUP时钟使能 */
 
-    gpio_init_struct.Pin = KEY0_GPIO_PIN;                       /* KEY0引脚 */
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                        /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY0_GPIO_PORT, &gpio_init_struct);           /* KEY0引脚模式设置,上拉输入 */
+    sys_gpio_set(KEY0_GPIO_PORT, KEY0_GPIO_PIN,
+                 SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);    /* KEY0引脚模式设置,上拉输入 */
 
-    gpio_init_struct.Pin = KEY1_GPIO_PIN;                       /* KEY1引脚 */
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                        /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY1_GPIO_PORT, &gpio_init_struct);           /* KEY1引脚模式设置,上拉输入 */
+    sys_gpio_set(KEY1_GPIO_PORT, KEY1_GPIO_PIN,
+                 SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);    /* KEY1引脚模式设置,上拉输入 */
 
-    gpio_init_struct.Pin = KEY2_GPIO_PIN;                       /* KEY2引脚 */
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpio_init_struct.Pull = GPIO_PULLUP;                        /* 上拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY2_GPIO_PORT, &gpio_init_struct);           /* KEY2引脚模式设置,上拉输入 */
+    sys_gpio_set(KEY2_GPIO_PORT, KEY2_GPIO_PIN,
+             SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PU);        /* KEY2引脚模式设置,上拉输入 */
 
-    gpio_init_struct.Pin = WKUP_GPIO_PIN;                       /* WKUP引脚 */
-    gpio_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpio_init_struct.Pull = GPIO_PULLDOWN;                      /* 下拉 */
-    gpio_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(WKUP_GPIO_PORT, &gpio_init_struct);           /* WKUP引脚模式设置,下拉输入 */
+    sys_gpio_set(WKUP_GPIO_PORT, WKUP_GPIO_PIN,
+                 SYS_GPIO_MODE_IN, SYS_GPIO_OTYPE_PP, SYS_GPIO_SPEED_MID, SYS_GPIO_PUPD_PD);    /* WKUP引脚模式设置,下拉输入 */
 
 }
 

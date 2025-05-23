@@ -1,8 +1,4 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
 
 #ifndef __GT9XXX_H
 #define __GT9XXX_H
@@ -11,28 +7,25 @@
 
 
 /******************************************************************************************/
-
 /* GT9XXX INT 和 RST 引脚 定义 */
+
 #define GT9XXX_RST_GPIO_PORT            GPIOI
-#define GT9XXX_RST_GPIO_PIN             GPIO_PIN_8
-#define GT9XXX_RST_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)     /* PI口时钟使能 */
+#define GT9XXX_RST_GPIO_PIN             SYS_GPIO_PIN8
+#define GT9XXX_RST_GPIO_CLK_ENABLE()    do{ RCC->AHB4ENR |= 1 << 8; }while(0)   /* PI口时钟使能 */
 
 #define GT9XXX_INT_GPIO_PORT            GPIOH
-#define GT9XXX_INT_GPIO_PIN             GPIO_PIN_7
-#define GT9XXX_INT_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)     /* PH口时钟使能 */
+#define GT9XXX_INT_GPIO_PIN             SYS_GPIO_PIN7
+#define GT9XXX_INT_GPIO_CLK_ENABLE()    do{ RCC->AHB4ENR |= 1 << 7; }while(0)   /* PH口时钟使能 */
 
 /******************************************************************************************/
 
 /* 与电容触摸屏连接的芯片引脚(未包含IIC引脚) 
  * IO操作函数 
  */
-#define GT9XXX_RST(x)     do{ x ? \
-                              HAL_GPIO_WritePin(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN, GPIO_PIN_SET) : \
-                              HAL_GPIO_WritePin(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN, GPIO_PIN_RESET); \
-                          }while(0)                                                       /* 复位引脚 */
+#define GT9XXX_RST(x)   sys_gpio_pin_set(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN, x)  /* 复位引脚 */
+#define GT9XXX_INT      sys_gpio_pin_get(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN)     /* 读取做的引脚 */
 
-#define GT9XXX_INT        HAL_GPIO_ReadPin(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN)     /* 读取做的引脚 */
-
+ 
 /* IIC读写命令 */
 #define GT9XXX_CMD_WR       0X28        /* 写命令 */
 #define GT9XXX_CMD_RD       0X29        /* 读命令 */
@@ -54,13 +47,23 @@
 #define GT9XXX_TP8_REG      0X8188      /* 第八个触摸点数据地址 */
 #define GT9XXX_TP9_REG      0X8190      /* 第九个触摸点数据地址 */
 #define GT9XXX_TP10_REG     0X8198      /* 第十个触摸点数据地址 */
+ 
 
-/******************************************************************************************/
-
-uint8_t gt9xxx_wr_reg(uint16_t reg, uint8_t *buf, uint8_t len);
-void gt9xxx_rd_reg(uint16_t reg, uint8_t *buf, uint8_t len); 
+uint8_t gt9xxx_wr_reg(uint16_t reg,uint8_t *buf,uint8_t len);
+void gt9xxx_rd_reg(uint16_t reg,uint8_t *buf,uint8_t len); 
 uint8_t gt9xxx_init(void);
 uint8_t gt9xxx_scan(uint8_t mode); 
-
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
 

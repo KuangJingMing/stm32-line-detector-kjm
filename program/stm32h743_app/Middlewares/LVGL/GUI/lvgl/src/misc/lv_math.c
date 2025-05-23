@@ -45,7 +45,7 @@ static const int16_t sin0_90_table[] = {
  * @param angle
  * @return sinus of 'angle'. sin(-90) = -32767, sin(90) = 32767
  */
-LV_ATTRIBUTE_FAST_MEM int16_t lv_trigo_sin(int16_t angle)
+int16_t LV_ATTRIBUTE_FAST_MEM lv_trigo_sin(int16_t angle)
 {
     int16_t ret = 0;
     angle       = angle % 360;
@@ -106,7 +106,7 @@ uint32_t lv_bezier3(uint32_t t, uint32_t u0, uint32_t u1, uint32_t u2, uint32_t 
  * If root < 256: mask = 0x800
  * Else: mask = 0x8000
  */
-LV_ATTRIBUTE_FAST_MEM void lv_sqrt(uint32_t x, lv_sqrt_res_t * q, uint32_t mask)
+void LV_ATTRIBUTE_FAST_MEM lv_sqrt(uint32_t x, lv_sqrt_res_t * q, uint32_t mask)
 {
     x = x << 8; /*To get 4 bit precision. (sqrt(256) = 16 = 4 bit)*/
 
@@ -235,8 +235,11 @@ int64_t lv_pow(int64_t base, int8_t exp)
  */
 int32_t lv_map(int32_t x, int32_t min_in, int32_t max_in, int32_t min_out, int32_t max_out)
 {
-    if(x >= max_in) return max_out;
-    if(x <= min_in) return min_out;
+    if(max_in >= min_in && x >= max_in) return max_out;
+    if(max_in >= min_in && x <= min_in) return min_out;
+
+    if(max_in <= min_in && x <= max_in) return max_out;
+    if(max_in <= min_in && x >= min_in) return min_out;
 
     /**
      * The equation should be:

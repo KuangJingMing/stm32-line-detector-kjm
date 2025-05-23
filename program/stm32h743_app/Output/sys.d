@@ -1,0 +1,11 @@
+..\..\output\sys.o: ..\..\Drivers\SYSTEM\sys\sys.c
+..\..\output\sys.o: ..\..\Drivers\./SYSTEM/sys/sys.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Include\core_cm7.h
+..\..\output\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Include\cmsis_version.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Include\cmsis_compiler.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Include\cmsis_armcc.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Include\mpu_armv7.h
+..\..\output\sys.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h

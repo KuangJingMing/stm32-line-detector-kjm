@@ -161,17 +161,20 @@ void lv_roller_set_selected(lv_obj_t * obj, uint16_t sel_opt, lv_anim_enable_t a
 
     /*In infinite mode interpret the new ID relative to the currently visible "page"*/
     if(roller->mode == LV_ROLLER_MODE_INFINITE) {
-        int32_t sel_opt_signed = sel_opt;
-        uint16_t page = roller->sel_opt_id / LV_ROLLER_INF_PAGES;
-
-        /*`sel_opt` should be less than the number of options set by the user.
-         *If it's more then probably it's a reference from not the first page
-         *so normalize `sel_opt`*/
-        if(page != 0) {
-            sel_opt_signed -= page * LV_ROLLER_INF_PAGES;
+        uint32_t real_option_cnt = roller->option_cnt / LV_ROLLER_INF_PAGES;
+        uint16_t current_page = roller->sel_opt_id / real_option_cnt;
+        /*Set by the user to e.g. 0, 1, 2, 3...
+         *Upscale the value to the current page*/
+        if(sel_opt < real_option_cnt) {
+            uint16_t act_opt = roller->sel_opt_id - current_page * real_option_cnt;
+            int32_t sel_opt_signed = sel_opt;
+            /*Huge jump? Probably from last to first or first to last option.*/
+            if(LV_ABS((int16_t)act_opt - sel_opt) > real_option_cnt / 2) {
+                if(act_opt > sel_opt) sel_opt_signed += real_option_cnt;
+                else sel_opt_signed -= real_option_cnt;
+            }
+            sel_opt = sel_opt_signed + real_option_cnt * current_page;
         }
-
-        sel_opt = page * LV_ROLLER_INF_PAGES + sel_opt_signed;
     }
 
     roller->sel_opt_id     = sel_opt < roller->option_cnt ? sel_opt : roller->option_cnt - 1;
@@ -251,7 +254,6 @@ void lv_roller_get_selected_str(const lv_obj_t * obj, char * buf, uint32_t buf_s
     buf[c] = '\0';
 }
 
-
 /**
  * Get the options of a roller
  * @param roller pointer to roller object
@@ -263,7 +265,6 @@ const char * lv_roller_get_options(const lv_obj_t * obj)
 
     return lv_label_get_text(get_label(obj));
 }
-
 
 /**
  * Get the total number of options
@@ -286,7 +287,6 @@ uint16_t lv_roller_get_option_cnt(const lv_obj_t * obj)
 /**********************
  *   STATIC FUNCTIONS
  **********************/
-
 
 static void lv_roller_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
 {
@@ -347,7 +347,7 @@ static void lv_roller_event(const lv_obj_class_t * class_p, lv_event_t * e)
         lv_indev_get_vect(indev, &p);
         if(p.y) {
             lv_obj_t * label = get_label(obj);
-            lv_obj_set_y(label, lv_obj_get_y(label) + p.y);
+            lv_obj_set_y(label, lv_obj_get_y_aligned(label) + p.y);
             roller->moved = 1;
         }
     }
@@ -443,7 +443,6 @@ static void lv_roller_label_event(const lv_obj_class_t * class_p, lv_event_t * e
     }
 }
 
-
 static void draw_main(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
@@ -474,28 +473,34 @@ static void draw_main(lv_event_t * e)
         area_ok = _lv_area_intersect(&mask_sel, draw_ctx->clip_area, &sel_area);
         if(area_ok) {
             lv_obj_t * label = get_label(obj);
+            if(lv_label_get_recolor(label)) label_dsc.flag |= LV_TEXT_FLAG_RECOLOR;
 
             /*Get the size of the "selected text"*/
-            lv_point_t res_p;
-            lv_txt_get_size(&res_p, lv_label_get_text(label), label_dsc.font, label_dsc.letter_space, label_dsc.line_space,
-                            lv_obj_get_width(obj), LV_TEXT_FLAG_EXPAND);
+            lv_point_t label_sel_size;
+            lv_txt_get_size(&label_sel_size, lv_label_get_text(label), label_dsc.font, label_dsc.letter_space,
+                            label_dsc.line_space, lv_obj_get_width(obj), LV_TEXT_FLAG_EXPAND);
 
             /*Move the selected label proportionally with the background label*/
             lv_coord_t roller_h = lv_obj_get_height(obj);
-            int32_t label_y_prop = label->coords.y1 - (roller_h / 2 +
-                                                       obj->coords.y1); /*label offset from the middle line of the roller*/
-            label_y_prop = (label_y_prop * 16384) / lv_obj_get_height(
-                               label); /*Proportional position from the middle line (upscaled by << 14)*/
-
-            /*Apply a correction with different line heights*/
             const lv_font_t * normal_label_font = lv_obj_get_style_text_font(obj, LV_PART_MAIN);
-            lv_coord_t corr = (label_dsc.font->line_height - normal_label_font->line_height) / 2;
+            /*label offset from the middle line of the roller*/
+            int32_t label_y_prop = (label->coords.y1 + normal_label_font->line_height / 2) - (roller_h / 2 + obj->coords.y1);
+
+            /*Proportional position from the middle line.
+             *Will be 0 for the first option, and 1 for the last option (upscaled by << 14)*/
+            lv_coord_t remain_h = lv_obj_get_height(label) - normal_label_font->line_height;
+            if(remain_h > 0) {
+                label_y_prop = (label_y_prop << 14) / remain_h;
+            }
+
+            /*We don't want the selected label start and end exactly where the normal label is as
+             *a larger font won't centered on selected area.*/
+            int32_t corr = label_dsc.font->line_height;
 
             /*Apply the proportional position to the selected text*/
-            res_p.y -= corr;
             int32_t label_sel_y = roller_h / 2 + obj->coords.y1;
-            label_sel_y += (label_y_prop * res_p.y) >> 14;
-            label_sel_y -= corr;
+            label_sel_y += ((label_sel_size.y - corr) * label_y_prop) >> 14;
+            label_sel_y -= corr / 2;
 
             lv_coord_t bwidth = lv_obj_get_style_border_width(obj, LV_PART_MAIN);
             lv_coord_t pleft = lv_obj_get_style_pad_left(obj, LV_PART_MAIN);
@@ -506,7 +511,7 @@ static void draw_main(lv_event_t * e)
             label_sel_area.x1 = obj->coords.x1 + pleft + bwidth;
             label_sel_area.y1 = label_sel_y;
             label_sel_area.x2 = obj->coords.x2 - pright - bwidth;
-            label_sel_area.y2 = label_sel_area.y1 + res_p.y;
+            label_sel_area.y2 = label_sel_area.y1 + label_sel_size.y;
 
             label_dsc.flag |= LV_TEXT_FLAG_EXPAND;
             const lv_area_t * clip_area_ori = draw_ctx->clip_area;
@@ -526,6 +531,8 @@ static void draw_label(lv_event_t * e)
     lv_draw_label_dsc_t label_draw_dsc;
     lv_draw_label_dsc_init(&label_draw_dsc);
     lv_obj_init_draw_label_dsc(roller, LV_PART_MAIN, &label_draw_dsc);
+    if(lv_label_get_recolor(label_obj)) label_draw_dsc.flag |= LV_TEXT_FLAG_RECOLOR;
+
     lv_draw_ctx_t * draw_ctx = lv_event_get_draw_ctx(e);
 
     /*If the roller has shadow or outline it has some ext. draw size
@@ -741,7 +748,6 @@ static void inf_normalize(lv_obj_t * obj)
 
         lv_obj_t * label = get_label(obj);
 
-
         lv_coord_t sel_y1 = roller->sel_opt_id * (font_h + line_space);
         lv_coord_t mid_y1 = h / 2 - font_h / 2;
         lv_coord_t new_y = mid_y1 - sel_y1;
@@ -753,7 +759,6 @@ static lv_obj_t * get_label(const lv_obj_t * obj)
 {
     return lv_obj_get_child(obj, 0);
 }
-
 
 static lv_coord_t get_selected_label_width(const lv_obj_t * obj)
 {
@@ -773,7 +778,6 @@ static void scroll_anim_ready_cb(lv_anim_t * a)
     lv_obj_t * obj = lv_obj_get_parent(a->var); /*The label is animated*/
     inf_normalize(obj);
 }
-
 
 static void set_y_anim(void * obj, int32_t v)
 {

@@ -78,23 +78,10 @@ V3.4 20200324
 修改变量命名方式为: uint8_t, uint16_t, uint32_t,不再使用u8,u16,u32,但是还是支持
 以u8,u16,u32的命名函数调用.
 
-
-
-						
- ***********************************************************************************************************
- * 公司名称：广州市星翼电子科技有限公司（正点原子）
- * 电话号码：020-38271790
- * 传真号码：020-36773971
- * 公司网址：www.alientek.com
- * 购买地址：zhengdianyuanzi.tmall.com
- * 技术论坛：http://www.openedv.com/forum.php
- * 最新资料：www.openedv.com/docs/index.html
- *
- * 在线视频：www.yuanzige.com
- * B 站视频：space.bilibili.com/394620890
- * 公 众 号 ：mp.weixin.qq.com/s/y--mG3qQT8gop0VRuER9bw
- * 抖     音 ：douyin.com/user/MS4wLjABAAAAi5E95JUBpqsW5kgMEaagtIITIl15hAJvMO8vQMV1tT6PEsw-V5HbkNLlLMkFf1Bd
- ***********************************************************************************************************
+							正点原子@ALIENTEK
+							技术论坛:www.openedv.com
+							修改日期:2014/08/28
+							Copyright(C) ALIENTEK 2011-2021
 
 
 

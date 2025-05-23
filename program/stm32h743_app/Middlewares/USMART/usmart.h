@@ -1,54 +1,3 @@
-/**
- ****************************************************************************************************
- * @file        usmart.h
- * @author      正点原子团队(ALIENTEK)
- * @version     V3.5
- * @date        2022-09-06
- * @brief       USMART 串口调试组件
- *
- *              USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
- *              序里面的任何函数,并执行.因此,你可以随意更改函数的输入参数(支持数字(10/16进制,支持负数)
- *              、字符串、函数入口地址等作为参数),单个函数最多支持10个输入参数,并支持函数返 回值显示.
- *              V2.1版本以后新增hex和dec两个指令.他们可以用于设置函数参数的显示格式.也可以用于数据的进
- *              制转换,例如:
- *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
- *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
- *
- * @note        USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
- *              序里面的任何函数,并执行.因此,你可以随意更改函数的输入参数(支持数字(10/16进制,支持负数)
- *              、字符串、函数入口地址等作为参数),单个函数最多支持10个输入参数,并支持函数返 回值显示.
- *              V2.1版本以后新增hex和dec两个指令.他们可以用于设置函数参数的显示格式.也可以用于数据的进
- *              制转换,例如:
- *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
- *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
- * @license     Copyright (c) 2020-2032, 广州市星翼电子科技有限公司
- ****************************************************************************************************
- * @attention
- *
- * 实验平台:正点原子 阿波罗 H743开发板
- * 在线视频:www.yuanzige.com
- * 技术论坛:www.openedv.com
- * 公司网址:www.alientek.com
- * 购买地址:openedv.taobao.com
- *
- * 修改说明 
- * 
- * V3.4之前版本详细修改说明见USMART文件夹下的:readme.txt
- * 
- * V3.4 20200324
- * 1, 新增usmart_port.c和usmart_port.h,用于管理USMART的移植,方便修改
- * 2, 修改变量命名方式为: uint8_t, uint16_t, uint32_t
- * 3, 修改usmart_reset_runtime为usmart_timx_reset_time
- * 4, 修改usmart_get_runtime为usmart_timx_get_time
- * 5, 修改usmart_scan函数实现方式,改成由usmart_get_input_string获取数据流
- * 6, 修改printf函数为USMART_PRINTF宏定义
- * 7, 修改定时扫描相关函数,改用宏定义方式,方便移植
- *
- * V3.5 20201220
- * 1，修改部分代码以支持AC6编译器
- *
- ****************************************************************************************************
- */
 
 #ifndef __USMART_H
 #define __USMART_H
@@ -66,6 +15,7 @@
 #define SP_TYPE_HEX             1       /* 16进制参数显示 */
 
 
+
 /* 函数名列表 */
 struct _m_usmart_nametab
 {
@@ -79,7 +29,7 @@ struct _m_usmart_dev
     struct _m_usmart_nametab *funs;     /* 函数名指针 */
 
     void (*init)(uint16_t tclk);        /* 初始化 */
-    uint8_t (*cmd_rec)(char *str);   /* 识别函数名及参数 */
+    uint8_t (*cmd_rec)(char *str);      /* 识别函数名及参数 */
     void (*exe)(void);                  /* 执行  */
     void (*scan)(void);                 /* 扫描 */
     uint8_t fnum;                       /* 函数数量 */
@@ -98,7 +48,7 @@ extern struct _m_usmart_dev usmart_dev;             /* 在usmart_config.c里面定义
 
 
 void usmart_init(uint16_t tclk);        /* 初始化 */
-uint8_t usmart_cmd_rec(char*str);    	/* 识别 */
+uint8_t usmart_cmd_rec(char*str);    /* 识别 */
 void usmart_exe(void);                  /* 执行 */
 void usmart_scan(void);                 /* 扫描 */
 uint32_t read_addr(uint32_t addr);      /* 读取指定地址的值 */

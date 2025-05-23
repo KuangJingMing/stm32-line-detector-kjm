@@ -2,8 +2,8 @@
  ****************************************************************************************************
  * @file        usmart_str.c
  * @author      正点原子团队(ALIENTEK)
- * @version     V3.5
- * @date        2022-09-06
+ * @version     V3.4
+ * @date        2020-03-24
  * @brief       USMART 串口调试组件
  *
  *              USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
@@ -13,8 +13,7 @@
  *              制转换,例如:
  *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
  *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
- *
- * @note
+ *   @note
  *              USMART资源占用情况@MDK 3.80A@2.0版本：
  *              FLASH:4K~K字节(通过USMART_USE_HELP和USMART_USE_WRFUNS设置)
  *              SRAM:72字节(最少的情况下)
@@ -24,7 +23,6 @@
  ****************************************************************************************************
  * @attention
  *
- * 实验平台:正点原子 阿波罗 H743开发板
  * 在线视频:www.yuanzige.com
  * 技术论坛:www.openedv.com
  * 公司网址:www.alientek.com
@@ -43,13 +41,12 @@
  * 6, 修改printf函数为USMART_PRINTF宏定义
  * 7, 修改定时扫描相关函数,改用宏定义方式,方便移植
  *
- * V3.5 20201220
- * 1，修改部分代码以支持AC6编译器
- *
  ****************************************************************************************************
  */
+
 #include "./USMART/usmart.h"
 #include "./USMART/usmart_str.h"
+
 
 /**
  * @brief       对比字符串str1和str2
@@ -63,7 +60,7 @@ uint8_t usmart_strcmp(char *str1, char *str2)
     {
         if (*str1 != *str2)return 1; /* 不相等 */
 
-        if (*str1 == '\0')break;    /* 对比完成了. */
+        if (*str1 == '\0')break; /* 对比完成了. */
 
         str1++;
         str2++;
@@ -82,7 +79,7 @@ void usmart_strcopy(char *src, char *dst)
 {
     while (1)
     {
-        *dst = *src;            /* 拷贝 */
+        *dst = *src;    /* 拷贝 */
 
         if (*src == '\0')break; /* 拷贝完成了. */
 
@@ -284,7 +281,7 @@ uint8_t usmart_get_fname(char *str, char *fname, uint8_t *pnum, uint8_t *rval)
     uint8_t offset = 0;
     uint8_t parmnum = 0;
     uint8_t temp = 1;
-    char fpname[6];  /* void+X+'/0' */
+    char fpname[6];     /* void+X+'/0' */
     uint8_t fplcnt = 0; /* 第一个参数的长度计数器 */
     uint8_t pcnt = 0;   /* 参数计数器 */
     uint8_t nchar;
@@ -390,7 +387,7 @@ uint8_t usmart_get_fname(char *str, char *fname, uint8_t *pnum, uint8_t *rval)
         {
             if (*strtemp == ',')
             {
-                temp = 1;           /* 使能增加一个参数 */
+                temp = 1;   /* 使能增加一个参数 */
                 pcnt++;
             }
             else if (*strtemp != ' ' && *strtemp != '(')

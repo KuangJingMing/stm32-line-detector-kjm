@@ -1,89 +1,142 @@
 #include "./SYSTEM/sys/sys.h"
 #include "./SYSTEM/usart/usart.h"
 #include "./SYSTEM/delay/delay.h"
-#include "./BSP/SDRAM/sdram.h"
 #include "./BSP/LED/led.h"
 #include "./BSP/KEY/key.h"
 #include "./BSP/MPU/mpu.h"
-#include "./BSP/TIMER/btim.h"
+#include "./BSP/LCD/lcd.h"
+#include "./BSP/SDRAM/sdram.h"
+#include "./USMART/usmart.h"
+#include "./BSP/TOUCH/touch.h"
+#include "./BSP/TIMER/timer.h"
 
-/* LVGL */
 #include "lvgl.h"
 #include "lv_port_indev_template.h"
 #include "lv_port_disp_template.h"
 
-/**
- * @brief æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„å›è°ƒå‡½æ•°
- * @param event äº‹ä»¶æ•°æ®
- */
-static void button_event_handler(lv_event_t *event)
+
+
+/* È«¾Ö±äÁ¿ */
+lv_obj_t *label_hello;      // ÏÔÊ¾ÎÄ×Ö±êÇ©
+lv_obj_t *btn;              // °´Å¥
+lv_obj_t *label_btn;        // °´Å¥ÎÄ×Ö
+lv_obj_t *led_indicator;    // LEDÖ¸Ê¾Æ÷
+lv_obj_t *slider;           // »¬¶¯Ìõ
+lv_obj_t *label_slider;     // »¬¶¯ÌõÊıÖµÏÔÊ¾
+
+/* °´Å¥µã»÷ÊÂ¼ş»Øµ÷º¯Êı */
+static void btn_event_cb(lv_event_t * e)
 {
-    lv_obj_t *btn = lv_event_get_target(event);  // è·å–è§¦å‘äº‹ä»¶çš„æŒ‰é’®å¯¹è±¡
-    lv_obj_t *label = lv_obj_get_child(btn, 0); // è·å–æŒ‰é’®ä¸Šçš„æ ‡ç­¾ï¼ˆå‡è®¾æ ‡ç­¾æ˜¯æŒ‰é’®çš„å­å¯¹è±¡ï¼‰
+    lv_event_code_t code = lv_event_get_code(e);
     
-    // åˆ‡æ¢æ ‡ç­¾æ–‡æœ¬ï¼Œæ¨¡æ‹Ÿç‚¹å‡»å“åº”
-    const char *current_text = lv_label_get_text(label);
-    if (strcmp(current_text, "Click Me!") == 0) {
-        lv_label_set_text(label, "Clicked!");
-    } else {
-        lv_label_set_text(label, "Click Me!");
+    if(code == LV_EVENT_CLICKED) {
+        printf("Button clicked!\r\n");
+        
+        /* ÇĞ»»LED×´Ì¬ */
+        static bool led_state = false;
+        led_state = !led_state;
+        
+        if(led_state) {
+            LED0(0);  // µãÁÁLED
+            lv_led_on(led_indicator);
+            lv_label_set_text(label_btn, "LED ON");
+        } else {
+            LED0(1);  // ¹Ø±ÕLED
+            lv_led_off(led_indicator);
+            lv_label_set_text(label_btn, "LED OFF");
+        }
     }
 }
 
-/**
- * @brief åˆå§‹åŒ– LVGL UI
- */
-static void ui_init(void)
+/* »¬¶¯ÌõÊÂ¼ş»Øµ÷º¯Êı */
+static void slider_event_cb(lv_event_t * e)
 {
-    // åˆ›å»ºä¸€ä¸ªå®¹å™¨ï¼Œç”¨äºæ”¾ç½® UI å…ƒç´ 
-    lv_obj_t *container = lv_obj_create(lv_scr_act()); // lv_scr_act() è¿”å›å½“å‰æ´»åŠ¨å±å¹•
-    lv_obj_set_size(container, LV_PCT(100), LV_PCT(100)); // å®¹å™¨å¤§å°è®¾ç½®ä¸ºå±å¹•çš„ 100%
-    lv_obj_set_style_bg_color(container, lv_color_hex(0xFFFFFF), 0); // è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
+    lv_obj_t * slider = lv_event_get_target(e);
+    int32_t value = lv_slider_get_value(slider);
     
-    // åˆ›å»ºä¸€ä¸ªæ ‡ç­¾ï¼Œæ˜¾ç¤ºæ¬¢è¿æ¶ˆæ¯
-    lv_obj_t *label_welcome = lv_label_create(container);
-    lv_label_set_text(label_welcome, "Welcome to LVGL!");
-    lv_obj_set_pos(label_welcome, 50, 50); // è®¾ç½®æ ‡ç­¾ä½ç½®
-    lv_obj_set_style_text_color(label_welcome, lv_color_hex(0x0000FF), 0); // è®¾ç½®æ–‡æœ¬é¢œè‰²ä¸ºè“è‰²
-    lv_obj_set_style_text_font(label_welcome, &lv_font_montserrat_16, 0); // è®¾ç½®å­—ä½“
+    /* ¸üĞÂÊıÖµÏÔÊ¾ */
+    lv_label_set_text_fmt(label_slider, "Value: %d", (int)value);
     
-    // åˆ›å»ºä¸€ä¸ªæŒ‰é’®
-    lv_obj_t *button = lv_btn_create(container);
-    lv_obj_set_size(button, 120, 50); // è®¾ç½®æŒ‰é’®å¤§å°
-    lv_obj_set_pos(button, 50, 100); // è®¾ç½®æŒ‰é’®ä½ç½®
-    lv_obj_set_style_bg_color(button, lv_color_hex(0x00FF00), 0); // è®¾ç½®æŒ‰é’®èƒŒæ™¯è‰²ä¸ºç»¿è‰²
-    
-    // åœ¨æŒ‰é’®ä¸Šæ·»åŠ ä¸€ä¸ªæ ‡ç­¾
-    lv_obj_t *button_label = lv_label_create(button);
-    lv_label_set_text(button_label, "Click Me!");
-    lv_obj_center(button_label); // å°†æ ‡ç­¾å±…ä¸­æ˜¾ç¤ºåœ¨æŒ‰é’®ä¸Š
-    
-    // æ³¨å†ŒæŒ‰é’®ç‚¹å‡»äº‹ä»¶å›è°ƒ
-    lv_obj_add_event_cb(button, button_event_handler, LV_EVENT_CLICKED, NULL);
+    printf("Slider value: %d\r\n", (int)value);
 }
+
+/* ´´½¨UI½çÃæ */
+void create_demo_ui(void)
+{
+    /* 1. ´´½¨±êÌâ±êÇ© */
+    label_hello = lv_label_create(lv_scr_act());
+    lv_label_set_text(label_hello, "STM32H7 + LVGL Demo");
+    lv_obj_set_style_text_font(label_hello, &lv_font_montserrat_20, 0);
+    lv_obj_align(label_hello, LV_ALIGN_TOP_MID, 0, 20);
+    
+    /* 2. ´´½¨°´Å¥ */
+    btn = lv_btn_create(lv_scr_act());
+    lv_obj_set_size(btn, 120, 50);
+    lv_obj_align(btn, LV_ALIGN_CENTER, -80, -50);
+    lv_obj_add_event_cb(btn, btn_event_cb, LV_EVENT_ALL, NULL);
+    
+    /* °´Å¥ÎÄ×Ö */
+    label_btn = lv_label_create(btn);
+    lv_label_set_text(label_btn, "LED OFF");
+    lv_obj_center(label_btn);
+    
+    /* 3. ´´½¨LEDÖ¸Ê¾Æ÷ */
+    led_indicator = lv_led_create(lv_scr_act());
+    lv_obj_set_size(led_indicator, 40, 40);
+    lv_obj_align(led_indicator, LV_ALIGN_CENTER, 80, -50);
+    lv_led_set_color(led_indicator, lv_color_hex(0xFF0000));  // ºìÉ«LED
+    lv_led_off(led_indicator);
+    
+    /* 4. ´´½¨»¬¶¯Ìõ */
+    slider = lv_slider_create(lv_scr_act());
+    lv_obj_set_width(slider, 200);
+    lv_obj_align(slider, LV_ALIGN_CENTER, 0, 20);
+    lv_slider_set_range(slider, 0, 100);
+    lv_slider_set_value(slider, 50, LV_ANIM_OFF);
+    lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    
+    /* »¬¶¯ÌõÊıÖµÏÔÊ¾ */
+    label_slider = lv_label_create(lv_scr_act());
+    lv_label_set_text(label_slider, "Value: 50");
+    lv_obj_align(label_slider, LV_ALIGN_CENTER, 0, 60);
+    
+    /* 5. ´´½¨Ò»¸ö¼òµ¥µÄ½ø¶ÈÌõ */
+    lv_obj_t *bar = lv_bar_create(lv_scr_act());
+    lv_obj_set_size(bar, 200, 20);
+    lv_obj_align(bar, LV_ALIGN_CENTER, 0, 100);
+    lv_bar_set_value(bar, 70, LV_ANIM_OFF);
+    
+    /* ½ø¶ÈÌõ±êÇ© */
+    lv_obj_t *label_bar = lv_label_create(lv_scr_act());
+    lv_label_set_text(label_bar, "Progress: 70%");
+    lv_obj_align(label_bar, LV_ALIGN_CENTER, 0, 130);
+    
+    printf("UI created successfully!\r\n");
+}
+
 
 int main(void)
 {
-    sys_cache_enable();                  // æ‰“å¼€ L1-Cache
-    HAL_Init();                          // åˆå§‹åŒ– HAL åº“
-    sys_stm32_clock_init(192, 5, 2, 4);  // è®¾ç½®æ—¶é’Ÿ, 480MHz
-    delay_init(480);                     // å»¶æ—¶åˆå§‹åŒ–
-    usart_init(115200);                  // ä¸²å£åˆå§‹åŒ–
-    mpu_memory_protection();             // ä¿æŠ¤ç›¸å…³å­˜å‚¨åŒºåŸŸ
-    led_init();                          // åˆå§‹åŒ– LED
-    key_init();                          // åˆå§‹åŒ– KEY
-    sdram_init();                        // åˆå§‹åŒ– SDRAM
-    btim_timx_int_init(100-1, 2400-1);   // åˆå§‹åŒ–å®šæ—¶å™¨
-
-    lv_init();                           // LVGL ç³»ç»Ÿåˆå§‹åŒ–
-    lv_port_disp_init();                 // LVGL æ˜¾ç¤ºæ¥å£åˆå§‹åŒ–ï¼Œæ”¾åœ¨ lv_init() çš„åé¢
-    lv_port_indev_init();                // LVGL è¾“å…¥æ¥å£åˆå§‹åŒ–ï¼Œæ”¾åœ¨ lv_init() çš„åé¢
+		sys_cache_enable();
+		HAL_Init();    
+    sys_stm32_clock_init(160, 5, 2, 4);     /* ÉèÖÃÊ±ÖÓ, 400Mhz */
+    delay_init(400);                        /* ÑÓÊ±³õÊ¼»¯ */
+    usart_init(100, 115200);                /* ³õÊ¼»¯USART */
+    led_init();                             /* ³õÊ¼»¯LED */
+    mpu_memory_protection();                /* ±£»¤Ïà¹Ø´æ´¢ÇøÓò */
+    sdram_init();                           /* ³õÊ¼»¯SDRAM */
+		btim_timx_int_init(100-1,2400-1);  
+	
+    lv_init();                              /* lvglÏµÍ³³õÊ¼»¯ */
+    lv_port_disp_init();                    /* lvglÏÔÊ¾½Ó¿Ú³õÊ¼»¯ */
+    lv_port_indev_init();                   /* lvglÊäÈë½Ó¿Ú³õÊ¼»¯ */
     
-    ui_init();                           // åˆå§‹åŒ– UI ç•Œé¢
-
-    while (1)
-    {
-        lv_task_handler();               // å¤„ç† LVGL ä»»åŠ¡
-        delay_ms(5);                     // æ¯ 5ms è°ƒç”¨ä¸€æ¬¡ï¼Œç¡®ä¿ç•Œé¢åˆ·æ–°
+    /* ´´½¨ÑİÊ¾UI */
+    create_demo_ui();
+    
+    while (1) {
+        lv_task_handler();
+        delay_ms(10);
     }
 }
+

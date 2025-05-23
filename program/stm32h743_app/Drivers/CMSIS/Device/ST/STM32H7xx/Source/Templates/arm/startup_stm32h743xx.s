@@ -40,7 +40,8 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00000200
+;未用到编译器自带的内存管理(malloc,free等)，设置Heap_Szie为0
+Heap_Size       EQU     0x00000000
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -236,11 +237,26 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 ; Reset handler
 Reset_Handler    PROC
                  EXPORT  Reset_Handler                    [WEAK]
-        IMPORT  SystemInit
+        ;IMPORT  SystemInit
+        ;寄存器代码,不需要在这里调用SystemInit函数,故屏蔽掉,库函数版本代码,可以留下
+        ;不过需要在外部实现SystemInit函数,否则会报错.
         IMPORT  __main
 
-                 LDR     R0, =SystemInit
-                 BLX     R0
+                 IF {FPU} != "SoftVFP"          ;通过Target选项卡的Floating Point Hardware选项来控制.
+                                                ;如果选择:Not Used,则不编译以下代码(到ENDIF结束)
+                                                ;如果选择:Use Single/Double Precision,则编译以下代码
+                ;Enable Floating Point Support at reset for FPU
+                 LDR.W  R0, =0xE000ED88         ; Load address of CPACR register
+                 LDR    R1, [R0]                ; Read value at CPACR
+                 ORR    R1,  R1, #(0xF <<20)    ; Set bits 20-23 to enable CP10 and CP11 coprocessors
+                                                ; Write back the modified CPACR value
+                 STR    R1, [R0]                ; Wait for store to complete
+                 DSB
+                 
+                 ENDIF
+
+                ;LDR     R0, =SystemInit        ;寄存器代码,未用到,屏蔽
+                ;BLX     R0                     ;寄存器代码,未用到,屏蔽
                  LDR     R0, =__main
                  BX      R0
                  ENDP
@@ -428,7 +444,7 @@ Default_Handler PROC
                 EXPORT  LPTIM5_IRQHandler                 [WEAK]                                            
                 EXPORT  LPUART1_IRQHandler                [WEAK]                                                  
                 EXPORT  CRS_IRQHandler                    [WEAK]
-                EXPORT  ECC_IRQHandler                    [WEAK] 				
+                EXPORT  ECC_IRQHandler                    [WEAK]
                 EXPORT  SAI4_IRQHandler                   [WEAK]                                                                                     
                 EXPORT  WAKEUP_PIN_IRQHandler             [WEAK] 
 

@@ -22,6 +22,12 @@
 #include "stm32h7xx_hal.h"
 #include "stm32h7xx_it.h"
 #include "./SYSTEM/sys/sys.h"
+#include "./SYSTEM/usart/usart.h"
+#include "./SYSTEM/delay/delay.h"
+#include "./BSP/LED/led.h"
+#include "./BSP/MPU/mpu.h"
+#include "./BSP/TIMER/timer.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -96,19 +102,23 @@ void HardFault_Handler(void)
 }
 
 /**
-  * @brief This function handles Memory management fault.
-  */
+ * @brief       MemManage错误处理中断
+ * @note        进入此中断以后,将无法恢复程序运行!!
+ *
+ * @param       无
+ * @retval      nbytes以2为底的指数值
+ */
 void MemManage_Handler(void)
 {
-  /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
-  /* USER CODE END MemoryManagement_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_MemoryManagement_IRQn 0 */
-    /* USER CODE END W1_MemoryManagement_IRQn 0 */
-  }
+    LED1(0);                            /* 点亮LED1(GREEN LED) */
+    printf("Mem Access Error!!\r\n");   /* 输出错误信息 */
+    delay_ms(1000);
+    printf("Soft Reseting...\r\n");     /* 提示软件重启 */
+    delay_ms(1000);
+    sys_soft_reset();                   /* 软复位 */
 }
+
+
 
 /**
   * @brief This function handles Pre-fetch fault, memory access fault.
@@ -206,7 +216,7 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32h7xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
-
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+

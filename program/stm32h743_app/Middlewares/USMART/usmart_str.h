@@ -2,8 +2,8 @@
  ****************************************************************************************************
  * @file        usmart_str.h
  * @author      正点原子团队(ALIENTEK)
- * @version     V3.5
- * @date        2022-09-06
+ * @version     V3.4
+ * @date        2020-03-24
  * @brief       USMART 串口调试组件
  *
  *              USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 它,你可以通过串口助手调用程
@@ -13,8 +13,7 @@
  *              制转换,例如:
  *              输入"hex 100"  会在串口调试助手上看到 HEX 0X64.
  *              输入"dec 0X64" 会在串口调试助手上看到 DEC 100.
- *
- * @note
+ *   @note
  *              USMART资源占用情况@MDK 3.80A@2.0版本：
  *              FLASH:4K~K字节(通过USMART_USE_HELP和USMART_USE_WRFUNS设置)
  *              SRAM:72字节(最少的情况下)
@@ -24,7 +23,6 @@
  ****************************************************************************************************
  * @attention
  *
- * 实验平台:正点原子 阿波罗 H743开发板
  * 在线视频:www.yuanzige.com
  * 技术论坛:www.openedv.com
  * 公司网址:www.alientek.com
@@ -43,9 +41,6 @@
  * 6, 修改printf函数为USMART_PRINTF宏定义
  * 7, 修改定时扫描相关函数,改用宏定义方式,方便移植
  *
- * V3.5 20201220
- * 1，修改部分代码以支持AC6编译器
- *
  ****************************************************************************************************
  */
 
@@ -56,9 +51,9 @@
 
 
 uint8_t usmart_get_parmpos(uint8_t num);                /* 得到某个参数在参数列里面的起始位置 */
-uint8_t usmart_strcmp(char *str1, char *str2);    /* 对比两个字符串是否相等 */
+uint8_t usmart_strcmp(char *str1, char *str2);          /* 对比两个字符串是否相等 */
 uint32_t usmart_pow(uint8_t m, uint8_t n);              /* M^N次方 */
-uint8_t usmart_str2num(char *str, uint32_t *res);    /* 字符串转为数字 */
+uint8_t usmart_str2num(char *str, uint32_t *res);       /* 字符串转为数字 */
 uint8_t usmart_get_cmdname(char *str, char *cmdname, uint8_t *nlen, uint8_t maxlen); /* 从str中得到指令名,并返回指令长度 */
 uint8_t usmart_get_fname(char *str, char *fname, uint8_t *pnum, uint8_t *rval); /* 从str中得到函数名 */
 uint8_t usmart_get_aparm(char *str, char *fparm, uint8_t *ptype); /* 从str中得到一个函数参数 */

@@ -2,9 +2,9 @@
  ****************************************************************************************************
  * @file        usmart_port.c
  * @author      正点原子团队(ALIENTEK)
- * @version     V3.5
- * @date        2022-09-06
- * @brief       USMART 串口调试组件
+ * @version     V3.4
+ * @date        2020-03-24
+ * @brief       USMART 移植文件
  *
  *              通过修改该文件,可以方便的将USMART移植到其他工程
  *              当:USMART_ENTIMX_SCAN == 0时,仅需要实现: usmart_get_input_string函数.
@@ -13,20 +13,20 @@
  *              usmart_timx_get_time
  *              usmart_timx_init
  *              USMART_TIMX_IRQHandler
+ *
  * @license     Copyright (c) 2020-2032, 广州市星翼电子科技有限公司
  ****************************************************************************************************
  * @attention
  *
- * 实验平台:正点原子 阿波罗 H743开发板
  * 在线视频:www.yuanzige.com
  * 技术论坛:www.openedv.com
  * 公司网址:www.alientek.com
  * 购买地址:openedv.taobao.com
  *
- * 修改说明 
- * 
+ * 修改说明
+ *
  * V3.4之前版本详细修改说明见USMART文件夹下的:readme.txt
- * 
+ *
  * V3.4 20200324
  * 1, 新增usmart_port.c和usmart_port.h,用于管理USMART的移植,方便修改
  * 2, 修改变量命名方式为: uint8_t, uint16_t, uint32_t
@@ -36,16 +36,11 @@
  * 6, 修改printf函数为USMART_PRINTF宏定义
  * 7, 修改定时扫描相关函数,改用宏定义方式,方便移植
  *
- * V3.5 20201220
- * 1，修改部分代码以支持AC6编译器
- *
  ****************************************************************************************************
  */
 
 #include "./USMART/usmart.h"
 #include "./USMART/usmart_port.h"
-
-TIM_HandleTypeDef g_timx_usmart_handle;      /* 定时器句柄 */
 
 /**
  * @brief       获取输入数据流(字符串)
@@ -90,9 +85,9 @@ char *usmart_get_input_string(void)
  */
 void usmart_timx_reset_time(void)
 {
-    __HAL_TIM_CLEAR_FLAG(&g_timx_usmart_handle, TIM_FLAG_UPDATE); /* 清除中断标志位 */
-    __HAL_TIM_SET_AUTORELOAD(&g_timx_usmart_handle, 0XFFFF);      /* 将重装载值设置到最大 */
-    __HAL_TIM_SET_COUNTER(&g_timx_usmart_handle, 0);              /* 清空定时器的CNT */
+    USMART_TIMX->SR &= ~(1 << 0);   /* 清除中断标志位 */
+    USMART_TIMX->ARR = 0XFFFF;      /* 将重装载值设置到最大 */
+    USMART_TIMX->CNT = 0;           /* 清空定时器的CNT */
     usmart_dev.runtime = 0;
 }
 
@@ -104,33 +99,33 @@ void usmart_timx_reset_time(void)
  */
 uint32_t usmart_timx_get_time(void)
 {
-    if (__HAL_TIM_GET_FLAG(&g_timx_usmart_handle, TIM_FLAG_UPDATE) == SET)  /* 在运行期间,产生了定时器溢出 */
+    if (USMART_TIMX->SR & 0X0001)   /* 在运行期间,产生了定时器溢出 */
     {
         usmart_dev.runtime += 0XFFFF;
     }
-    usmart_dev.runtime += __HAL_TIM_GET_COUNTER(&g_timx_usmart_handle);
-    return usmart_dev.runtime;                                 /* 返回计数值 */
+
+    usmart_dev.runtime += USMART_TIMX->CNT;
+    return usmart_dev.runtime;      /* 返回计数值 */
 }
 
 /**
  * @brief       定时器初始化函数
- * @param       arr:自动重装载值
- *              psc:定时器分频系数
+ * @param       tclk: 定时器的工作频率(单位:Mhz)
  * @retval      无
- */ 
-void usmart_timx_init(uint16_t arr, uint16_t psc)
+ */
+void usmart_timx_init(uint16_t tclk)
 {
-    USMART_TIMX_CLK_ENABLE();
-    
-    g_timx_usmart_handle.Instance = USMART_TIMX;                 /* 通用定时器4 */
-    g_timx_usmart_handle.Init.Prescaler = psc;                   /* 分频系数 */
-    g_timx_usmart_handle.Init.CounterMode = TIM_COUNTERMODE_UP;  /* 向上计数器 */
-    g_timx_usmart_handle.Init.Period = arr;                      /* 自动装载值 */
-    g_timx_usmart_handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    HAL_TIM_Base_Init(&g_timx_usmart_handle);
-    HAL_TIM_Base_Start_IT(&g_timx_usmart_handle);                /* 使能定时器和定时器中断 */
-    HAL_NVIC_SetPriority(USMART_TIMX_IRQn,3,3);                  /* 设置中断优先级，抢占优先级3，子优先级3 */
-    HAL_NVIC_EnableIRQ(USMART_TIMX_IRQn);                        /* 开启ITM中断 */ 
+    USMART_TIMX_CLK_ENABLE();   /* TIMX 时钟使能 */
+    USMART_TIMX->ARR = 1000;    /* 设定计数器自动重装值 */
+
+    /* 根据tclk的值(单位:Mhz),将定时器的输入时钟分频到10KHz ,100ms中断一次
+     * 注意,计数频率必须为10Khz,以和runtime单位(0.1ms)同步.
+     */
+    USMART_TIMX->PSC = (tclk * 100) - 1;/* 计算分频系数 */
+
+    USMART_TIMX->DIER |= 1 << 0;/* 允许更新中断 */
+    USMART_TIMX->CR1 |= 0x01;   /* 使能定时器4 */
+    sys_nvic_init(3, 3, USMART_TIMX_IRQn, 2);   /* 抢占3，子优先级3，组2(组2中优先级最低的) */
 }
 
 /**
@@ -140,14 +135,14 @@ void usmart_timx_init(uint16_t arr, uint16_t psc)
  */
 void USMART_TIMX_IRQHandler(void)
 {
-    if(__HAL_TIM_GET_IT_SOURCE(&g_timx_usmart_handle,TIM_IT_UPDATE)==SET)/* 溢出中断 */
+    if (USMART_TIMX->SR & 0X0001)   /* 溢出中断 */
     {
-        usmart_dev.scan();                                   /* 执行usmart扫描 */
-        __HAL_TIM_SET_COUNTER(&g_timx_usmart_handle, 0);;    /* 清空定时器的CNT */
-        __HAL_TIM_SET_AUTORELOAD(&g_timx_usmart_handle, 100);/* 恢复原来的设置 */
+        usmart_dev.scan();          /* 执行usmart扫描 */
+        USMART_TIMX->CNT = 0;       /* 清空定时器的CNT */
+        USMART_TIMX->ARR = 1000;    /* 恢复原来的设置 */
     }
-    
-    __HAL_TIM_CLEAR_IT(&g_timx_usmart_handle, TIM_IT_UPDATE);/* 清除中断标志位 */
+
+    USMART_TIMX->SR &= ~(1 << 0);   /* 清除中断标志位 */
 }
 
 #endif

@@ -74,8 +74,8 @@ lv_obj_t * lv_msgbox_create(lv_obj_t * parent, const char * title, const char * 
 
     lv_obj_t * obj = lv_obj_class_create_obj(&lv_msgbox_class, parent);
     LV_ASSERT_MALLOC(obj);
-    lv_obj_class_init_obj(obj);
     if(obj == NULL) return NULL;
+    lv_obj_class_init_obj(obj);
     lv_msgbox_t * mbox = (lv_msgbox_t *)obj;
 
     if(auto_parent) lv_obj_add_flag(obj, LV_MSGBOX_FLAG_AUTO_PARENT);
@@ -106,6 +106,9 @@ lv_obj_t * lv_msgbox_create(lv_obj_t * parent, const char * title, const char * 
     }
 
     mbox->content = lv_obj_class_create_obj(&lv_msgbox_content_class, obj);
+    LV_ASSERT_MALLOC(mbox->content);
+    if(mbox->content == NULL) return NULL;
+    lv_obj_class_init_obj(mbox->content);
 
     bool has_txt = txt && strlen(txt) > 0;
     if(has_txt) {
@@ -134,7 +137,6 @@ lv_obj_t * lv_msgbox_create(lv_obj_t * parent, const char * title, const char * 
 
     return obj;
 }
-
 
 lv_obj_t * lv_msgbox_get_title(lv_obj_t * obj)
 {

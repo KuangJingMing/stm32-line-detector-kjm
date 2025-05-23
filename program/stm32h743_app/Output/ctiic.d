@@ -1,0 +1,13 @@
+..\..\output\ctiic.o: ..\..\Drivers\BSP\TOUCH\ctiic.c
+..\..\output\ctiic.o: ..\..\Drivers\./BSP/TOUCH/ctiic.h
+..\..\output\ctiic.o: ..\..\Drivers\./SYSTEM/sys/sys.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Include\core_cm7.h
+..\..\output\ctiic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Include\cmsis_version.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Include\cmsis_compiler.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Include\cmsis_armcc.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Include\mpu_armv7.h
+..\..\output\ctiic.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h
+..\..\output\ctiic.o: ..\..\Drivers\./SYSTEM/delay/delay.h

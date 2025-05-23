@@ -1,63 +1,50 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
 
-#ifndef __TOUCH_H__
-#define __TOUCH_H__
- 
+#ifndef __TOUCH_H
+#define __TOUCH_H
+
 #include "./SYSTEM/sys/sys.h"
-#include "./BSP/TOUCH/ft5206.h"
 #include "./BSP/TOUCH/gt9xxx.h"
+#include "./BSP/TOUCH/ft5206.h"
+
 
 /******************************************************************************************/
-
 /* 电阻触摸屏驱动IC T_PEN/T_CS/T_MISO/T_MOSI/T_SCK 引脚 定义 */
+
 #define T_PEN_GPIO_PORT                 GPIOH
-#define T_PEN_GPIO_PIN                  GPIO_PIN_7
-#define T_PEN_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* 所在IO口时钟使能 */
+#define T_PEN_GPIO_PIN                  SYS_GPIO_PIN7
+#define T_PEN_GPIO_CLK_ENABLE()         do{ RCC->AHB4ENR |= 1 << 7; }while(0)   /* 所在IO口时钟使能 */
 
 #define T_CS_GPIO_PORT                  GPIOI
-#define T_CS_GPIO_PIN                   GPIO_PIN_8
-#define T_CS_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* 所在IO口时钟使能 */
+#define T_CS_GPIO_PIN                   SYS_GPIO_PIN8
+#define T_CS_GPIO_CLK_ENABLE()          do{ RCC->AHB4ENR |= 1 << 8; }while(0)   /* 所在IO口时钟使能 */
 
 #define T_MISO_GPIO_PORT                GPIOG
-#define T_MISO_GPIO_PIN                 GPIO_PIN_3
-#define T_MISO_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* 所在IO口时钟使能 */
+#define T_MISO_GPIO_PIN                 SYS_GPIO_PIN3
+#define T_MISO_GPIO_CLK_ENABLE()        do{ RCC->AHB4ENR |= 1 << 6; }while(0)   /* 所在IO口时钟使能 */
 
 #define T_MOSI_GPIO_PORT                GPIOI
-#define T_MOSI_GPIO_PIN                 GPIO_PIN_3
-#define T_MOSI_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* 所在IO口时钟使能 */
+#define T_MOSI_GPIO_PIN                 SYS_GPIO_PIN3
+#define T_MOSI_GPIO_CLK_ENABLE()        do{ RCC->AHB4ENR |= 1 << 8; }while(0)   /* 所在IO口时钟使能 */
 
 #define T_CLK_GPIO_PORT                 GPIOH
-#define T_CLK_GPIO_PIN                  GPIO_PIN_6
-#define T_CLK_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* 所在IO口时钟使能 */
+#define T_CLK_GPIO_PIN                  SYS_GPIO_PIN6
+#define T_CLK_GPIO_CLK_ENABLE()         do{ RCC->AHB4ENR |= 1 << 7; }while(0)   /* 所在IO口时钟使能 */
 
 /******************************************************************************************/
 
 /* 电阻触摸屏控制引脚 */
-#define T_PEN           HAL_GPIO_ReadPin(T_PEN_GPIO_PORT, T_PEN_GPIO_PIN)             /* T_PEN */
-#define T_MISO          HAL_GPIO_ReadPin(T_MISO_GPIO_PORT, T_MISO_GPIO_PIN)           /* T_MISO */
+#define T_PEN           sys_gpio_pin_get(T_PEN_GPIO_PORT, T_PEN_GPIO_PIN)           /* T_PEN */
+#define T_MISO          sys_gpio_pin_get(T_MISO_GPIO_PORT, T_MISO_GPIO_PIN)         /* T_MISO */
 
-#define T_MOSI(x)     do{ x ? \
-                          HAL_GPIO_WritePin(T_MOSI_GPIO_PORT, T_MOSI_GPIO_PIN, GPIO_PIN_SET) : \
-                          HAL_GPIO_WritePin(T_MOSI_GPIO_PORT, T_MOSI_GPIO_PIN, GPIO_PIN_RESET); \
-                      }while(0)                                                       /* T_MOSI */
+#define T_MOSI(x)       sys_gpio_pin_set(T_MOSI_GPIO_PORT, T_MOSI_GPIO_PIN, x)      /* T_MOSI */
+#define T_CLK(x)        sys_gpio_pin_set(T_CLK_GPIO_PORT, T_CLK_GPIO_PIN, x)        /* T_CLK */
+#define T_CS(x)         sys_gpio_pin_set(T_CS_GPIO_PORT, T_CS_GPIO_PIN, x)          /* T_CS */
 
-#define T_CLK(x)      do{ x ? \
-                          HAL_GPIO_WritePin(T_CLK_GPIO_PORT, T_CLK_GPIO_PIN, GPIO_PIN_SET) : \
-                          HAL_GPIO_WritePin(T_CLK_GPIO_PORT, T_CLK_GPIO_PIN, GPIO_PIN_RESET); \
-                      }while(0)                                                       /* T_CLK */
 
-#define T_CS(x)       do{ x ? \
-                          HAL_GPIO_WritePin(T_CS_GPIO_PORT, T_CS_GPIO_PIN, GPIO_PIN_SET) : \
-                          HAL_GPIO_WritePin(T_CS_GPIO_PORT, T_CS_GPIO_PIN, GPIO_PIN_RESET); \
-                      }while(0)                                                       /* T_CS */
-
-#define TP_PRES_DOWN    0x8000  /* 触屏被按下 */
-#define TP_CATH_PRES    0x4000  /* 有按键按下了 */
-#define CT_MAX_TOUCH    10      /* 电容屏支持的点数,固定为5点 */
+#define TP_PRES_DOWN    0x8000      /* 触屏被按下 */
+#define TP_CATH_PRES    0x4000      /* 有按键按下了 */
+#define CT_MAX_TOUCH    10          /* 电容屏支持的点数,固定为5点 */
 
 /* 触摸屏控制器 */
 typedef struct
@@ -93,26 +80,41 @@ typedef struct
     uint8_t touchtype;
 } _m_tp_dev;
 
-extern _m_tp_dev tp_dev;                                                    /* 触屏控制器在touch.c里面定义 */
+extern _m_tp_dev tp_dev;        /* 触屏控制器在touch.c里面定义 */
 
-/******************************************************************************************/
 
 /* 电阻屏函数 */
-static void tp_write_byte(uint8_t data);                                    /* 向控制芯片写入一个数据 */
-static uint16_t tp_read_ad(uint8_t cmd);                                    /* 读取AD转换值 */
-static uint16_t tp_read_xoy(uint8_t cmd);                                   /* 带滤波的坐标读取(X/Y) */
-static void tp_read_xy(uint16_t *x, uint16_t *y);                           /* 双方向读取(X+Y) */
-static uint8_t tp_read_xy2(uint16_t *x, uint16_t *y);                       /* 带加强滤波的双方向坐标读取 */
+
+static void tp_write_byte(uint8_t data);                /* 向控制芯片写入一个数据 */
+static uint16_t tp_read_ad(uint8_t cmd);                /* 读取AD转换值 */
+static uint16_t tp_read_xoy(uint8_t cmd);               /* 带滤波的坐标读取(X/Y) */
+static void tp_read_xy(uint16_t *x, uint16_t *y);       /* 双方向读取(X+Y) */
+static uint8_t tp_read_xy2(uint16_t *x, uint16_t *y);   /* 带加强滤波的双方向坐标读取 */
 static void tp_draw_touch_point(uint16_t x, uint16_t y, uint16_t color);    /* 画一个坐标校准点 */
 static void tp_adjust_info_show(uint16_t xy[5][2], double px, double py);   /* 显示校准信息 */
 
-uint8_t tp_init(void);                                                      /* 初始化 */
-static uint8_t tp_scan(uint8_t mode);                                       /* 扫描 */
-void tp_adjust(void);                                                       /* 触摸屏校准 */
-void tp_save_adjust_data(void);                                             /* 保存校准参数 */
-uint8_t tp_get_adjust_data(void);                                           /* 读取校准参数 */
-void tp_draw_big_point(uint16_t x, uint16_t y, uint16_t color);             /* 画一个大点 */
+uint8_t tp_init(void);              /* 初始化 */
+uint8_t tp_scan(uint8_t mode);      /* 扫描 */
+void tp_adjust(void);               /* 触摸屏校准 */
+void tp_save_adjust_data(void);     /* 保存校准参数 */
+uint8_t tp_get_adjust_data(void);   /* 读取校准参数 */
+void tp_draw_big_point(uint16_t x, uint16_t y, uint16_t color); /* 画一个大点 */
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

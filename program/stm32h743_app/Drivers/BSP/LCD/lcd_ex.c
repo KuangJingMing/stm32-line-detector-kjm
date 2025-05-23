@@ -1,9 +1,5 @@
-/**
- ****************************************************************************************************
 
- ****************************************************************************************************
- */
-
+ 
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/LCD/lcd.h"
 
@@ -22,8 +18,9 @@ void lcd_ex_st7789_reginit(void)
     lcd_wr_regno(0x36);
     lcd_wr_data(0x00);
 
+
     lcd_wr_regno(0x3A);
-    lcd_wr_data(0x05);
+    lcd_wr_data(0X05);
 
     lcd_wr_regno(0xB2);
     lcd_wr_data(0x0C);
@@ -65,7 +62,7 @@ void lcd_ex_st7789_reginit(void)
     lcd_wr_data(0x0a);
     lcd_wr_data(0x28);
     lcd_wr_data(0x32);
-    lcd_wr_data(0x44);
+    lcd_wr_data(0X44);
     lcd_wr_data(0x42);
     lcd_wr_data(0x06);
     lcd_wr_data(0x0e);
@@ -74,7 +71,7 @@ void lcd_ex_st7789_reginit(void)
     lcd_wr_data(0x17);
 
 
-    lcd_wr_regno(0xE1);  /* Set Gamma */
+    lcd_wr_regno(0XE1);  /* Set Gamma */
     lcd_wr_data(0xd0);
     lcd_wr_data(0x00);
     lcd_wr_data(0x02);
@@ -116,12 +113,12 @@ void lcd_ex_ili9341_reginit(void)
     lcd_wr_regno(0xCF);
     lcd_wr_data(0x00);
     lcd_wr_data(0xC1);
-    lcd_wr_data(0x30);
+    lcd_wr_data(0X30);
     lcd_wr_regno(0xED);
     lcd_wr_data(0x64);
     lcd_wr_data(0x03);
-    lcd_wr_data(0x12);
-    lcd_wr_data(0x81);
+    lcd_wr_data(0X12);
+    lcd_wr_data(0X81);
     lcd_wr_regno(0xE8);
     lcd_wr_data(0x85);
     lcd_wr_data(0x10);
@@ -145,7 +142,7 @@ void lcd_ex_ili9341_reginit(void)
     lcd_wr_data(0x30);  /* 3F */
     lcd_wr_data(0x30);  /* 3C */
     lcd_wr_regno(0xC7); /* VCM control2 */
-    lcd_wr_data(0xB7);
+    lcd_wr_data(0XB7);
     lcd_wr_regno(0x36); /*  Memory Access Control */
     lcd_wr_data(0x48);
     lcd_wr_regno(0x3A);
@@ -168,7 +165,7 @@ void lcd_ex_ili9341_reginit(void)
     lcd_wr_data(0x0E);
     lcd_wr_data(0x08);
     lcd_wr_data(0x54);
-    lcd_wr_data(0xA9);
+    lcd_wr_data(0XA9);
     lcd_wr_data(0x43);
     lcd_wr_data(0x0A);
     lcd_wr_data(0x0F);
@@ -176,7 +173,7 @@ void lcd_ex_ili9341_reginit(void)
     lcd_wr_data(0x00);
     lcd_wr_data(0x00);
     lcd_wr_data(0x00);
-    lcd_wr_regno(0xE1);    /* Set Gamma */
+    lcd_wr_regno(0XE1);    /* Set Gamma */
     lcd_wr_data(0x00);
     lcd_wr_data(0x15);
     lcd_wr_data(0x17);
@@ -1659,7 +1656,7 @@ void lcd_ex_ssd1963_reginit(void)
     lcd_wr_data(0x03);  /* 2个IO口设置成输出 */
     lcd_wr_data(0x01);  /* GPIO使用正常的IO功能 */
     lcd_wr_regno(0xBA);
-    lcd_wr_data(0x01);  /* GPIO[1:0]=01,控制LCD方向 */
+    lcd_wr_data(0X01);  /* GPIO[1:0]=01,控制LCD方向 */
 }
 
 
