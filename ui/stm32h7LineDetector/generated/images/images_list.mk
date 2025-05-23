@@ -1,0 +1,1 @@
+GEN_CSRCS += _btn_bg_4_166x211.c _setup_alpha_66x66.c _btn_bg_3_166x211.c _print_alpha_66x66.c _btn_bg_1_166x211.c _copy_alpha_61x70.c _btn_bg_2_166x211.c _scan_alpha_61x70.c _wifi_alpha_55x44.c _tel_alpha_46x42.c _eco_alpha_48x38.c _pc_alpha_50x42.c

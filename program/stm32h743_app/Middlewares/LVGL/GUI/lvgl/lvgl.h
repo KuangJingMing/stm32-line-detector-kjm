@@ -67,7 +67,7 @@ extern "C" {
  * EXTRAS
  *----------------*/
 #include "src/extra/lv_extra.h"
-
+#include "src/extra/widgets/textprogress/lv_textprogress.h"
 /*********************
  *      DEFINES
  *********************/

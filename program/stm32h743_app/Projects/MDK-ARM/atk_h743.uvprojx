@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\CMSIS\Include;..\..\Drivers;..\..\Middlewares;..\..\User;..\..\Middlewares\LVGL\GUI;..\..\Middlewares\LVGL\GUI\lvgl;..\..\Middlewares\LVGL\GUI\lvgl\src;..\..\Middlewares\LVGL\GUI\lvgl\examples\porting;..\..\Middlewares\LVGL\GUI_APP\demos\music;..\..\STM32H7xx_HAL_Driver\Inc</IncludePath>
+              <IncludePath>..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\CMSIS\Include;..\..\Drivers;..\..\Middlewares;..\..\User;..\..\Middlewares\LVGL\GUI;..\..\Middlewares\LVGL\GUI\lvgl;..\..\Middlewares\LVGL\GUI\lvgl\src;..\..\Middlewares\LVGL\GUI\lvgl\examples\porting;..\..\Middlewares\LVGL\GUI_APP\demos\music;..\..\STM32H7xx_HAL_Driver\Inc;..\..\Middlewares\LVGL\GUIDER_APP\custom;..\..\Middlewares\LVGL\GUIDER_APP\generated</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1044,6 +1044,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\lv_extra.c</FilePath>
             </File>
+            <File>
+              <FileName>lv_textprogress.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUI\lvgl\src\extra\widgets\textprogress\lv_textprogress.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1502,22 +1507,227 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Middlewares/LVGL/GUI_APP</GroupName>
+          <GroupName>Middlewares/LVGL/GUIDER_APP</GroupName>
           <Files>
             <File>
-              <FileName>lv_demo_music.c</FileName>
+              <FileName>custom.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music.c</FilePath>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\custom\custom.c</FilePath>
             </File>
             <File>
-              <FileName>lv_demo_music_list.c</FileName>
+              <FileName>events_init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music_list.c</FilePath>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\events_init.c</FilePath>
             </File>
             <File>
-              <FileName>lv_demo_music_main.c</FileName>
+              <FileName>gui_guider.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUI_APP\demos\music\lv_demo_music_main.c</FilePath>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\gui_guider.c</FilePath>
+            </File>
+            <File>
+              <FileName>setup_scr_scrComplete.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\setup_scr_scrComplete.c</FilePath>
+            </File>
+            <File>
+              <FileName>setup_scr_scrHome.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\setup_scr_scrHome.c</FilePath>
+            </File>
+            <File>
+              <FileName>setup_scr_scrLoader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\setup_scr_scrLoader.c</FilePath>
+            </File>
+            <File>
+              <FileName>widgets_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\widgets_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_16.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_20.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_23.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_23.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_26.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_26.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_30.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_33.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_33.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserratMedium_41.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_41.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_SourceHanSerifSC_Regular_23.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_SourceHanSerifSC_Regular_23.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_SourceHanSerifSC_Regular_25.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_SourceHanSerifSC_Regular_25.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_SourceHanSerifSC_Regular_30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_SourceHanSerifSC_Regular_30.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_SourceHanSerifSC_Regular_33.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_SourceHanSerifSC_Regular_33.c</FilePath>
+            </File>
+            <File>
+              <FileName>_bright_alpha_33x33.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_bright_alpha_33x33.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_1_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_1_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_2_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_2_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_3_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_3_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_4_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_4_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_cloud_alpha_123x90.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_cloud_alpha_123x90.c</FilePath>
+            </File>
+            <File>
+              <FileName>_copy_alpha_61x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_copy_alpha_61x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_eco_alpha_48x38.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_eco_alpha_48x38.c</FilePath>
+            </File>
+            <File>
+              <FileName>_example_alpha_401x266.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_example_alpha_401x266.c</FilePath>
+            </File>
+            <File>
+              <FileName>_example_alpha_516x342.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_example_alpha_516x342.c</FilePath>
+            </File>
+            <File>
+              <FileName>_hue_alpha_30x30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_hue_alpha_30x30.c</FilePath>
+            </File>
+            <File>
+              <FileName>_internet_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_internet_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_mobile_alpha_58x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_mobile_alpha_58x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_no_internet_alpha_66x65.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_no_internet_alpha_66x65.c</FilePath>
+            </File>
+            <File>
+              <FileName>_pc_alpha_50x42.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_pc_alpha_50x42.c</FilePath>
+            </File>
+            <File>
+              <FileName>_phone_alpha_91x123.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_phone_alpha_91x123.c</FilePath>
+            </File>
+            <File>
+              <FileName>_print_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_print_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_printer2_alpha_140x137.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_printer2_alpha_140x137.c</FilePath>
+            </File>
+            <File>
+              <FileName>_printer2_alpha_145x150.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_printer2_alpha_145x150.c</FilePath>
+            </File>
+            <File>
+              <FileName>_ready_alpha_183x183.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_ready_alpha_183x183.c</FilePath>
+            </File>
+            <File>
+              <FileName>_scan_alpha_61x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_scan_alpha_61x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_setup_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_setup_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_tel_alpha_46x42.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_tel_alpha_46x42.c</FilePath>
+            </File>
+            <File>
+              <FileName>_usb_alpha_68x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_usb_alpha_68x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_wave_alpha_35x58.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_wave_alpha_35x58.c</FilePath>
+            </File>
+            <File>
+              <FileName>_wifi_alpha_55x44.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_wifi_alpha_55x44.c</FilePath>
             </File>
           </Files>
         </Group>

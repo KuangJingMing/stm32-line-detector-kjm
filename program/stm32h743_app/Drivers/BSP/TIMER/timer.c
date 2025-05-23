@@ -1,5 +1,5 @@
-#include "./BSP/TIMER/timer.h"
 #include "stm32h7xx_hal.h"
+#include "./BSP/TIMER/timer.h"
 #include "lvgl.h"
 
 TIM_HandleTypeDef g_timx_handle;                                /* 定时器参数句柄 */
