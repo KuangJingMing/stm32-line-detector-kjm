@@ -3,7 +3,7 @@
  *
  */
 
- /*Copy this file as "lv_port_disp.c" and set this value to "1" to enable content*/
+/*Copy this file as "lv_port_disp.c" and set this value to "1" to enable content*/
 #if 1
 
 /*********************
@@ -11,242 +11,146 @@
  *********************/
 #include "lv_port_disp_template.h"
 #include "../../lvgl.h"
-/* µ¼ÈëlcdÇý¶¯Í·ÎÄ¼þ */
 #include "./BSP/LCD/lcd.h"
+#include "./BSP/LCD/ltdc.h"
+
+extern uint32_t *g_ltdc_framebuf[2];
 
 /*********************
  *      DEFINES
  *********************/
-#define USE_SRAM        0       /* Ê¹ÓÃÍâ²¿sramÎª1£¬·ñÔòÎª0 */
-#ifdef USE_SRAM
-//#include "./MALLOC/malloc.h"
-#endif
-
-#define MY_DISP_HOR_RES (800)   /* ÆÁÄ»¿í¶È */
-#define MY_DISP_VER_RES (480)   /* ÆÁÄ»¸ß¶È */
-
-/**********************
- *      TYPEDEFS
- **********************/
+#define MY_DISP_HOR_RES (800)
+#define MY_DISP_VER_RES (480)
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-/* ÏÔÊ¾Éè±¸³õÊ¼»¯º¯Êý */
 static void disp_init(void);
-
-/* ÏÔÊ¾Éè±¸Ë¢ÐÂº¯Êý */
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
-/* GPU Ìî³äº¯Êý(Ê¹ÓÃGPUÊ±£¬ÐèÒªÊµÏÖ) */
-//static void gpu_fill(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t dest_width,
-//        const lv_area_t * fill_area, lv_color_t color);
-
-/**********************
- *  STATIC VARIABLES
- **********************/
-
-/**********************
- *      MACROS
- **********************/
 
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
+
 /**
- * @brief       LCD¼ÓËÙ»æÖÆº¯Êý
- * @param       (sx,sy),(ex,ey):Ìî³ä¾ØÐÎ¶Ô½Ç×ø±ê,ÇøÓò´óÐ¡Îª:(ex - sx + 1) * (ey - sy + 1)
- * @param       color:ÒªÌî³äµÄÑÕÉ«
- * @retval      ÎÞ
+ * @brief       ä¼˜åŒ–çš„DMA2Dä¼ è¾“åˆ°LTDCå¸§ç¼“å†²åŒº
  */
-void lcd_draw_fast_rgb_color(int16_t sx, int16_t sy,int16_t ex, int16_t ey, uint16_t *color)
+void lcd_dma2d_fast_copy(int16_t sx, int16_t sy, int16_t ex, int16_t ey, lv_color_t *color)
 {
-    uint16_t w = ex-sx+1;
-    uint16_t h = ey-sy+1;
-
-    lcd_set_window(sx, sy, w, h);
-    uint32_t draw_size = w * h;
-    lcd_write_ram_prepare();
-
-    for(uint32_t i = 0; i < draw_size; i++)
+    uint32_t timeout = 0;
+    uint16_t width = ex - sx + 1;
+    uint16_t height = ey - sy + 1;
+    uint32_t dst_addr;
+    uint16_t dst_offline;
+    
+    // è®¡ç®—LTDCå¸§ç¼“å†²åŒºç›®æ ‡åœ°å€
+    dst_addr = (uint32_t)g_ltdc_framebuf[lcdltdc.activelayer] + lcdltdc.pixsize * (lcdltdc.pwidth * sy + sx);
+    dst_offline = lcdltdc.pwidth - width;
+    
+    RCC->AHB3ENR |= 1 << 4;                     // ä½¿èƒ½DMA2Dæ—¶é’Ÿ
+    
+    // ç­‰å¾…DMA2Dç©ºé—²
+    while(DMA2D->CR & DMA2D_CR_START);
+    
+    DMA2D->CR = 0x00000000UL;                   // å­˜å‚¨å™¨åˆ°å­˜å‚¨å™¨æ¨¡å¼
+    
+    // å‰æ™¯å±‚é…ç½® (LVGLç¼“å†²åŒº)
+    DMA2D->FGPFCCR = LTDC_PIXFORMAT;            // RGB565æ ¼å¼
+    DMA2D->FGMAR = (uint32_t)color;             // æºåœ°å€
+    DMA2D->FGOR = 0;                            // æºè¡Œåç§»ä¸º0ï¼ˆLVGLç¼“å†²åŒºè¿žç»­ï¼‰
+    
+    // è¾“å‡ºå±‚é…ç½® (LTDCå¸§ç¼“å†²åŒº)
+    DMA2D->OPFCCR = LTDC_PIXFORMAT;             // RGB565æ ¼å¼
+    DMA2D->OMAR = dst_addr;                     // LTDCå¸§ç¼“å†²åŒºåœ°å€
+    DMA2D->OOR = dst_offline;                   // ç›®æ ‡è¡Œåç§»
+    
+    // è®¾ç½®ä¼ è¾“å°ºå¯¸
+    DMA2D->NLR = (uint32_t)(width << 16) | height;
+    
+    // å¯åŠ¨ä¼ è¾“
+    DMA2D->CR |= DMA2D_CR_START;
+    
+    // ç­‰å¾…ä¼ è¾“å®Œæˆ
+    while (!(DMA2D->ISR & DMA2D_ISR_TCIF))
     {
-        lcd_wr_data(color[i]);
+        timeout++;
+        if (timeout > 0X1FFFFF) break;
+    }
+    
+    DMA2D->IFCR = DMA2D_IFCR_CTCIF;             // æ¸…é™¤ä¼ è¾“å®Œæˆæ ‡å¿—
+}
+
+/**
+ * @brief       åˆå§‹åŒ–å¹¶æ³¨å†Œæ˜¾ç¤ºè®¾å¤‡ - å†…éƒ¨RAMç‰ˆæœ¬
+ */
+void lv_port_disp_init(void)
+{
+    // åˆå§‹åŒ–æ˜¾ç¤ºç¡¬ä»¶
+    disp_init();
+
+    // ä½¿ç”¨å†…éƒ¨RAMåˆ›å»ºç¼“å†²åŒº - é¿å…é¢‘é—ªçš„å…³é”®é…ç½®
+    static lv_disp_draw_buf_t draw_buf_dsc;
+    
+    // åœ¨å†…éƒ¨RAMä¸­åˆ†é…ç¼“å†²åŒº - 30è¡ŒåŒç¼“å†²
+    static lv_color_t buf_1[MY_DISP_HOR_RES * 30];    // ~48KB
+    static lv_color_t buf_2[MY_DISP_HOR_RES * 30];    // ~48KB 
+    
+    // åˆå§‹åŒ–åŒç¼“å†²
+    lv_disp_draw_buf_init(&draw_buf_dsc, buf_1, buf_2, MY_DISP_HOR_RES * 30);
+
+    // æ³¨å†Œæ˜¾ç¤ºè®¾å¤‡é©±åŠ¨
+    static lv_disp_drv_t disp_drv;
+    lv_disp_drv_init(&disp_drv);
+
+    disp_drv.hor_res = MY_DISP_HOR_RES;
+    disp_drv.ver_res = MY_DISP_VER_RES;
+    disp_drv.flush_cb = disp_flush;
+    disp_drv.draw_buf = &draw_buf_dsc;
+    
+    // å…³é”®ï¼šä¸ä½¿ç”¨å…¨å±åˆ·æ–°
+    disp_drv.full_refresh = 0;
+    
+    lv_disp_drv_register(&disp_drv);
+}
+
+/**
+ * @brief       åˆå§‹åŒ–æ˜¾ç¤ºç¡¬ä»¶
+ */
+static void disp_init(void)
+{
+    // åŸºç¡€LCDåˆå§‹åŒ–
+    lcd_init();
+    lcd_display_dir(1);     // æ¨ªå±æ˜¾ç¤º
+    
+    // å¦‚æžœæ˜¯RGBå±ï¼Œä¿æŒLTDCé»˜è®¤é…ç½®
+    if(lcddev.id == 0x7084 || lcddev.id == 0x4384)
+    {
+        // LTDCä½¿ç”¨å†…éƒ¨é»˜è®¤å¸§ç¼“å†²åŒº
+        // ä¸åšé¢å¤–ä¿®æ”¹ï¼Œé¿å…é¢‘é—ªé—®é¢˜
     }
 }
 
 /**
- * @brief       ³õÊ¼»¯²¢×¢²áÏÔÊ¾Éè±¸
- * @param       ÎÞ
- * @retval      ÎÞ
- */
-void lv_port_disp_init(void)
-{
-    /*-------------------------
-     * ³õÊ¼»¯ÏÔÊ¾Éè±¸
-     * -----------------------*/
-    disp_init();
-
-    /*-----------------------------
-     * ´´½¨Ò»¸ö»æÍ¼»º³åÇø
-     *----------------------------*/
-
-    /**
-     * LVGL ÐèÒªÒ»¸ö»º³åÇøÓÃÀ´»æÖÆÐ¡²¿¼þ
-     * Ëæºó£¬Õâ¸ö»º³åÇøµÄÄÚÈÝ»áÍ¨¹ýÏÔÊ¾Éè±¸µÄ `flush_cb`(ÏÔÊ¾Éè±¸Ë¢ÐÂº¯Êý) ¸´ÖÆµ½ÏÔÊ¾Éè±¸ÉÏ
-     * Õâ¸ö»º³åÇøµÄ´óÐ¡ÐèÒª´óÓÚÏÔÊ¾Éè±¸Ò»ÐÐµÄ´óÐ¡
-     *
-     * ÕâÀïÓÐ3ÖÐ»º³åÅäÖÃ:
-     * 1. µ¥»º³åÇø:
-     *      LVGL »á½«ÏÔÊ¾Éè±¸µÄÄÚÈÝ»æÖÆµ½ÕâÀï£¬²¢½«ËûÐ´ÈëÏÔÊ¾Éè±¸¡£
-     *
-     * 2. Ë«»º³åÇø:
-     *      LVGL »á½«ÏÔÊ¾Éè±¸µÄÄÚÈÝ»æÖÆµ½ÆäÖÐÒ»¸ö»º³åÇø£¬²¢½«ËûÐ´ÈëÏÔÊ¾Éè±¸¡£
-     *      ÐèÒªÊ¹ÓÃ DMA ½«ÒªÏÔÊ¾ÔÚÏÔÊ¾Éè±¸µÄÄÚÈÝÐ´Èë»º³åÇø¡£
-     *      µ±Êý¾Ý´ÓµÚÒ»¸ö»º³åÇø·¢ËÍÊ±£¬Ëü½«Ê¹ LVGL ÄÜ¹»½«ÆÁÄ»µÄÏÂÒ»²¿·Ö»æÖÆµ½ÁíÒ»¸ö»º³åÇø¡£
-     *      ÕâÑùÊ¹µÃäÖÈ¾ºÍË¢ÐÂ¿ÉÒÔ²¢ÐÐÖ´ÐÐ¡£
-     *
-     * 3. È«³ß´çË«»º³åÇø
-     *      ÉèÖÃÁ½¸öÆÁÄ»´óÐ¡µÄÈ«³ß´ç»º³åÇø£¬²¢ÇÒÉèÖÃ disp_drv.full_refresh = 1¡£
-     *      ÕâÑù£¬LVGL½«Ê¼ÖÕÒÔ 'flush_cb' µÄÐÎÊ½Ìá¹©Õû¸öäÖÈ¾ÆÁÄ»£¬ÄúÖ»Ðè¸ü¸ÄÖ¡»º³åÇøµÄµØÖ·¡£
-     */
-
-    /* µ¥»º³åÇøÊ¾Àý) */
-    static lv_disp_draw_buf_t draw_buf_dsc_1;
-#if USE_SRAM
-    static lv_color_t buf_1 = mymalloc(SRAMEX, MY_DISP_HOR_RES * MY_DISP_VER_RES);              /* ÉèÖÃ»º³åÇøµÄ´óÐ¡ÎªÆÁÄ»µÄÈ«³ß´ç´óÐ¡ */
-    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * MY_DISP_VER_RES);     /* ³õÊ¼»¯ÏÔÊ¾»º³åÇø */
-#else
-    static lv_color_t buf_1[MY_DISP_HOR_RES * 250];                                 /* ÉèÖÃ»º³åÇøµÄ´óÐ¡ */
-    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * 250);     /* ³õÊ¼»¯ÏÔÊ¾»º³åÇø */
-#endif
-
-    /* Ë«»º³åÇøÊ¾Àý) */
-//    static lv_disp_draw_buf_t draw_buf_dsc_2;
-//    static lv_color_t buf_2_1[MY_DISP_HOR_RES * 10];                                            /* ÉèÖÃ»º³åÇøµÄ´óÐ¡Îª 10 ÐÐÆÁÄ»µÄ´óÐ¡ */
-//    static lv_color_t buf_2_2[MY_DISP_HOR_RES * 10];                                            /* ÉèÖÃÁíÒ»¸ö»º³åÇøµÄ´óÐ¡Îª 10 ÐÐÆÁÄ»µÄ´óÐ¡ */
-//    lv_disp_draw_buf_init(&draw_buf_dsc_2, buf_2_1, buf_2_2, MY_DISP_HOR_RES * 10);             /* ³õÊ¼»¯ÏÔÊ¾»º³åÇø */
-
-    /* È«³ß´çË«»º³åÇøÊ¾Àý) ²¢ÇÒÔÚÏÂÃæÉèÖÃ disp_drv.full_refresh = 1 */
-//    static lv_disp_draw_buf_t draw_buf_dsc_3;
-//    static lv_color_t buf_3_1[MY_DISP_HOR_RES * MY_DISP_VER_RES];                               /* ÉèÖÃÒ»¸öÈ«³ß´çµÄ»º³åÇø */
-//    static lv_color_t buf_3_2[MY_DISP_HOR_RES * MY_DISP_VER_RES];                               /* ÉèÖÃÁíÒ»¸öÈ«³ß´çµÄ»º³åÇø */
-//    lv_disp_draw_buf_init(&draw_buf_dsc_3, buf_3_1, buf_3_2, MY_DISP_HOR_RES * MY_DISP_VER_RES);/* ³õÊ¼»¯ÏÔÊ¾»º³åÇø */
-
-    /*-----------------------------------
-     * ÔÚ LVGL ÖÐ×¢²áÏÔÊ¾Éè±¸
-     *----------------------------------*/
-
-    static lv_disp_drv_t disp_drv;                  /* ÏÔÊ¾Éè±¸µÄÃèÊö·û */
-    lv_disp_drv_init(&disp_drv);                    /* ³õÊ¼»¯ÎªÄ¬ÈÏÖµ */
-
-    /* ½¨Á¢·ÃÎÊÏÔÊ¾Éè±¸µÄº¯Êý  */
-
-    /* ÉèÖÃÏÔÊ¾Éè±¸µÄ·Ö±æÂÊ
-     * ÕâÀïÎªÁËÊÊÅäÕýµãÔ­×ÓµÄ¶à¿îÆÁÄ»£¬²ÉÓÃÁË¶¯Ì¬»ñÈ¡µÄ·½Ê½£¬
-     * ÔÚÊµ¼ÊÏîÄ¿ÖÐ£¬Í¨³£ËùÊ¹ÓÃµÄÆÁÄ»´óÐ¡ÊÇ¹Ì¶¨µÄ£¬Òò´Ë¿ÉÒÔÖ±½ÓÉèÖÃÎªÆÁÄ»µÄ´óÐ¡ */
-    disp_drv.hor_res = lcddev.width;
-    disp_drv.ver_res = lcddev.height;
-
-    /* ÓÃÀ´½«»º³åÇøµÄÄÚÈÝ¸´ÖÆµ½ÏÔÊ¾Éè±¸ */
-    disp_drv.flush_cb = disp_flush;
-
-    /* ÉèÖÃÏÔÊ¾»º³åÇø */
-    disp_drv.draw_buf = &draw_buf_dsc_1;
-
-    /* È«³ß´çË«»º³åÇøÊ¾Àý)*/
-    //disp_drv.full_refresh = 1
-
-    /* Èç¹ûÄúÓÐGPU£¬ÇëÊ¹ÓÃÑÕÉ«Ìî³äÄÚ´æÕóÁÐ
-     * ×¢Òâ£¬Äã¿ÉÒÔÔÚ lv_conf.h ÖÐÊ¹ÄÜ LVGL ÄÚÖÃÖ§³ÖµÄ GPUs
-     * µ«Èç¹ûÄãÓÐ²»Í¬µÄ GPU£¬ÄÇÃ´¿ÉÒÔÊ¹ÓÃÕâ¸ö»Øµ÷º¯Êý¡£ */
-    //disp_drv.gpu_fill_cb = gpu_fill;
-
-    /* ×¢²áÏÔÊ¾Éè±¸ */
-    lv_disp_drv_register(&disp_drv);
-}
-
-/**********************
- *   STATIC FUNCTIONS
- **********************/
-
-/**
- * @brief       ³õÊ¼»¯ÏÔÊ¾Éè±¸ºÍ±ØÒªµÄÍâÎ§Éè±¸
- * @param       ÎÞ
- * @retval      ÎÞ
- */
-static void disp_init(void)
-{
-    /*You code here*/
-    lcd_init();         /* ³õÊ¼»¯LCD */
-    lcd_display_dir(1); /* ÉèÖÃºáÆÁ */
-}
-
-/**
- * @brief       ½«ÄÚ²¿»º³åÇøµÄÄÚÈÝË¢ÐÂµ½ÏÔÊ¾ÆÁÉÏµÄÌØ¶¨ÇøÓò
- *   @note      ¿ÉÒÔÊ¹ÓÃ DMA »òÕßÈÎºÎÓ²¼þÔÚºóÌ¨¼ÓËÙÖ´ÐÐÕâ¸ö²Ù×÷
- *              µ«ÊÇ£¬ÐèÒªÔÚË¢ÐÂÍê³Éºóµ÷ÓÃº¯Êý 'lv_disp_flush_ready()'
- *
- * @param       disp_drv    : ÏÔÊ¾Éè±¸
- *   @arg       area        : ÒªË¢ÐÂµÄÇøÓò£¬°üº¬ÁËÌî³ä¾ØÐÎµÄ¶Ô½Ç×ø±ê
- *   @arg       color_p     : ÑÕÉ«Êý×é
- *
- * @retval      ÎÞ
+ * @brief       æ˜¾ç¤ºåˆ·æ–°å›žè°ƒ - é˜²é¢‘é—ªä¼˜åŒ–
  */
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-    /* LVGL ¹Ù·½¸ø³öµÄÒ»¸ö´òµãË¢ÐÂÆÁÄ»µÄÀý×Ó£¬µ«Õâ¸öÐ§ÂÊÊÇ×îµÍÐ§µÄ */
+    // å¯¹äºŽRGBå±ä½¿ç”¨DMA2DåŠ é€Ÿ
+    if(lcddev.id == 0x7084 || lcddev.id == 0x4384)
+    {
+        // ä½¿ç”¨DMA2Då¿«é€Ÿä¼ è¾“åˆ°LTDCå¸§ç¼“å†²åŒº
+        lcd_dma2d_fast_copy(area->x1, area->y1, area->x2, area->y2, color_p);
+    }
+    else
+    {
+        // SPI/å¹¶å£å±ä½¿ç”¨ä¼ ç»Ÿæ–¹æ³•
+        lcd_color_fill(area->x1, area->y1, area->x2, area->y2, (uint16_t *)color_p);
+    }
 
-//    int32_t x;
-//    int32_t y;
-//    for(y = area->y1; y <= area->y2; y++) {
-//        for(x = area->x1; x <= area->x2; x++) {
-//            /*Put a pixel to the display. For example:*/
-//            /*put_px(x, y, *color_p)*/
-//            color_p++;
-//        }
-//    }
-
-//    /* ÔÚÖ¸¶¨ÇøÓòÄÚÌî³äÖ¸¶¨ÑÕÉ«¿é */
-    lcd_color_fill(area->x1, area->y1, area->x2, area->y2, (uint16_t *)color_p);
-//    lcd_draw_fast_rgb_color(area->x1,area->y1,area->x2,area->y2,(uint16_t*)color_p);
-
-    /* ÖØÒª!!!
-     * Í¨ÖªÍ¼ÐÎ¿â£¬ÒÑ¾­Ë¢ÐÂÍê±ÏÁË */
+    // ç«‹å³é€šçŸ¥åˆ·æ–°å®Œæˆ
     lv_disp_flush_ready(disp_drv);
 }
 
-/* ¿ÉÑ¡: GPU ½Ó¿Ú */
-
-/* Èç¹ûÄãµÄ MCU ÓÐÓ²¼þ¼ÓËÙÆ÷ (GPU) ÄÇÃ´Äã¿ÉÒÔÊ¹ÓÃËüÀ´ÎªÄÚ´æÌî³äÑÕÉ« */
-/**
- * @brief       Ê¹ÓÃ GPU ½øÐÐÑÕÉ«Ìî³ä
- *   @note      ÈçÓÐ MCU ÓÐÓ²¼þ¼ÓËÙÆ÷ (GPU),ÄÇÃ´¿ÉÒÔÓÃËüÀ´ÎªÄÚ´æ½øÐÐÑÕÉ«Ìî³ä
- *
- * @param       disp_drv    : ÏÔÊ¾Éè±¸
- *   @arg       dest_buf    : Ä¿±ê»º³åÇø
- *   @arg       dest_width  : Ä¿±ê»º³åÇøµÄ¿í¶È
- *   @arg       fill_area   : Ìî³äµÄÇøÓò
- *   @arg       color       : ÑÕÉ«Êý×é
- *
- * @retval      ÎÞ
- */
-//static void gpu_fill(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t dest_width,
-//                    const lv_area_t * fill_area, lv_color_t color)
-//{
-//    /*It's an example code which should be done by your GPU*/
-//    int32_t x, y;
-//    dest_buf += dest_width * fill_area->y1; /*Go to the first line*/
-
-//    for(y = fill_area->y1; y <= fill_area->y2; y++) {
-//        for(x = fill_area->x1; x <= fill_area->x2; x++) {
-//            dest_buf[x] = color;
-//        }
-//        dest_buf+=dest_width;    /*Go to the next line*/
-//    }
-//}
-
-
-#else /*Enable this file at the top*/
-
-/*This dummy typedef exists purely to silence -Wpedantic.*/
+#else
 typedef int keep_pedantic_happy;
 #endif

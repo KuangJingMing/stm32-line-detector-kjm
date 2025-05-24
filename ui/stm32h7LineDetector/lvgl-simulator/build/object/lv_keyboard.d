@@ -80,7 +80,14 @@ build/object/lv_keyboard.o: \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\core\lv_obj_class.h \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\core\lv_event.h \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\core\lv_group.h \
- c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_ll.h
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_ll.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\widgets\lv_textarea.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\widgets\lv_label.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\font\lv_font.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\font\lv_symbol_def.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_txt.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\draw\lv_draw.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_assert.h
 
 c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\extra\widgets\keyboard\lv_keyboard.h:
 
@@ -243,3 +250,17 @@ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\core\lv_event.h:
 c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\core\lv_group.h:
 
 c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_ll.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\widgets\lv_textarea.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\widgets\lv_label.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\font\lv_font.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\font\lv_symbol_def.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_txt.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\draw\lv_draw.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_assert.h:

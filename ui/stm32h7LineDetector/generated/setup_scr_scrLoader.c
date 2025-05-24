@@ -101,7 +101,7 @@ void setup_scr_scrLoader(lv_ui *ui)
 
     //Write codes scrLoader_labelPrompt
     ui->scrLoader_labelPrompt = lv_label_create(ui->scrLoader);
-    lv_label_set_text(ui->scrLoader_labelPrompt, "正在xxx，请稍后");
+    lv_label_set_text(ui->scrLoader_labelPrompt, "");
     lv_label_set_long_mode(ui->scrLoader_labelPrompt, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrLoader_labelPrompt, 121, 403);
     lv_obj_set_size(ui->scrLoader_labelPrompt, 558, 56);

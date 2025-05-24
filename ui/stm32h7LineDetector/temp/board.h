@@ -427,7 +427,7 @@
 
 #define LV_USE_BTN 1
 
-#define LV_USE_BTNMATRIX 0
+#define LV_USE_BTNMATRIX 1
 
 #define LV_USE_CANVAS 0
 
@@ -457,7 +457,7 @@
 
 #define LV_USE_SWITCH 0
 
-#define LV_USE_TEXTAREA 0
+#define LV_USE_TEXTAREA 1
 #if LV_USE_TEXTAREA
 #define LV_TEXTAREA_DEF_PWD_SHOW_TIME 1500
 #endif    /* LV_USE_TEXTAREA */
@@ -497,7 +497,7 @@
 
 #define LV_USE_IMGBTN 0
 
-#define LV_USE_KEYBOARD 0
+#define LV_USE_KEYBOARD 1
 
 #define LV_USE_LED 0
 

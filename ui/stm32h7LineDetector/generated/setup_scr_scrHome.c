@@ -434,7 +434,7 @@ void setup_scr_scrHome(lv_ui *ui)
 
     //Write codes scrHome_contColorInk
     ui->scrHome_contColorInk = lv_obj_create(ui->scrHome);
-    lv_obj_set_pos(ui->scrHome_contColorInk, 506, 370);
+    lv_obj_set_pos(ui->scrHome_contColorInk, 507, 372);
     lv_obj_set_size(ui->scrHome_contColorInk, 235, 91);
     lv_obj_set_scrollbar_mode(ui->scrHome_contColorInk, LV_SCROLLBAR_MODE_OFF);
 
@@ -476,7 +476,7 @@ void setup_scr_scrHome(lv_ui *ui)
     lv_bar_set_mode(ui->scrHome_barRedInk, LV_BAR_MODE_NORMAL);
     lv_bar_set_range(ui->scrHome_barRedInk, 0, 100);
     lv_bar_set_value(ui->scrHome_barRedInk, 25, LV_ANIM_ON);
-    lv_obj_set_pos(ui->scrHome_barRedInk, 68, 0);
+    lv_obj_set_pos(ui->scrHome_barRedInk, 68, -2);
     lv_obj_set_size(ui->scrHome_barRedInk, 35, 88);
 
     //Write style for scrHome_barRedInk, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.

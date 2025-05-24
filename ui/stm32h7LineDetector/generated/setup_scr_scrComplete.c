@@ -48,7 +48,7 @@ void setup_scr_scrComplete(lv_ui *ui)
 
     //Write codes scrComplete_labelTitle
     ui->scrComplete_labelTitle = lv_label_create(ui->scrComplete);
-    lv_label_set_text(ui->scrComplete_labelTitle, "xxx完成");
+    lv_label_set_text(ui->scrComplete_labelTitle, "");
     lv_label_set_long_mode(ui->scrComplete_labelTitle, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrComplete_labelTitle, 225, 40);
     lv_obj_set_size(ui->scrComplete_labelTitle, 350, 56);
@@ -115,7 +115,7 @@ void setup_scr_scrComplete(lv_ui *ui)
 
     //Write codes scrComplete_label_1
     ui->scrComplete_label_1 = lv_label_create(ui->scrComplete);
-    lv_label_set_text(ui->scrComplete_label_1, "标签XXX");
+    lv_label_set_text(ui->scrComplete_label_1, "");
     lv_label_set_long_mode(ui->scrComplete_label_1, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrComplete_label_1, 249, 211);
     lv_obj_set_size(ui->scrComplete_label_1, 302, 57);

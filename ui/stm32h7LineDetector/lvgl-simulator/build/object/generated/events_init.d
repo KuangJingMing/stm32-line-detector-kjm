@@ -247,7 +247,9 @@ build/object/generated/events_init.o: \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\misc\lv_txt.h \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\draw\lv_draw.h \
  c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src/extra/widgets/video/lv_video.h \
- c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\lvgl.h
+ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\lvgl.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\custom\custom.h \
+ c:\nxp\gui-guider-projects\stm32h7linedetector\generated\gui_guider.h
 
 c:\nxp\gui-guider-projects\stm32h7linedetector\generated\events_init.h:
 
@@ -744,3 +746,7 @@ c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\draw\lv_draw.h:
 c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src/extra/widgets/video/lv_video.h:
 
 c:\nxp\gui-guider-projects\stm32h7linedetector\lvgl\src\lvgl.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\custom\custom.h:
+
+c:\nxp\gui-guider-projects\stm32h7linedetector\generated\gui_guider.h:

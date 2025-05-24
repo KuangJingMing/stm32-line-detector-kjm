@@ -78,6 +78,9 @@ void init_scr_del_flag(lv_ui *ui)
     ui->scrHome_del = true;
     ui->scrComplete_del = true;
     ui->scrLoader_del = true;
+    ui->screenLog_del = true;
+    ui->scrSetting_del = true;
+    ui->scrChineseText_del = true;
 }
 
 void setup_ui(lv_ui *ui)
@@ -90,5 +93,8 @@ void setup_ui(lv_ui *ui)
 
 void init_keyboard(lv_ui *ui)
 {
-
+    ui->g_kb_top_layer = lv_keyboard_create(lv_layer_top());
+    lv_obj_add_event_cb(ui->g_kb_top_layer, kb_event_cb, LV_EVENT_ALL, NULL);
+    lv_obj_add_flag(ui->g_kb_top_layer, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_set_style_text_font(ui->g_kb_top_layer, &lv_font_SourceHanSerifSC_Regular_18, LV_PART_MAIN|LV_STATE_DEFAULT);
 }

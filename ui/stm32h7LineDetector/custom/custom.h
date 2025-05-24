@@ -13,13 +13,26 @@
 extern "C" {
 #endif
 
+typedef enum {
+    STUDY_MODE,
+    DETECTION_MODE,
+    LOG_MODE,
+    SETTING_MODE,
+} SCREEN_MODE;
+
 #include "gui_guider.h"
 
 void custom_init(lv_ui *ui);
 
-void load_scrPrintFini_cb();
+/**********************
+ *  自定义函数
+ **********************/
+void set_screen_mode(SCREEN_MODE mode);
+SCREEN_MODE get_current_mode(void);
 
-void slider_adjust_img_cb(lv_obj_t * img, int32_t brightValue, int16_t hueValue);
+void init_custom_log_list(lv_ui *ui);
+void custom_scr_setting_init(lv_ui *ui);
+
 
 #ifdef __cplusplus
 }
