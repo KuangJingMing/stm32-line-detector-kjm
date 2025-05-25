@@ -42,7 +42,7 @@ static void scrHome_contSetup_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrSetting, guider_ui.scrSetting_del, &guider_ui.scrHome_del, setup_scr_scrSetting, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrSetting, guider_ui.scrSetting_del, &guider_ui.scrHome_del, setup_scr_scrSetting, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         break;
     }
     default:
@@ -58,7 +58,7 @@ static void scrHome_contPrint_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.screenLog, guider_ui.screenLog_del, &guider_ui.scrHome_del, setup_scr_screenLog, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.screenLog, guider_ui.screenLog_del, &guider_ui.scrHome_del, setup_scr_screenLog, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         break;
     }
     default:
@@ -74,7 +74,7 @@ static void scrHome_contCopy_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         set_screen_mode(STUDY_MODE);
         break;
     }
@@ -91,7 +91,7 @@ static void scrHome_contScan_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         set_screen_mode(DETECTION_MODE);
         break;
     }
@@ -137,7 +137,7 @@ static void scrComplete_btnNext_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_CLICKED:
     {
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrComplete_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_FADE_ON, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrComplete_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_FADE_ON, 200, 200, false, false);
         ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_width(guider_ui.scrComplete_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_height(guider_ui.scrComplete_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
@@ -153,7 +153,7 @@ static void scrComplete_btnBack_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_CLICKED:
     {
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrComplete_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_FADE_ON, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrComplete_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_FADE_ON, 200, 200, false, false);
         ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_width(guider_ui.scrComplete_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_height(guider_ui.scrComplete_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
@@ -182,24 +182,30 @@ static void scrLoader_event_handler (lv_event_t *e)
         } else if (get_current_mode() == DETECTION_MODE) {
             lv_label_set_text(guider_ui.scrLoader_labelPrompt, "正在检测中请稍后");
         }
+#define LOADER_ANIM_TIME    1000
+#define LOADER_ANIM_DELAY   50
+
+        // 弧形加载器动画
         lv_anim_t loader_arc;
         lv_anim_init(&loader_arc);
         lv_anim_set_exec_cb(&loader_arc, (lv_anim_exec_xcb_t)lv_arc_set_end_angle);
         lv_anim_set_values(&loader_arc, 0, 360);
-        lv_anim_set_time(&loader_arc, 1000);
-        lv_anim_set_delay(&loader_arc, 50);
+        lv_anim_set_time(&loader_arc, LOADER_ANIM_TIME);
+        lv_anim_set_delay(&loader_arc, LOADER_ANIM_DELAY);
         lv_anim_set_var(&loader_arc, guider_ui.scrLoader_arcLoader);
         lv_anim_start(&loader_arc);
 
+        // 文本进度条动画
         lv_anim_t loader_tp;
         lv_anim_init(&loader_tp);
         lv_anim_set_exec_cb(&loader_tp, (lv_anim_exec_xcb_t)lv_textprogress_set_value);
         lv_anim_set_values(&loader_tp, 0, 100);
-        lv_anim_set_time(&loader_tp, 1000);
-        lv_anim_set_delay(&loader_tp, 50);
+        lv_anim_set_time(&loader_tp, LOADER_ANIM_TIME);
+        lv_anim_set_delay(&loader_tp, LOADER_ANIM_DELAY);
         lv_anim_set_var(&loader_tp, guider_ui.scrLoader_tpLoader);
         lv_anim_start(&loader_tp);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrComplete, guider_ui.scrComplete_del, &guider_ui.scrLoader_del, setup_scr_scrComplete, LV_SCR_LOAD_ANIM_NONE, 200, 1500, false, true);
+
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrComplete, guider_ui.scrComplete_del, &guider_ui.scrLoader_del, setup_scr_scrComplete, LV_SCR_LOAD_ANIM_NONE, 200, 1500, false, false);
         break;
     }
     default:
@@ -236,7 +242,7 @@ static void screenLog_btnBack_event_handler (lv_event_t *e)
     {
         lv_obj_set_width(guider_ui.screenLog_contBG, 800);
         lv_obj_set_height(guider_ui.screenLog_contBG, 105);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.screenLog_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.screenLog_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
         break;
     }
     default:
@@ -256,6 +262,7 @@ static void scrSetting_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
+        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置模式");
         custom_scr_setting_init(&guider_ui);
         ui_animation(guider_ui.scrSetting_contBG, 150, 0, lv_obj_get_width(guider_ui.scrSetting_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrSetting_contBG, 150, 0, lv_obj_get_height(guider_ui.scrSetting_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
@@ -274,7 +281,7 @@ static void scrSetting_btnBack_event_handler (lv_event_t *e)
     {
         lv_obj_set_width(guider_ui.scrSetting_contBG, 800);
         lv_obj_set_height(guider_ui.scrSetting_contBG, 105);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrSetting_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrSetting_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
         break;
     }
     default:
@@ -304,7 +311,7 @@ static void scrSetting_btn_2_event_handler (lv_event_t *e)
     {
         lv_obj_set_width(guider_ui.scrSetting_contBG, 800);
         lv_obj_set_height(guider_ui.scrSetting_contBG, 105);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrSetting_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, true);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrSetting_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
         break;
     }
     default:
