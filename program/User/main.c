@@ -8,6 +8,8 @@
 #include "./BSP/SDRAM/sdram.h"
 #include "./BSP/TOUCH/touch.h"
 #include "./BSP/TIMER/timer.h"
+#include "./BSP/HC165/hc165.h"
+#include "./BSP/HC595/hc595.h"
 
 #include "lvgl.h"
 #include "lv_port_indev_template.h"
@@ -17,18 +19,28 @@
 
 lv_ui guider_ui;
 
+
 int main(void)
 {
 		sys_cache_enable();
 		HAL_Init();    
-    sys_stm32_clock_init(160, 5, 2, 4); 
-    delay_init(400);                     
+		SystemClock_Config();
+		delay_init();
     usart_init(100, 115200);            
     led_init();                       
     mpu_memory_protection();          
     sdram_init();               
 		btim_timx_int_init(100-1,2400-1);  
 
+//		HC595_Init();
+//		uint8_t pin_states[100] = {0};
+//		for (int i = 0; i < 100; i++) {
+//			HC595_SetSinglePin(i, pin_states[i]);
+//		}
+//		HC595_SetSinglePin(99, 1);
+		while (1) {
+			delay_ms(1000);
+		}
     lv_init();                    
     lv_port_disp_init();         
     lv_port_indev_init();          

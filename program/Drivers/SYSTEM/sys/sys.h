@@ -90,6 +90,9 @@ void sys_intx_disable(void);        /* 关闭所有中断 */
 void sys_intx_enable(void);         /* 开启所有中断 */
 void sys_msr_msp(uint32_t addr);    /* 设置栈顶地址 */
 
+
+void SystemClock_Config(void);
+
 #endif
 
 
