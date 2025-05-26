@@ -512,6 +512,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>UnitTest</GroupName>
+          <Files>
+            <File>
+              <FileName>shift_register_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\UnitTest\shift_register_test.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>APP</GroupName>
           <Files>
             <File>
