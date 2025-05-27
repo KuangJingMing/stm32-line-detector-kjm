@@ -103,8 +103,8 @@ void setup_scr_scrLoader(lv_ui *ui)
     ui->scrLoader_labelPrompt = lv_label_create(ui->scrLoader);
     lv_label_set_text(ui->scrLoader_labelPrompt, "");
     lv_label_set_long_mode(ui->scrLoader_labelPrompt, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrLoader_labelPrompt, 121, 403);
-    lv_obj_set_size(ui->scrLoader_labelPrompt, 558, 56);
+    lv_obj_set_pos(ui->scrLoader_labelPrompt, 50, 403);
+    lv_obj_set_size(ui->scrLoader_labelPrompt, 700, 56);
 
     //Write style for scrLoader_labelPrompt, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
     lv_obj_set_style_border_width(ui->scrLoader_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);

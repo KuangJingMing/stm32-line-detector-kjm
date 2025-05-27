@@ -74,8 +74,53 @@ void custom_scr_setting_init(lv_ui *ui) {
     lv_obj_set_style_pad_right(ui->scrSetting_cont_setting, 35, LV_PART_MAIN);
     
     // 控件之间的间距
-    lv_obj_set_style_pad_row(ui->scrSetting_cont_setting, 25, LV_PART_MAIN);      // 行间距
-    lv_obj_set_style_pad_column(ui->scrSetting_cont_setting, 20, LV_PART_MAIN);   // 列间距
+    lv_obj_set_style_pad_row(ui->scrSetting_cont_setting, 20, LV_PART_MAIN);      // 行间距
+    lv_obj_set_style_pad_column(ui->scrSetting_cont_setting, 60, LV_PART_MAIN);   // 列间距
+}
+
+void custom_scr_detect_init(lv_ui *ui) {
+    
+    lv_obj_set_layout(ui->scrDetect_cont_1, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(ui->scrDetect_cont_1, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_set_flex_align(ui->scrDetect_cont_1, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER);
+    
+    // 禁用滚动功能 - 让控件固定不动
+    lv_obj_clear_flag(ui->scrDetect_cont_1, LV_OBJ_FLAG_SCROLLABLE);
+    
+    // 容器的内边距 - 让控件远离容器边界
+    lv_obj_set_style_pad_top(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
+    lv_obj_set_style_pad_bottom(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
+    lv_obj_set_style_pad_left(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
+    
+    // 控件之间的间距
+    lv_obj_set_style_pad_row(ui->scrDetect_cont_1, 20, LV_PART_MAIN);      // 行间距
+    lv_obj_set_style_pad_column(ui->scrDetect_cont_1, 20, LV_PART_MAIN);   // 列间距
+    
+}
+
+// 重新加载所有墨水条动画
+void reload_ink_bar_animations(lv_ui *ui) {
+    // 先清除可能存在的动画
+    lv_anim_del(ui->scrHome_barBlueInk, NULL);
+    lv_anim_del(ui->scrHome_barRedInk, NULL);
+    lv_anim_del(ui->scrHome_barYellowInk, NULL);
+    lv_anim_del(ui->scrHome_barBlackInk, NULL);
+    
+    // 设置为0（无动画）
+    lv_bar_set_value(ui->scrHome_barBlueInk, 0, LV_ANIM_OFF);
+    lv_bar_set_value(ui->scrHome_barRedInk, 0, LV_ANIM_OFF);
+    lv_bar_set_value(ui->scrHome_barYellowInk, 0, LV_ANIM_OFF);
+    lv_bar_set_value(ui->scrHome_barBlackInk, 0, LV_ANIM_OFF);
+    
+    // 刷新显示
+    lv_refr_now(NULL);
+    
+    // 设置目标值（有动画）
+    lv_bar_set_value(ui->scrHome_barBlueInk, 80, LV_ANIM_ON);
+    lv_bar_set_value(ui->scrHome_barRedInk, 25, LV_ANIM_ON);
+    lv_bar_set_value(ui->scrHome_barYellowInk, 70, LV_ANIM_ON);
+    lv_bar_set_value(ui->scrHome_barBlackInk, 55, LV_ANIM_ON);
 }
 
 
@@ -307,7 +352,7 @@ void init_custom_log_list(lv_ui *ui)
     init_styles();
 
     // 创建日志列表
-    log_list = lv_obj_create(ui->screenLog_cont_list);
+    log_list = lv_obj_create(ui->scrLog_cont_list);
     lv_obj_set_size(log_list, 680, 310);
     lv_obj_align(log_list, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(log_list, LV_SCROLLBAR_MODE_AUTO);

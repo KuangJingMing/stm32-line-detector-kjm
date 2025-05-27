@@ -78,8 +78,9 @@ void init_scr_del_flag(lv_ui *ui)
     ui->scrHome_del = true;
     ui->scrComplete_del = true;
     ui->scrLoader_del = true;
-    ui->screenLog_del = true;
+    ui->scrLog_del = true;
     ui->scrSetting_del = true;
+    ui->scrDetect_del = true;
     ui->scrChineseText_del = true;
 }
 

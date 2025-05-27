@@ -410,8 +410,8 @@ void setup_scr_scrHome(lv_ui *ui)
     //Write codes scrHome_labelPrompt
     ui->scrHome_labelPrompt = lv_label_create(ui->scrHome);
     lv_label_set_text(ui->scrHome_labelPrompt, "stm32h7线束检测器");
-    lv_label_set_long_mode(ui->scrHome_labelPrompt, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrHome_labelPrompt, 58, 382);
+    lv_label_set_long_mode(ui->scrHome_labelPrompt, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_obj_set_pos(ui->scrHome_labelPrompt, 58, 381);
     lv_obj_set_size(ui->scrHome_labelPrompt, 415, 79);
 
     //Write style for scrHome_labelPrompt, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -421,12 +421,12 @@ void setup_scr_scrHome(lv_ui *ui)
     lv_obj_set_style_text_font(ui->scrHome_labelPrompt, &lv_font_SourceHanSerifSC_Regular_23, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui->scrHome_labelPrompt, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_text_line_space(ui->scrHome_labelPrompt, 50, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_line_space(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui->scrHome_labelPrompt, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui->scrHome_labelPrompt, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui->scrHome_labelPrompt, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_grad_dir(ui->scrHome_labelPrompt, LV_GRAD_DIR_NONE, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui->scrHome_labelPrompt, 30, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui->scrHome_labelPrompt, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -453,7 +453,7 @@ void setup_scr_scrHome(lv_ui *ui)
     //Write codes scrHome_barBlueInk
     ui->scrHome_barBlueInk = lv_bar_create(ui->scrHome_contColorInk);
     lv_obj_set_style_anim_time(ui->scrHome_barBlueInk, 1000, 0);
-    lv_bar_set_mode(ui->scrHome_barBlueInk, LV_BAR_MODE_NORMAL);
+    lv_bar_set_mode(ui->scrHome_barBlueInk, LV_BAR_MODE_SYMMETRICAL);
     lv_bar_set_range(ui->scrHome_barBlueInk, 0, 100);
     lv_bar_set_value(ui->scrHome_barBlueInk, 80, LV_ANIM_ON);
     lv_obj_set_pos(ui->scrHome_barBlueInk, 16, 0);
@@ -473,7 +473,7 @@ void setup_scr_scrHome(lv_ui *ui)
     //Write codes scrHome_barRedInk
     ui->scrHome_barRedInk = lv_bar_create(ui->scrHome_contColorInk);
     lv_obj_set_style_anim_time(ui->scrHome_barRedInk, 1000, 0);
-    lv_bar_set_mode(ui->scrHome_barRedInk, LV_BAR_MODE_NORMAL);
+    lv_bar_set_mode(ui->scrHome_barRedInk, LV_BAR_MODE_SYMMETRICAL);
     lv_bar_set_range(ui->scrHome_barRedInk, 0, 100);
     lv_bar_set_value(ui->scrHome_barRedInk, 25, LV_ANIM_ON);
     lv_obj_set_pos(ui->scrHome_barRedInk, 68, -2);
@@ -493,7 +493,7 @@ void setup_scr_scrHome(lv_ui *ui)
     //Write codes scrHome_barYellowInk
     ui->scrHome_barYellowInk = lv_bar_create(ui->scrHome_contColorInk);
     lv_obj_set_style_anim_time(ui->scrHome_barYellowInk, 1000, 0);
-    lv_bar_set_mode(ui->scrHome_barYellowInk, LV_BAR_MODE_NORMAL);
+    lv_bar_set_mode(ui->scrHome_barYellowInk, LV_BAR_MODE_SYMMETRICAL);
     lv_bar_set_range(ui->scrHome_barYellowInk, 0, 100);
     lv_bar_set_value(ui->scrHome_barYellowInk, 70, LV_ANIM_ON);
     lv_obj_set_pos(ui->scrHome_barYellowInk, 115, 0);
@@ -513,7 +513,7 @@ void setup_scr_scrHome(lv_ui *ui)
     //Write codes scrHome_barBlackInk
     ui->scrHome_barBlackInk = lv_bar_create(ui->scrHome_contColorInk);
     lv_obj_set_style_anim_time(ui->scrHome_barBlackInk, 1000, 0);
-    lv_bar_set_mode(ui->scrHome_barBlackInk, LV_BAR_MODE_NORMAL);
+    lv_bar_set_mode(ui->scrHome_barBlackInk, LV_BAR_MODE_SYMMETRICAL);
     lv_bar_set_range(ui->scrHome_barBlackInk, 0, 100);
     lv_bar_set_value(ui->scrHome_barBlackInk, 55, LV_ANIM_ON);
     lv_obj_set_pos(ui->scrHome_barBlackInk, 171, -3);
@@ -531,6 +531,7 @@ void setup_scr_scrHome(lv_ui *ui)
     lv_obj_set_style_radius(ui->scrHome_barBlackInk, 17, LV_PART_INDICATOR|LV_STATE_DEFAULT);
 
     //The custom code of scrHome.
+    lv_keyboard_set_mode(guider_ui.g_kb_top_layer, LV_KEYBOARD_MODE_NUMBER);
 
 
     //Update current screen layout.

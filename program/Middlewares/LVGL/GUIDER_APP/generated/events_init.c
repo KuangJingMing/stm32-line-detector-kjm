@@ -16,7 +16,6 @@
 #endif
 
 #include "custom.h"
-#include "custom.h"
 
 static void scrHome_event_handler (lv_event_t *e)
 {
@@ -26,7 +25,7 @@ static void scrHome_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 150, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 150, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        custom_init(&guider_ui);
+        reload_ink_bar_animations(&guider_ui);
         break;
     }
     default:
@@ -58,7 +57,7 @@ static void scrHome_contPrint_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.screenLog, guider_ui.screenLog_del, &guider_ui.scrHome_del, setup_scr_screenLog, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLog, guider_ui.scrLog_del, &guider_ui.scrHome_del, setup_scr_scrLog, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         break;
     }
     default:
@@ -91,8 +90,7 @@ static void scrHome_contScan_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
-        set_screen_mode(DETECTION_MODE);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrDetect, guider_ui.scrDetect_del, &guider_ui.scrHome_del, setup_scr_scrDetect, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
         break;
     }
     default:
@@ -118,7 +116,9 @@ static void scrComplete_event_handler (lv_event_t *e)
         if (get_current_mode() == STUDY_MODE) {
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "金样学习完成");
             lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
-        } else if (get_current_mode() == DETECTION_MODE) {
+        } else if (get_current_mode() == DETECTION_MODE_42 ||
+                   get_current_mode() == DETECTION_MODE_47 ||
+                   get_current_mode() == DETECTION_MODE_100) {
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "检测完成");
             lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
         }
@@ -176,12 +176,19 @@ static void scrLoader_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
-        if (get_current_mode() == STUDY_MODE)
-        {
+        if (get_current_mode() == STUDY_MODE) {
             lv_label_set_text(guider_ui.scrLoader_labelPrompt, "正在学习中请稍后");
-        } else if (get_current_mode() == DETECTION_MODE) {
-            lv_label_set_text(guider_ui.scrLoader_labelPrompt, "正在检测中请稍后");
+        } else {
+            int mode = get_current_mode();
+            const char* line = (mode == DETECTION_MODE_42) ? "42线" :
+                               (mode == DETECTION_MODE_47) ? "47线" :
+                               (mode == DETECTION_MODE_100) ? "100线" : "";
+
+            static char temp_str[50];
+            snprintf(temp_str, sizeof(temp_str), "正在检测%s中请稍后", line);
+            lv_label_set_text(guider_ui.scrLoader_labelPrompt, temp_str);
         }
+
 #define LOADER_ANIM_TIME    1000
 #define LOADER_ANIM_DELAY   50
 
@@ -218,15 +225,15 @@ void events_init_scrLoader (lv_ui *ui)
     lv_obj_add_event_cb(ui->scrLoader, scrLoader_event_handler, LV_EVENT_ALL, ui);
 }
 
-static void screenLog_event_handler (lv_event_t *e)
+static void scrLog_event_handler (lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
         init_custom_log_list(&guider_ui);
-        ui_animation(guider_ui.screenLog_contBG, 150, 0, lv_obj_get_width(guider_ui.screenLog_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
-        ui_animation(guider_ui.screenLog_contBG, 150, 0, lv_obj_get_height(guider_ui.screenLog_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
+        ui_animation(guider_ui.scrLog_contBG, 150, 0, lv_obj_get_width(guider_ui.scrLog_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
+        ui_animation(guider_ui.scrLog_contBG, 150, 0, lv_obj_get_height(guider_ui.scrLog_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
     }
     default:
@@ -234,15 +241,15 @@ static void screenLog_event_handler (lv_event_t *e)
     }
 }
 
-static void screenLog_btnBack_event_handler (lv_event_t *e)
+static void scrLog_btnBack_event_handler (lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     switch (code) {
     case LV_EVENT_CLICKED:
     {
-        lv_obj_set_width(guider_ui.screenLog_contBG, 800);
-        lv_obj_set_height(guider_ui.screenLog_contBG, 105);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.screenLog_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
+        lv_obj_set_width(guider_ui.scrLog_contBG, 800);
+        lv_obj_set_height(guider_ui.scrLog_contBG, 105);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrLog_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
         break;
     }
     default:
@@ -250,10 +257,10 @@ static void screenLog_btnBack_event_handler (lv_event_t *e)
     }
 }
 
-void events_init_screenLog (lv_ui *ui)
+void events_init_scrLog (lv_ui *ui)
 {
-    lv_obj_add_event_cb(ui->screenLog, screenLog_event_handler, LV_EVENT_ALL, ui);
-    lv_obj_add_event_cb(ui->screenLog_btnBack, screenLog_btnBack_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrLog, scrLog_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrLog_btnBack, scrLog_btnBack_event_handler, LV_EVENT_ALL, ui);
 }
 
 static void scrSetting_event_handler (lv_event_t *e)
@@ -262,10 +269,9 @@ static void scrSetting_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
-        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置模式");
-        custom_scr_setting_init(&guider_ui);
         ui_animation(guider_ui.scrSetting_contBG, 150, 0, lv_obj_get_width(guider_ui.scrSetting_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrSetting_contBG, 150, 0, lv_obj_get_height(guider_ui.scrSetting_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
+        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置模式");
         break;
     }
     default:
@@ -325,6 +331,97 @@ void events_init_scrSetting (lv_ui *ui)
     lv_obj_add_event_cb(ui->scrSetting_btnBack, scrSetting_btnBack_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_1, scrSetting_btn_1_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_2, scrSetting_btn_2_event_handler, LV_EVENT_ALL, ui);
+}
+
+static void scrDetect_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_SCREEN_LOADED:
+    {
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_width(guider_ui.scrDetect_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_height(guider_ui.scrDetect_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrDetect_btn_1_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrDetect_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_width(guider_ui.scrDetect_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_height(guider_ui.scrDetect_contBG), 105, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrDetect_cont_2_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        set_screen_mode(DETECTION_MODE_42);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrDetect_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 50, false, false);
+        lv_obj_set_width(guider_ui.scrDetect_contBG, 800);
+        lv_obj_set_height(guider_ui.scrDetect_contBG, 105);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrDetect_cont_3_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        set_screen_mode(DETECTION_MODE_47);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrDetect_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 50, false, false);
+        lv_obj_set_width(guider_ui.scrDetect_contBG, 800);
+        lv_obj_set_height(guider_ui.scrDetect_contBG, 105);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrDetect_cont_4_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        set_screen_mode(DETECTION_MODE_100);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrDetect_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 50, false, false);
+        lv_obj_set_width(guider_ui.scrDetect_contBG, 800);
+        lv_obj_set_height(guider_ui.scrDetect_contBG, 105);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void events_init_scrDetect (lv_ui *ui)
+{
+    lv_obj_add_event_cb(ui->scrDetect, scrDetect_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrDetect_btn_1, scrDetect_btn_1_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrDetect_cont_2, scrDetect_cont_2_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrDetect_cont_3, scrDetect_cont_3_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrDetect_cont_4, scrDetect_cont_4_event_handler, LV_EVENT_ALL, ui);
 }
 
 

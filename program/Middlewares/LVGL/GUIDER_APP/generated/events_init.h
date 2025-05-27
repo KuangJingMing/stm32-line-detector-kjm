@@ -21,8 +21,9 @@ void events_init(lv_ui *ui);
 void events_init_scrHome(lv_ui *ui);
 void events_init_scrComplete(lv_ui *ui);
 void events_init_scrLoader(lv_ui *ui);
-void events_init_screenLog(lv_ui *ui);
+void events_init_scrLog(lv_ui *ui);
 void events_init_scrSetting(lv_ui *ui);
+void events_init_scrDetect(lv_ui *ui);
 
 #ifdef __cplusplus
 }

@@ -10,7 +10,7 @@ lv_ui guider_ui;
 
 
 void unit_test(void) {
-	rg_test();
+	test_flash_write_read();
 }
 
 int main(void)
@@ -24,13 +24,8 @@ int main(void)
     mpu_memory_protection();          
     sdram_init();               
 		btim_timx_int_init(100-1,2400-1);  //lvgl base time
-
-		unit_test();
-	
-		while (1) {
-		
-		}
-		
+		W25QXX_Init();
+    
     lv_init();                    
     lv_port_disp_init();         
     lv_port_indev_init();          

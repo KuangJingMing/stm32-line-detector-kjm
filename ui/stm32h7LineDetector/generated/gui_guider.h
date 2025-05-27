@@ -61,13 +61,13 @@ typedef struct
 	lv_obj_t *scrLoader_arcLoader;
 	lv_obj_t *scrLoader_tpLoader;
 	lv_obj_t *scrLoader_labelPrompt;
-	lv_obj_t *screenLog;
-	bool screenLog_del;
-	lv_obj_t *screenLog_contBG;
-	lv_obj_t *screenLog_rizh;
-	lv_obj_t *screenLog_btnBack;
-	lv_obj_t *screenLog_btnBack_label;
-	lv_obj_t *screenLog_cont_list;
+	lv_obj_t *scrLog;
+	bool scrLog_del;
+	lv_obj_t *scrLog_contBG;
+	lv_obj_t *scrLog_rizh;
+	lv_obj_t *scrLog_btnBack;
+	lv_obj_t *scrLog_btnBack_label;
+	lv_obj_t *scrLog_cont_list;
 	lv_obj_t *scrSetting;
 	bool scrSetting_del;
 	lv_obj_t *scrSetting_contBG;
@@ -75,16 +75,44 @@ typedef struct
 	lv_obj_t *scrSetting_btnBack;
 	lv_obj_t *scrSetting_btnBack_label;
 	lv_obj_t *scrSetting_cont_setting;
-	lv_obj_t *scrSetting_ta_year;
-	lv_obj_t *scrSetting_ta_month;
-	lv_obj_t *scrSetting_ta_day;
-	lv_obj_t *scrSetting_ta_hour;
-	lv_obj_t *scrSetting_ta_minute;
-	lv_obj_t *scrSetting_ta_second;
+	lv_obj_t *scrSetting_cont_year;
+	lv_obj_t *scrSetting_label_8;
+	lv_obj_t *scrSetting_ta_2;
+	lv_obj_t *scrSetting_cont_month;
+	lv_obj_t *scrSetting_label_9;
+	lv_obj_t *scrSetting_ta_3;
+	lv_obj_t *scrSetting_cont_day;
+	lv_obj_t *scrSetting_label_10;
+	lv_obj_t *scrSetting_ta_4;
+	lv_obj_t *scrSetting_cont_hour;
+	lv_obj_t *scrSetting_label_11;
+	lv_obj_t *scrSetting_ta_5;
+	lv_obj_t *scrSetting_cont_minute;
+	lv_obj_t *scrSetting_label_12;
+	lv_obj_t *scrSetting_ta_6;
+	lv_obj_t *scrSetting_cont_second;
+	lv_obj_t *scrSetting_label_13;
+	lv_obj_t *scrSetting_ta_7;
 	lv_obj_t *scrSetting_btn_1;
 	lv_obj_t *scrSetting_btn_1_label;
 	lv_obj_t *scrSetting_btn_2;
 	lv_obj_t *scrSetting_btn_2_label;
+	lv_obj_t *scrDetect;
+	bool scrDetect_del;
+	lv_obj_t *scrDetect_contBG;
+	lv_obj_t *scrDetect_btn_1;
+	lv_obj_t *scrDetect_btn_1_label;
+	lv_obj_t *scrDetect_label_1;
+	lv_obj_t *scrDetect_cont_1;
+	lv_obj_t *scrDetect_cont_2;
+	lv_obj_t *scrDetect_img_1;
+	lv_obj_t *scrDetect_label_2;
+	lv_obj_t *scrDetect_cont_3;
+	lv_obj_t *scrDetect_img_2;
+	lv_obj_t *scrDetect_label_3;
+	lv_obj_t *scrDetect_cont_4;
+	lv_obj_t *scrDetect_img_3;
+	lv_obj_t *scrDetect_label_4;
 	lv_obj_t *scrChineseText;
 	bool scrChineseText_del;
 	lv_obj_t *scrChineseText_label_1;
@@ -118,8 +146,9 @@ extern lv_ui guider_ui;
 void setup_scr_scrHome(lv_ui *ui);
 void setup_scr_scrComplete(lv_ui *ui);
 void setup_scr_scrLoader(lv_ui *ui);
-void setup_scr_screenLog(lv_ui *ui);
+void setup_scr_scrLog(lv_ui *ui);
 void setup_scr_scrSetting(lv_ui *ui);
+void setup_scr_scrDetect(lv_ui *ui);
 void setup_scr_scrChineseText(lv_ui *ui);
 
 LV_IMG_DECLARE(_btn_bg_4_166x211);
@@ -138,6 +167,15 @@ LV_IMG_DECLARE(_tel_alpha_46x42);
 LV_IMG_DECLARE(_eco_alpha_48x38);
 LV_IMG_DECLARE(_pc_alpha_50x42);
 
+LV_IMG_DECLARE(_btn_bg_1_200x250);
+LV_IMG_DECLARE(_line_2_alpha_80x90);
+
+LV_IMG_DECLARE(_btn_bg_2_200x250);
+LV_IMG_DECLARE(_line_2_alpha_80x90);
+
+LV_IMG_DECLARE(_btn_bg_3_200x250);
+LV_IMG_DECLARE(_line_2_alpha_80x90);
+
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_25)
 LV_FONT_DECLARE(lv_font_montserratMedium_26)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_23)
@@ -147,11 +185,11 @@ LV_FONT_DECLARE(lv_font_montserratMedium_20)
 LV_FONT_DECLARE(lv_font_montserratMedium_41)
 LV_FONT_DECLARE(lv_font_montserratMedium_16)
 LV_FONT_DECLARE(lv_font_montserratMedium_33)
+LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_20)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_12)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_18)
 LV_FONT_DECLARE(lv_font_montserratMedium_12)
-LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_20)
 
 
 #ifdef __cplusplus

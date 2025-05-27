@@ -15,7 +15,9 @@ extern "C" {
 
 typedef enum {
     STUDY_MODE,
-    DETECTION_MODE,
+    DETECTION_MODE_42,
+    DETECTION_MODE_47,
+    DETECTION_MODE_100,
     LOG_MODE,
     SETTING_MODE,
 } SCREEN_MODE;
@@ -31,7 +33,11 @@ void set_screen_mode(SCREEN_MODE mode);
 SCREEN_MODE get_current_mode(void);
 
 void init_custom_log_list(lv_ui *ui);
+
+void reload_ink_bar_animations(lv_ui *ui);
+
 void custom_scr_setting_init(lv_ui *ui);
+void custom_scr_detect_init(lv_ui *ui);
 
 
 #ifdef __cplusplus
