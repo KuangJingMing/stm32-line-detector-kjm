@@ -9,7 +9,6 @@
 u16 W25QXX_TYPE=W25Q64;	//默认是W25Q64
 u8 W25QXX_QPI_MODE=0;		//QSPI模式标志:0,SPI模式;1,QPI模式.
 
-
 //4Kbytes为一个Sector
 //16个扇区为1个Block
 //W25Q64
@@ -19,44 +18,55 @@ u8 W25QXX_QPI_MODE=0;		//QSPI模式标志:0,SPI模式;1,QPI模式.
 void W25QXX_Init(void)
 { 
     u8 temp;    
-	QSPI_Init();					//初始化QSPI
- 	W25QXX_Qspi_Enable();			//使能QSPI模式
-	W25QXX_TYPE=W25QXX_ReadID();	//读取FLASH ID.
-	//printf("ID:%x\r\n",W25QXX_TYPE);
-	if(W25QXX_TYPE==W25Q64)        //SPI FLASH为W25Q64
+    QSPI_Init();                    //初始化QSPI
+    W25QXX_Qspi_Enable();          //使能QSPI模式
+    W25QXX_TYPE=W25QXX_ReadID();   //读取FLASH ID.
+    printf("ID:%x\r\n",W25QXX_TYPE);
+    
+    if(W25QXX_TYPE==W25Q64)        //SPI FLASH为W25Q64
     {
         temp=W25QXX_ReadSR(3);      //读取状态寄存器3，判断地址模式
-        if((temp&0X01)==0)			//如果不是4字节地址模式,则进入4字节地址模式
-		{ 
-			W25QXX_Write_Enable();	//写使能
-			QSPI_Send_CMD(W25X_Enable4ByteAddr,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,使能4字节地址指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据 
-		}
-		W25QXX_Write_Enable();		//写使能
-		QSPI_Send_CMD(W25X_SetReadParam,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);		//QPI,设置读参数指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
-		temp=3<<4;					//设置P4&P5=11,8个dummy clocks,104M
-		QSPI_Transmit(&temp,1);		//发送1个字节	   
+        printf("Initial SR3: 0x%02X\r\n", temp);
+        
+        if((temp&0X01)==1)          //如果是4字节地址模式,则退出4字节地址模式
+        { 
+            printf("Exiting 4-byte address mode...\r\n");
+            W25QXX_Write_Enable();  //写使能
+            QSPI_Send_CMD(W25X_Exit4ByteAddr,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,退出4字节地址指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据 
+        }
+        
+        // 验证是否成功退出4字节模式
+        temp=W25QXX_ReadSR(3);
+        printf("Address mode status: 0x%02X (%s)\r\n", temp, (temp&0x01) ? "4-byte mode" : "3-byte mode");
+        
+        // 设置3字节模式下的读参数
+        W25QXX_Write_Enable();      //写使能
+        QSPI_Send_CMD(W25X_SetReadParam,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);  //QPI,设置读参数指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
+        temp=3<<4;                  //设置P4&P5=11,8个dummy clocks,104M
+        QSPI_Transmit(&temp,1);     //发送1个字节   
     }
 }  
+
 //W25QXX进入QSPI模式 
 void W25QXX_Qspi_Enable(void)
 {
-	u8 stareg2;
-	stareg2=W25QXX_ReadSR(2);		//先读出状态寄存器2的原始值 
-	if((stareg2&0X02)==0)			//QE位未使能
-	{ 
-		W25QXX_Write_Enable();		//写使能 
-		stareg2|=1<<1;				//使能QE位		
-		W25QXX_Write_SR(2,stareg2);	//写状态寄存器2
-	}
-	QSPI_Send_CMD(W25X_EnterQPIMode,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);//写command指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据
-	W25QXX_QPI_MODE=1;				//标记QSPI模式
+    u8 stareg2;
+    stareg2=W25QXX_ReadSR(2);       //先读出状态寄存器2的原始值 
+    if((stareg2&0X02)==0)           //QE位未使能
+    { 
+        W25QXX_Write_Enable();      //写使能 
+        stareg2|=1<<1;              //使能QE位		
+        W25QXX_Write_SR(2,stareg2); //写状态寄存器2
+    }
+    QSPI_Send_CMD(W25X_EnterQPIMode,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);//写command指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据
+    W25QXX_QPI_MODE=1;              //标记QSPI模式
 }
 
 //W25QXX退出QSPI模式 
 void W25QXX_Qspi_Disable(void)
 { 
-	QSPI_Send_CMD(W25X_ExitQPIMode,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//写command指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
-	W25QXX_QPI_MODE=0;				//标记SPI模式
+    QSPI_Send_CMD(W25X_ExitQPIMode,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//写command指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
+    W25QXX_QPI_MODE=0;              //标记SPI模式
 }
 
 //读取W25QXX的状态寄存器，W25QXX一共有3个状态寄存器
@@ -78,7 +88,7 @@ void W25QXX_Qspi_Disable(void)
 //返回值:状态寄存器值
 u8 W25QXX_ReadSR(u8 regno)   
 {  
-	u8 byte=0,command=0; 
+    u8 byte=0,command=0; 
     switch(regno)
     {
         case 1:
@@ -94,10 +104,10 @@ u8 W25QXX_ReadSR(u8 regno)
             command=W25X_ReadStatusReg1;    
             break;
     }   
-	if(W25QXX_QPI_MODE)QSPI_Send_CMD(command,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写command指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
-	else QSPI_Send_CMD(command,0,(1<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写command指令,地址为0,单线传数据_8位地址_无地址_单线传输指令,无空周期,1个字节数据
-	QSPI_Receive(&byte,1);	        
-	return byte;   
+    if(W25QXX_QPI_MODE)QSPI_Send_CMD(command,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写command指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
+    else QSPI_Send_CMD(command,0,(1<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写command指令,地址为0,单线传数据_8位地址_无地址_单线传输指令,无空周期,1个字节数据
+    QSPI_Receive(&byte,1);	        
+    return byte;   
 }   
 
 //写W25QXX状态寄存器
@@ -119,25 +129,25 @@ void W25QXX_Write_SR(u8 regno,u8 sr)
             command=W25X_WriteStatusReg1;    
             break;
     }   
-	if(W25QXX_QPI_MODE)QSPI_Send_CMD(command,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写command指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
-	else QSPI_Send_CMD(command,0,(1<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写command指令,地址为0,单线传数据_8位地址_无地址_单线传输指令,无空周期,1个字节数据
-	QSPI_Transmit(&sr,1);	         	      
+    if(W25QXX_QPI_MODE)QSPI_Send_CMD(command,0,(3<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写command指令,地址为0,4线传数据_8位地址_无地址_4线传输指令,无空周期,1个字节数据
+    else QSPI_Send_CMD(command,0,(1<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写command指令,地址为0,单线传数据_8位地址_无地址_单线传输指令,无空周期,1个字节数据
+    QSPI_Transmit(&sr,1);	         	      
 }  
 
 //W25QXX写使能	
 //将S1寄存器的WEL置位   
 void W25QXX_Write_Enable(void)   
 {
-	if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_WriteEnable,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写使能指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
-	else QSPI_Send_CMD(W25X_WriteEnable,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写使能指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据
+    if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_WriteEnable,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);	//QPI,写使能指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
+    else QSPI_Send_CMD(W25X_WriteEnable,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写使能指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据
 } 
 
 //W25QXX写禁止	
 //将WEL清零  
 void W25QXX_Write_Disable(void)   
 {  
-	if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_WriteDisable,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,写禁止指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
-	else QSPI_Send_CMD(W25X_WriteDisable,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写禁止指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据 
+    if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_WriteDisable,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,写禁止指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
+    else QSPI_Send_CMD(W25X_WriteDisable,0,(0<<6)|(0<<4)|(0<<2)|(1<<0),0);				//SPI,写禁止指令,地址为0,无数据_8位地址_无地址_单线传输指令,无空周期,0个字节数据 
 } 
 
 //返回值如下:				   
@@ -146,33 +156,33 @@ void W25QXX_Write_Disable(void)
 //0XEF15,表示芯片型号为W25Q32  
 //0XEF16,表示芯片型号为W25Q64 
 //0XEF17,表示芯片型号为W25Q128 	  
-//0XEF18,表示芯片型号为W25Q64
+//0XEF18,表示芯片型号为W25Q256
 u16 W25QXX_ReadID(void)
 {
-	u8 temp[2];
-	u16 deviceid;
-	if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_ManufactDeviceID,0,(3<<6)|(2<<4)|(3<<2)|(3<<0),0);//QPI,读id,地址为0,4线传输数据_24位地址_4线传输地址_4线传输指令,无空周期,2个字节数据
-	else QSPI_Send_CMD(W25X_ManufactDeviceID,0,(1<<6)|(2<<4)|(1<<2)|(1<<0),0);			//SPI,读id,地址为0,单线传输数据_24位地址_单线传输地址_单线传输指令,无空周期,2个字节数据
-	QSPI_Receive(temp,2);
-	deviceid=(temp[0]<<8)|temp[1];
-	return deviceid;
+    u8 temp[2];
+    u16 deviceid;
+    if(W25QXX_QPI_MODE)QSPI_Send_CMD(W25X_ManufactDeviceID,0,(3<<6)|(2<<4)|(3<<2)|(3<<0),0);//QPI,读id,地址为0,4线传输数据_24位地址_4线传输地址_4线传输指令,无空周期,2个字节数据
+    else QSPI_Send_CMD(W25X_ManufactDeviceID,0,(1<<6)|(2<<4)|(1<<2)|(1<<0),0);			//SPI,读id,地址为0,单线传输数据_24位地址_单线传输地址_单线传输指令,无空周期,2个字节数据
+    QSPI_Receive(temp,2);
+    deviceid=(temp[0]<<8)|temp[1];
+    return deviceid;
 }    
 
 //读取SPI FLASH,仅支持QPI模式  
 //在指定地址开始读取指定长度的数据
 //pBuffer:数据存储区
-//ReadAddr:开始读取的地址(最大32bit)
+//ReadAddr:开始读取的地址(最大24bit)
 //NumByteToRead:要读取的字节数(最大65535)
 void W25QXX_Read(u8* pBuffer,u32 ReadAddr,u16 NumByteToRead)   
 { 
-	QSPI_Send_CMD(W25X_FastReadData,ReadAddr,(3<<6)|(3<<4)|(3<<2)|(3<<0),8);	//QPI,快速读数据,地址为ReadAddr,4线传输数据_32位地址_4线传输地址_4线传输指令,8空周期,NumByteToRead个数据
-	QSPI_Receive(pBuffer,NumByteToRead); 
+    QSPI_Send_CMD(W25X_FastReadData,ReadAddr,(3<<6)|(2<<4)|(3<<2)|(3<<0),8);	//QPI,快速读数据,地址为ReadAddr,4线传输数据_24位地址_4线传输地址_4线传输指令,8空周期,NumByteToRead个数据
+    QSPI_Receive(pBuffer,NumByteToRead); 
 }  
 
 //SPI在一页(0~65535)内写入少于256个字节的数据
 //在指定地址开始写入最大256字节的数据
 //pBuffer:数据存储区
-//WriteAddr:开始写入的地址(最大32bit)
+//WriteAddr:开始写入的地址(最大24bit)
 //NumByteToWrite:要写入的字节数(最大256),该数不应该超过该页的剩余字节数!!!	 
 void W25QXX_Write_Page(u8* pBuffer, u32 WriteAddr, u16 NumByteToWrite)
 {
@@ -185,46 +195,45 @@ void W25QXX_Write_Page(u8* pBuffer, u32 WriteAddr, u16 NumByteToWrite)
         return;
     }
     
-    QSPI_Send_CMD(W25X_PageProgram, WriteAddr, (3<<6)|(3<<4)|(3<<2)|(3<<0), 0);
+    QSPI_Send_CMD(W25X_PageProgram, WriteAddr, (3<<6)|(2<<4)|(3<<2)|(3<<0), 0);	//QPI,页写指令,地址为WriteAddr,4线传输数据_24位地址_4线传输地址_4线传输指令,无空周期,NumByteToWrite个数据
     QSPI_Transmit(pBuffer, NumByteToWrite);
     W25QXX_Wait_Busy();                     // 等待写入结束
 }
-
 
 //无检验写SPI FLASH 
 //必须确保所写的地址范围内的数据全部为0XFF,否则在非0XFF处写入的数据将失败!
 //具有自动换页功能 
 //在指定地址开始写入指定长度的数据,但是要确保地址不越界!
 //pBuffer:数据存储区
-//WriteAddr:开始写入的地址(最大32bit)
+//WriteAddr:开始写入的地址(最大24bit)
 //NumByteToWrite:要写入的字节数(最大65535)
 //CHECK OK
 void W25QXX_Write_NoCheck(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)   
 { 			 		 
-	u16 pageremain;	   
-	pageremain=256-WriteAddr%256; //单页剩余的字节数		 	    
-	if(NumByteToWrite<=pageremain)pageremain=NumByteToWrite;//不大于256个字节
-	while(1)
-	{	   
-		W25QXX_Write_Page(pBuffer,WriteAddr,pageremain);
-		if(NumByteToWrite==pageremain)break;//写入结束了
-	 	else //NumByteToWrite>pageremain
-		{
-			pBuffer+=pageremain;
-			WriteAddr+=pageremain;	
+    u16 pageremain;	   
+    pageremain=256-WriteAddr%256; //单页剩余的字节数		 	    
+    if(NumByteToWrite<=pageremain)pageremain=NumByteToWrite;//不大于256个字节
+    while(1)
+    {	   
+        W25QXX_Write_Page(pBuffer,WriteAddr,pageremain);
+        if(NumByteToWrite==pageremain)break;//写入结束了
+        else //NumByteToWrite>pageremain
+        {
+            pBuffer+=pageremain;
+            WriteAddr+=pageremain;	
 
-			NumByteToWrite-=pageremain;			  //减去已经写入了的字节数
-			if(NumByteToWrite>256)pageremain=256; //一次可以写入256个字节
-			else pageremain=NumByteToWrite; 	  //不够256个字节了
-		}
-	}   
+            NumByteToWrite-=pageremain;			  //减去已经写入了的字节数
+            if(NumByteToWrite>256)pageremain=256; //一次可以写入256个字节
+            else pageremain=NumByteToWrite; 	  //不够256个字节了
+        }
+    }   
 } 
 
 //写SPI FLASH  
 //在指定地址开始写入指定长度的数据
 //该函数带擦除操作!
 //pBuffer:数据存储区
-//WriteAddr:开始写入的地址(最大32bit)						
+//WriteAddr:开始写入的地址(最大24bit)						
 //NumByteToWrite:要写入的字节数(最大65535)   
 u8 W25QXX_BUFFER[4096];		 
 void W25QXX_Write(u8* pBuffer, u32 WriteAddr, u16 NumByteToWrite)   
@@ -302,15 +311,14 @@ void W25QXX_Write(u8* pBuffer, u32 WriteAddr, u16 NumByteToWrite)
     };	 
 }
 
-
 //擦除整个芯片		  
 //等待时间超长...
 void W25QXX_Erase_Chip(void)   
 {                                   
     W25QXX_Write_Enable();					//SET WEL 
     W25QXX_Wait_Busy();   
-	QSPI_Send_CMD(W25X_ChipErase,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,写全片擦除指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
-	W25QXX_Wait_Busy();						//等待芯片擦除结束
+    QSPI_Send_CMD(W25X_ChipErase,0,(0<<6)|(0<<4)|(0<<2)|(3<<0),0);//QPI,写全片擦除指令,地址为0,无数据_8位地址_无地址_4线传输指令,无空周期,0个字节数据
+    W25QXX_Wait_Busy();						//等待芯片擦除结束
 } 
 
 //擦除一个扇区
@@ -341,9 +349,9 @@ void W25QXX_Erase_Sector(u32 Dst_Addr)
     // 等待不忙
     W25QXX_Wait_Busy();
     
-    // 发送擦除命令
+    // 发送擦除命令 - 使用24位地址
     printf("Sending sector erase command...\r\n");
-    QSPI_Send_CMD(W25X_SectorErase, sector_addr, (0<<6)|(3<<4)|(3<<2)|(3<<0), 0);
+    QSPI_Send_CMD(W25X_SectorErase, sector_addr, (0<<6)|(2<<4)|(3<<2)|(3<<0), 0);	//QPI,写扇区擦除指令,地址为sector_addr,无数据_24位地址_4线传输地址_4线传输指令,无空周期,0个字节数据
     
     // 等待擦除完成
     printf("Waiting for erase to complete...\r\n");
@@ -354,6 +362,7 @@ void W25QXX_Erase_Sector(u32 Dst_Addr)
     printf("After erase, status: 0x%02X\r\n", status);
 }
 
+//等待空闲
 void W25QXX_Wait_Busy(void)   
 {   
     while((W25QXX_ReadSR(1) & 0x01) == 0x01)

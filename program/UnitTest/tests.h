@@ -3,6 +3,6 @@
 
 void rg_test(void);
 void FatFs_Test(void);
-void test_flash_write_read(void);
+void test_flash_step_by_step(void);
 
 #endif 

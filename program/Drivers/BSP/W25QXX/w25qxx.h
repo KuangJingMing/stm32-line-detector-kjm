@@ -50,6 +50,21 @@ extern u16 W25QXX_TYPE;					//定义W25QXX芯片型号
 #define W25X_EnterQPIMode       0x38
 #define W25X_ExitQPIMode        0xFF
 
+#define QSPI_DATA_MODE_NONE   (0 << 6)
+#define QSPI_DATA_MODE_SINGLE (1 << 6)
+#define QSPI_DATA_MODE_DUAL   (2 << 6)
+#define QSPI_DATA_MODE_QUAD   (3 << 6)
+#define QSPI_ADDR_LEN_8BIT    (0 << 4)
+#define QSPI_ADDR_LEN_16BIT   (1 << 4)
+#define QSPI_ADDR_LEN_24BIT   (2 << 4)
+#define QSPI_ADDR_LEN_32BIT   (3 << 4)
+#define QSPI_ADDR_MODE_SINGLE (1 << 2)
+#define QSPI_ADDR_MODE_DUAL   (2 << 2)
+#define QSPI_ADDR_MODE_QUAD   (3 << 2)
+#define QSPI_INST_MODE_SINGLE (1 << 0)
+#define QSPI_INST_MODE_DUAL   (2 << 0)
+#define QSPI_INST_MODE_QUAD   (3 << 0)
+
 void W25QXX_Init(void);					//初始化W25QXX
 void W25QXX_Qspi_Enable(void);			//使能QSPI模式
 void W25QXX_Qspi_Disable(void);			//关闭QSPI模式
