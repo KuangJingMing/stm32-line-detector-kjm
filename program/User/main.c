@@ -12,7 +12,7 @@ lv_ui guider_ui;
 
 void unit_test(void)
 {
-    rtc_unit_test();
+//	LineDetector_App_Main();
 }
 
 int main(void)

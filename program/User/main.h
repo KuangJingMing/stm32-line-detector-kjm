@@ -4,6 +4,8 @@
 #include "string.h"
 #include "stdio.h"
 
+#include "../App/line_detector_app.h"
+
 #include "./SYSTEM/sys/sys.h"
 #include "./SYSTEM/usart/usart.h"
 #include "./SYSTEM/delay/delay.h"

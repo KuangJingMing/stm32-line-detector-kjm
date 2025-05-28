@@ -74,7 +74,7 @@ typedef struct
 	lv_obj_t *scrSetting_labelTitle;
 	lv_obj_t *scrSetting_btnBack;
 	lv_obj_t *scrSetting_btnBack_label;
-	lv_obj_t *scrSetting_cont_setting;
+	lv_obj_t *scrSetting_cont_time_setting;
 	lv_obj_t *scrSetting_cont_year;
 	lv_obj_t *scrSetting_label_8;
 	lv_obj_t *scrSetting_ta_2;
@@ -97,6 +97,11 @@ typedef struct
 	lv_obj_t *scrSetting_btn_1_label;
 	lv_obj_t *scrSetting_btn_2;
 	lv_obj_t *scrSetting_btn_2_label;
+	lv_obj_t *scrSetting_list_1;
+	lv_obj_t *scrSetting_list_1_item0;
+	lv_obj_t *scrSetting_list_1_item1;
+	lv_obj_t *scrSetting_list_1_item2;
+	lv_obj_t *scrSetting_list_1_item3;
 	lv_obj_t *scrDetect;
 	bool scrDetect_del;
 	lv_obj_t *scrDetect_contBG;
@@ -166,6 +171,7 @@ LV_IMG_DECLARE(_wifi_alpha_55x44);
 LV_IMG_DECLARE(_tel_alpha_46x42);
 LV_IMG_DECLARE(_eco_alpha_48x38);
 LV_IMG_DECLARE(_pc_alpha_50x42);
+LV_IMG_DECLARE(_time64_alpha_30x30);
 
 LV_IMG_DECLARE(_btn_bg_1_200x250);
 LV_IMG_DECLARE(_line_2_alpha_80x90);

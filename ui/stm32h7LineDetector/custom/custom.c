@@ -60,22 +60,22 @@ static SCREEN_MODE current_mode;
 
 void custom_scr_setting_init(lv_ui *ui) {
     // 将主容器设为flex布局
-    lv_obj_set_layout(ui->scrSetting_cont_setting, LV_LAYOUT_FLEX);
-    lv_obj_set_flex_flow(ui->scrSetting_cont_setting, LV_FLEX_FLOW_ROW_WRAP);
-    lv_obj_set_flex_align(ui->scrSetting_cont_setting, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_layout(ui->scrSetting_cont_time_setting, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(ui->scrSetting_cont_time_setting, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_set_flex_align(ui->scrSetting_cont_time_setting, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER);
     
     // 禁用滚动功能 - 让控件固定不动
-    lv_obj_clear_flag(ui->scrSetting_cont_setting, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_clear_flag(ui->scrSetting_cont_time_setting, LV_OBJ_FLAG_SCROLLABLE);
     
     // 容器的内边距 - 让控件远离容器边界
-    lv_obj_set_style_pad_top(ui->scrSetting_cont_setting, 40, LV_PART_MAIN);
-    lv_obj_set_style_pad_bottom(ui->scrSetting_cont_setting, 40, LV_PART_MAIN);
-    lv_obj_set_style_pad_left(ui->scrSetting_cont_setting, 35, LV_PART_MAIN);
-    lv_obj_set_style_pad_right(ui->scrSetting_cont_setting, 35, LV_PART_MAIN);
+    lv_obj_set_style_pad_top(ui->scrSetting_cont_time_setting, 40, LV_PART_MAIN);
+    lv_obj_set_style_pad_bottom(ui->scrSetting_cont_time_setting, 40, LV_PART_MAIN);
+    lv_obj_set_style_pad_left(ui->scrSetting_cont_time_setting, 35, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(ui->scrSetting_cont_time_setting, 35, LV_PART_MAIN);
     
     // 控件之间的间距
-    lv_obj_set_style_pad_row(ui->scrSetting_cont_setting, 20, LV_PART_MAIN);      // 行间距
-    lv_obj_set_style_pad_column(ui->scrSetting_cont_setting, 60, LV_PART_MAIN);   // 列间距
+    lv_obj_set_style_pad_row(ui->scrSetting_cont_time_setting, 20, LV_PART_MAIN);      // 行间距
+    lv_obj_set_style_pad_column(ui->scrSetting_cont_time_setting, 60, LV_PART_MAIN);   // 列间距
 }
 
 void custom_scr_detect_init(lv_ui *ui) {
