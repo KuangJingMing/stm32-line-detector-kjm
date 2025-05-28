@@ -1,6 +1,7 @@
 #include "./BSP/W25QXX/w25qxx.h"
 #include "./BSP/QSPI/qspi.h"
-#include "stdio.h"
+
+#define printf(fmt, ...) do {} while (0)
 
 //////////////////////////////////////////////////////////////////////////////////	 
 							  
@@ -365,11 +366,9 @@ void W25QXX_Erase_Sector(u32 Dst_Addr)
 //等待空闲
 void W25QXX_Wait_Busy(void)   
 {   
-    while((W25QXX_ReadSR(1) & 0x01) == 0x01)
+    while((W25QXX_ReadSR(1) & 0x01) == 0x01)  // BUSY位为1时继续等待
     {
         // 添加小延时，避免过于频繁地读取状态寄存器
-        for(volatile int i = 0; i < 100; i++);
+        HAL_Delay(1);  // 使用系统延时函数更可靠
     }
-    // 额外等待一段时间确保写入完全完成
-    for(volatile int i = 0; i < 1000; i++);
 }

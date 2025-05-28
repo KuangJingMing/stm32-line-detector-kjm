@@ -4,6 +4,7 @@
 #define __SYS_H
 
 #include "stm32h7xx.h"
+#include "stm32h7xx_hal.h"
 
 typedef uint32_t  u32;
 typedef uint16_t u16;

@@ -18,6 +18,7 @@
 #include "./BSP/HC165/hc165.h"
 #include "./BSP/HC595/hc595.h"
 #include "./BSP/W25QXX/w25qxx.h"
+#include "./BSP/RTC/rtc.h"
 
 #include "../UnitTest/tests.h"
 #endif 

@@ -7,6 +7,7 @@
 #include "./BSP/W25QXX/w25qxx.h"
 #include "stdio.h"
 #include "string.h"
+#include "./BSP/RTC/rtc.h"
 
 /* Definitions of physical drive number for each drive */
 #define DEV_FLASH   0   /* Map W25QXX flash to physical drive 0 */
@@ -39,24 +40,21 @@ DSTATUS disk_status(BYTE pdrv)
 
 DSTATUS disk_initialize(BYTE pdrv)
 {
+		static u16 id;
     switch (pdrv) {
     case DEV_FLASH:
-        u16 id = W25QXX_ReadID();
-        printf("disk_initialize: ReadID = 0x%X\r\n", id);
-        
+        id = W25QXX_ReadID();
+     
         if (id == W25Q64) {
             g_disk_status = 0;  /* 初始化成功 */
-            printf("W25Q64 disk initialized successfully.\r\n");
         } else {
             /* 尝试重新初始化 */
             W25QXX_Init();
             id = W25QXX_ReadID();
             if (id == W25Q64) {
                 g_disk_status = 0;
-                printf("W25Q64 disk reinitialized successfully.\r\n");
             } else {
                 g_disk_status = STA_NOINIT;
-                printf("W25Q64 disk initialization failed, ID: 0x%X\r\n", id);
             }
         }
         return g_disk_status;
@@ -77,11 +75,9 @@ DRESULT disk_read (
 {
     switch (pdrv) {
     case DEV_FLASH:
-        printf("disk_read: sector=%lu, count=%u\r\n", (unsigned long)sector, count);
-        
+
         /* Check for valid sector range */
         if (sector + count > TOTAL_SECTORS) {
-            printf("disk_read: Parameter error - sector out of range\r\n");
             return RES_PARERR;
         }
 
@@ -89,21 +85,10 @@ DRESULT disk_read (
         u32 addr = sector * SECTOR_SIZE;
         u32 size = count * SECTOR_SIZE;
         
-        printf("Reading from addr=0x%X, size=%lu\r\n", addr, size);
-        
         /* Read data from flash */
         W25QXX_Read(buff, addr, size);
         
-        /* 调试：显示引导扇区的前几个字节 */
-        if (sector == 0) {
-            printf("Boot sector header: ");
-            for (int i = 0; i < 16; i++) {
-                printf("%02X ", buff[i]);
-            }
-            printf("\r\n");
-        }
-        
-        printf("disk_read: success\r\n");
+
         return RES_OK;
     }
     return RES_PARERR;
@@ -124,11 +109,9 @@ DRESULT disk_write (
 {
     switch (pdrv) {
     case DEV_FLASH:
-        printf("disk_write: sector=%lu, count=%u\r\n", (unsigned long)sector, count);
         
         /* Check for valid sector range */
         if (sector + count > TOTAL_SECTORS) {
-            printf("disk_write: Parameter error - sector out of range\r\n");
             return RES_PARERR;
         }
 
@@ -136,12 +119,9 @@ DRESULT disk_write (
         u32 addr = sector * SECTOR_SIZE;
         u32 size = count * SECTOR_SIZE;
         
-        printf("Writing to addr=0x%X size=%lu\r\n", addr, size);
-        
         /* Write data to flash */
         W25QXX_Write((BYTE *)buff, addr, size);
         
-        printf("disk_write: success\r\n");
         return RES_OK;
     }
     return RES_PARERR;
@@ -163,36 +143,32 @@ DRESULT disk_ioctl (
     case DEV_FLASH:
         switch (cmd) {
         case CTRL_SYNC:
-            /* Ensure all pending writes are completed */
-            printf("disk_ioctl: CTRL_SYNC\r\n");
+            /* 确保所有挂起的写操作都已完成 */
             W25QXX_Wait_Busy();
+            // 添加额外延时确保数据稳定
+            HAL_Delay(10);
             return RES_OK;
 
         case GET_SECTOR_COUNT:
-            /* Return the total number of sectors */
-            printf("disk_ioctl: GET_SECTOR_COUNT = %d\r\n", TOTAL_SECTORS);
+            /* 返回扇区总数 */
             *(LBA_t *)buff = TOTAL_SECTORS;
             return RES_OK;
 
         case GET_SECTOR_SIZE:
-            /* Return the sector size */
-            printf("disk_ioctl: GET_SECTOR_SIZE = %d\r\n", SECTOR_SIZE);
+            /* 返回扇区大小 */
             *(WORD *)buff = SECTOR_SIZE;
             return RES_OK;
 
         case GET_BLOCK_SIZE:
-            /* Return the erase block size in sectors */
-            printf("disk_ioctl: GET_BLOCK_SIZE = 8\r\n");
-            *(DWORD *)buff = W25QXX_FLASH_SECTOR_SIZE / SECTOR_SIZE;  // 4096/512 = 8
+            /* 返回擦除块大小（以扇区为单位） */
+            *(DWORD *)buff = W25QXX_FLASH_SECTOR_SIZE / SECTOR_SIZE;  // 8
             return RES_OK;
 
         case CTRL_TRIM:
-            /* Trim operation - not supported for W25QXX */
-            printf("disk_ioctl: CTRL_TRIM - not supported\r\n");
-            return RES_OK;  /* 改为OK，避免错误 */
+            /* Trim操作 - W25QXX不支持，但返回OK避免错误 */
+            return RES_OK;
 
         default:
-            printf("disk_ioctl: Unknown command %d\r\n", cmd);
             return RES_PARERR;
         }
     }
@@ -209,14 +185,19 @@ DWORD get_fattime (void)
     /* 格式: bit31:25(年-1980), bit24:21(月), bit20:16(日), bit15:11(时), bit10:5(分), bit4:0(秒/2) */
     
     DWORD time = 0;
+    RTC_TimeTypeDef RTC_TimeStruct;
+    RTC_DateTypeDef RTC_DateStruct;
     
-    /* 示例：2024年1月1日 12:00:00 */
-    time |= (DWORD)(2024 - 1980) << 25;  // 年
-    time |= (DWORD)1 << 21;              // 月
-    time |= (DWORD)1 << 16;              // 日
-    time |= (DWORD)12 << 11;             // 时
-    time |= (DWORD)0 << 5;               // 分
-    time |= (DWORD)0;                    // 秒/2
-
+    HAL_RTC_GetTime(&RTC_Handler, &RTC_TimeStruct, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&RTC_Handler, &RTC_DateStruct, RTC_FORMAT_BIN);
+    
+    /* 按照FAT文件系统时间戳格式组装时间 */
+    time = ((DWORD)(RTC_DateStruct.Year + 20) << 25)    // 年份(相对于1980年，RTC年份+2000-1980=+20)
+         | ((DWORD)RTC_DateStruct.Month << 21)         // 月份(1-12)
+         | ((DWORD)RTC_DateStruct.Date << 16)          // 日期(1-31)
+         | ((DWORD)RTC_TimeStruct.Hours << 11)         // 小时(0-23)
+         | ((DWORD)RTC_TimeStruct.Minutes << 5)        // 分钟(0-59)
+         | ((DWORD)RTC_TimeStruct.Seconds >> 1);       // 秒/2(0-29)
+    
     return time;
 }

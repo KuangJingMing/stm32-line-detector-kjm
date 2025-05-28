@@ -9,8 +9,10 @@
 lv_ui guider_ui;
 
 
+#define UNIT_TEST 1
+
 void unit_test(void) {
-	FatFs_Test();
+	test_flash_step_by_step();
 }
 
 int main(void)
@@ -25,8 +27,12 @@ int main(void)
     sdram_init();               
 		btim_timx_int_init(100-1,2400-1);  //lvgl base time
 		W25QXX_Init();
-        unit_test();
+		RTC_Init();
+    RTC_Set_WakeUp(RTC_WAKEUPCLOCK_CK_SPRE_16BITS, 0);
+#if UNIT_TEST
+    unit_test();
     while (1) {}
+#endif
     lv_init();                    
     lv_port_disp_init();         
     lv_port_indev_init();          

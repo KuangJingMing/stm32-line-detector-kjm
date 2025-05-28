@@ -1,0 +1,99 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.42.0.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Jamie k, 湖南汽车工程职业学院, LIC=SDA0P-MFCIP-63PMB-2ISKZ-Z6PJB-NKQET
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.42.0.0
+Toolchain Path:  C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.23
+Assembler:       Armasm.exe V6.23
+Linker/Locator:  ArmLink.exe V6.23
+Library Manager: ArmAr.exe V6.23
+Hex Converter:   FromElf.exe V6.23
+CPU DLL:         SARMCM3.DLL V5.42.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
+Dialog DLL:      TCM.DLL V1.56.6.0
+ 
+<h2>Project:</h2>
+C:\Users\kjmsd\Documents\GitHub\stm32-line-detector-kjm\program\Projects\MDK-ARM\atk_h743.uvprojx
+Project File Date:  05/28/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.23', folder: 'C:\Users\kjmsd\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'TOUCH'
+../../UnitTest/w25q64_test.c(10): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   10 |     printf("=== <B7>植<BD><B2><E2><CA><D4>Flash<B2><D9><D7><F7> ===\n");
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~     ~~~~~~~~~~~~~~~~
+../../UnitTest/w25q64_test.c(34): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   34 |     printf(">>> <D1><E9>证模式<A3><BA><BD><F6><B6><C1>取<D1><E9>证<CA><FD><BE>荼<A3><B3><D6><D0><D4> <<<\n");
+      |                 ^~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~
+../../UnitTest/w25q64_test.c(35): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   35 |     printf("<D5><FD><D4><DA><D1><E9>证<C9>系<E7><BA><F3>Flash<CA><FD><BE><DD><CA>欠<U+718F3><D6>...\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~     ~~~~~~~~~~~~~~~~~~~~          ~~~~
+../../UnitTest/w25q64_test.c(39): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   39 |     printf("<B2><BD><D6><E8>%d<A3><BA><B6><C1>取<B5><DA>一页<D1><E9>证\n", ENABLE_WRITE_TEST ? 4 : 1);
+      |             ^~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~ ~~~~~~~~  ~~~~~~~~
+../../UnitTest/w25q64_test.c(44): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   44 |             printf("<B5><DA>一页<D1><E9>证失<B0>埽<AC>偏<D2><C6> %d: <C6><DA><CD><FB> 0x%02X, 实<BC><CA> 0x%02X\n", 
+      |                     ^~~~~~~~  ~~~~~~~~ ~~~~ ~~~~ ~~~~~~~~     ~~~~~~~~~~~~~~~~          ~~~~~~~~
+../../UnitTest/w25q64_test.c(50): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   50 |     printf("<B5><DA>一页<BD><E1><B9><FB>: %s\n", page1_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |             ^~~~~~~~  ~~~~~~~~~~~~~~~~
+../../UnitTest/w25q64_test.c(50): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   50 |     printf("<B5><DA>一页<BD><E1><B9><FB>: %s\n", page1_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |                                                            ^~~~ ~~~~
+../../UnitTest/w25q64_test.c(50): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   50 |     printf("<B5><DA>一页<BD><E1><B9><FB>: %s\n", page1_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |                                                                           ^~~~~~~~
+../../UnitTest/w25q64_test.c(52): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   52 |     printf("<B2><BD><D6><E8>%d<A3><BA><B6><C1>取<B5>诙<FE>页<D1><E9>证\n", ENABLE_WRITE_TEST ? 5 : 2);
+      |             ^~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~ ~~~~ ~~~~ ~~~~~~~~
+../../UnitTest/w25q64_test.c(57): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   57 |             printf("<B5>诙<FE>页<D1><E9>证失<B0>埽<AC>偏<D2><C6> %d: <C6><DA><CD><FB> 0x%02X, 实<BC><CA> 0x%02X\n", 
+      |                     ^~~~ ~~~~ ~~~~~~~~ ~~~~ ~~~~ ~~~~~~~~     ~~~~~~~~~~~~~~~~          ~~~~~~~~
+../../UnitTest/w25q64_test.c(63): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   63 |     printf("<B5>诙<FE>页<BD><E1><B9><FB>: %s\n", page2_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |             ^~~~ ~~~~ ~~~~~~~~~~~~~~~~
+../../UnitTest/w25q64_test.c(63): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   63 |     printf("<B5>诙<FE>页<BD><E1><B9><FB>: %s\n", page2_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |                                                            ^~~~ ~~~~
+../../UnitTest/w25q64_test.c(63): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   63 |     printf("<B5>诙<FE>页<BD><E1><B9><FB>: %s\n", page2_ok ? "<B3>晒<A6>" : "失<B0><DC>");
+      |                                                                           ^~~~~~~~
+../../UnitTest/w25q64_test.c(69): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   69 |     printf("=== <CA><FD><BE>荼<A3><B3><D6><D0>圆<E2><CA><D4><CD><EA><B3><C9> ===\n");
+      |                 ^~~~~~~~~~~~ ~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../UnitTest/w25q64_test.c(71): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   71 |         printf("? Flash<CA><FD><BE><DD><D4>诙系<E7><D6><D8><C6><F4><BA><U+F18F3><D6><CD><EA><BA>茫<A1>\n");
+      |                        ^~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~         ~~~~~~~~~~~~~~~~ ~~~~
+../../UnitTest/w25q64_test.c(73): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+   73 |         printf("? Flash<CA><FD><BE><DD><D4>诙系<E7><D6><D8><C6><F4><BA><F3><B6><AA>失<BB><F2><CB><U+3BD63><A1>\n");
+      |                        ^~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~         ~~~~
+16 warnings generated.
+compiling w25q64_test.c...
+linking...
+Program Size: Code=16368 RO-data=1020 RW-data=20 ZI-data=2081364  
+FromELF: creating hex file...
+"..\..\Output\atk_h743.axf" - 0 Error(s), 16 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32H7xx_DFP.3.0.0.pack
+                Keil::STM32H7xx_DFP@3.0.0
+                STMicroelectronics STM32H7 Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  C:/Users/kjmsd/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/3.0.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:07
+</pre>
+</body>
+</html>

@@ -519,6 +519,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\QSPI\qspi.c</FilePath>
             </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\BSP\RTC\rtc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -538,6 +543,11 @@
               <FileName>w25q64_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\UnitTest\w25q64_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtc_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\UnitTest\rtc_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1580,9 +1590,24 @@
               <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c</FilePath>
             </File>
             <File>
+              <FileName>stm32h7xx_hal_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_rtc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc_ex.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32h7xx_ll_fmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_ll_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rtc.c</FilePath>
             </File>
           </Files>
         </Group>
