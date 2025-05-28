@@ -51,7 +51,6 @@ void FatFs_Test(void)
     }
     printf("File system mounted successfully.\r\n");
 
-
 #define TEST_WRITE 0
 
 #if TEST_WRITE
