@@ -75,7 +75,7 @@ void custom_scr_setting_init(lv_ui *ui) {
     
     // 控件之间的间距
     lv_obj_set_style_pad_row(ui->scrSetting_cont_time_setting, 20, LV_PART_MAIN);      // 行间距
-    lv_obj_set_style_pad_column(ui->scrSetting_cont_time_setting, 60, LV_PART_MAIN);   // 列间距
+    lv_obj_set_style_pad_column(ui->scrSetting_cont_time_setting, 65, LV_PART_MAIN);   // 列间距
 }
 
 void custom_scr_detect_init(lv_ui *ui) {
@@ -88,14 +88,14 @@ void custom_scr_detect_init(lv_ui *ui) {
     lv_obj_clear_flag(ui->scrDetect_cont_1, LV_OBJ_FLAG_SCROLLABLE);
     
     // 容器的内边距 - 让控件远离容器边界
-    lv_obj_set_style_pad_top(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
-    lv_obj_set_style_pad_bottom(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
-    lv_obj_set_style_pad_left(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
-    lv_obj_set_style_pad_right(ui->scrDetect_cont_1, 10, LV_PART_MAIN);
+    lv_obj_set_style_pad_top(ui->scrDetect_cont_1, 5, LV_PART_MAIN);
+    lv_obj_set_style_pad_bottom(ui->scrDetect_cont_1, 5, LV_PART_MAIN);
+    lv_obj_set_style_pad_left(ui->scrDetect_cont_1, 5, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(ui->scrDetect_cont_1, 5, LV_PART_MAIN);
     
     // 控件之间的间距
-    lv_obj_set_style_pad_row(ui->scrDetect_cont_1, 20, LV_PART_MAIN);      // 行间距
-    lv_obj_set_style_pad_column(ui->scrDetect_cont_1, 20, LV_PART_MAIN);   // 列间距
+    lv_obj_set_style_pad_row(ui->scrDetect_cont_1, 5, LV_PART_MAIN);      // 行间距
+    lv_obj_set_style_pad_column(ui->scrDetect_cont_1, 5, LV_PART_MAIN);   // 列间距
     
 }
 

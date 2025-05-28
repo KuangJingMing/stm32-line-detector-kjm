@@ -74,6 +74,17 @@ typedef struct
 	lv_obj_t *scrSetting_labelTitle;
 	lv_obj_t *scrSetting_btnBack;
 	lv_obj_t *scrSetting_btnBack_label;
+	lv_obj_t *scrSetting_cont_log;
+	lv_obj_t *scrSetting_cont_1;
+	lv_obj_t *scrSetting_list_3;
+	lv_obj_t *scrSetting_list_3_item0;
+	lv_obj_t *scrSetting_list_3_item1;
+	lv_obj_t *scrSetting_sw_1;
+	lv_obj_t *scrSetting_ta_8;
+	lv_obj_t *scrSetting_btn_3;
+	lv_obj_t *scrSetting_btn_3_label;
+	lv_obj_t *scrSetting_btn_4;
+	lv_obj_t *scrSetting_btn_4_label;
 	lv_obj_t *scrSetting_cont_time_setting;
 	lv_obj_t *scrSetting_cont_year;
 	lv_obj_t *scrSetting_label_8;
@@ -109,6 +120,9 @@ typedef struct
 	lv_obj_t *scrDetect_btn_1_label;
 	lv_obj_t *scrDetect_label_1;
 	lv_obj_t *scrDetect_cont_1;
+	lv_obj_t *scrDetect_cont_5;
+	lv_obj_t *scrDetect_img_4;
+	lv_obj_t *scrDetect_label_5;
 	lv_obj_t *scrDetect_cont_2;
 	lv_obj_t *scrDetect_img_1;
 	lv_obj_t *scrDetect_label_2;
@@ -173,13 +187,16 @@ LV_IMG_DECLARE(_eco_alpha_48x38);
 LV_IMG_DECLARE(_pc_alpha_50x42);
 LV_IMG_DECLARE(_time64_alpha_30x30);
 
-LV_IMG_DECLARE(_btn_bg_1_200x250);
+LV_IMG_DECLARE(_btn_bg_4_166x211);
+LV_IMG_DECLARE(_line_2_alpha_66x66);
+
+LV_IMG_DECLARE(_btn_bg_1_159x214);
 LV_IMG_DECLARE(_line_2_alpha_80x90);
 
-LV_IMG_DECLARE(_btn_bg_2_200x250);
+LV_IMG_DECLARE(_btn_bg_2_159x214);
 LV_IMG_DECLARE(_line_2_alpha_80x90);
 
-LV_IMG_DECLARE(_btn_bg_3_200x250);
+LV_IMG_DECLARE(_btn_bg_3_159x214);
 LV_IMG_DECLARE(_line_2_alpha_80x90);
 
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_25)
@@ -192,10 +209,10 @@ LV_FONT_DECLARE(lv_font_montserratMedium_41)
 LV_FONT_DECLARE(lv_font_montserratMedium_16)
 LV_FONT_DECLARE(lv_font_montserratMedium_33)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_20)
-LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
+LV_FONT_DECLARE(lv_font_montserratMedium_12)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_12)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_18)
-LV_FONT_DECLARE(lv_font_montserratMedium_12)
+LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
 
 
 #ifdef __cplusplus

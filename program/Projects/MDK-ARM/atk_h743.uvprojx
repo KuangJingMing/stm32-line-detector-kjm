@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1680,86 +1680,6 @@
               <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\widgets_init.c</FilePath>
             </File>
             <File>
-              <FileName>_btn_bg_1_166x211.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_1_166x211.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_1_200x250.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_1_200x250.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_2_166x211.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_2_166x211.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_2_200x250.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_2_200x250.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_3_166x211.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_3_166x211.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_3_200x250.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_3_200x250.c</FilePath>
-            </File>
-            <File>
-              <FileName>_btn_bg_4_166x211.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_4_166x211.c</FilePath>
-            </File>
-            <File>
-              <FileName>_copy_alpha_61x70.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_copy_alpha_61x70.c</FilePath>
-            </File>
-            <File>
-              <FileName>_eco_alpha_48x38.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_eco_alpha_48x38.c</FilePath>
-            </File>
-            <File>
-              <FileName>_line_2_alpha_80x90.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_line_2_alpha_80x90.c</FilePath>
-            </File>
-            <File>
-              <FileName>_pc_alpha_50x42.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_pc_alpha_50x42.c</FilePath>
-            </File>
-            <File>
-              <FileName>_print_alpha_66x66.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_print_alpha_66x66.c</FilePath>
-            </File>
-            <File>
-              <FileName>_scan_alpha_61x70.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_scan_alpha_61x70.c</FilePath>
-            </File>
-            <File>
-              <FileName>_setup_alpha_66x66.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_setup_alpha_66x66.c</FilePath>
-            </File>
-            <File>
-              <FileName>_tel_alpha_46x42.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_tel_alpha_46x42.c</FilePath>
-            </File>
-            <File>
-              <FileName>_wifi_alpha_55x44.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_wifi_alpha_55x44.c</FilePath>
-            </File>
-            <File>
               <FileName>lv_font_montserratMedium_12.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_montserratMedium_12.c</FilePath>
@@ -1828,6 +1748,96 @@
               <FileName>lv_font_SourceHanSerifSC_Regular_33.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_SourceHanSerifSC_Regular_33.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_1_159x214.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_1_159x214.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_1_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_1_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_2_159x214.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_2_159x214.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_2_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_2_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_3_159x214.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_3_159x214.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_3_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_3_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_btn_bg_4_166x211.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_btn_bg_4_166x211.c</FilePath>
+            </File>
+            <File>
+              <FileName>_copy_alpha_61x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_copy_alpha_61x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_eco_alpha_48x38.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_eco_alpha_48x38.c</FilePath>
+            </File>
+            <File>
+              <FileName>_line_2_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_line_2_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_line_2_alpha_80x90.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_line_2_alpha_80x90.c</FilePath>
+            </File>
+            <File>
+              <FileName>_pc_alpha_50x42.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_pc_alpha_50x42.c</FilePath>
+            </File>
+            <File>
+              <FileName>_print_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_print_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_scan_alpha_61x70.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_scan_alpha_61x70.c</FilePath>
+            </File>
+            <File>
+              <FileName>_setup_alpha_66x66.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_setup_alpha_66x66.c</FilePath>
+            </File>
+            <File>
+              <FileName>_tel_alpha_46x42.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_tel_alpha_46x42.c</FilePath>
+            </File>
+            <File>
+              <FileName>_time64_alpha_30x30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_time64_alpha_30x30.c</FilePath>
+            </File>
+            <File>
+              <FileName>_wifi_alpha_55x44.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_wifi_alpha_55x44.c</FilePath>
             </File>
           </Files>
         </Group>

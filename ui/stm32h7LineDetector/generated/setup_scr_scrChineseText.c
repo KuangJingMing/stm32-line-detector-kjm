@@ -30,9 +30,9 @@ void setup_scr_scrChineseText(lv_ui *ui)
 
     //Write codes scrChineseText_label_1
     ui->scrChineseText_label_1 = lv_label_create(ui->scrChineseText);
-    lv_label_set_text(ui->scrChineseText_label_1, "金样学习完成检测正在中请稍后功线");
+    lv_label_set_text(ui->scrChineseText_label_1, "金样学习完成检测正在中请稍后功线时间本数据");
     lv_label_set_long_mode(ui->scrChineseText_label_1, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrChineseText_label_1, 26, 26);
+    lv_obj_set_pos(ui->scrChineseText_label_1, 31, 24);
     lv_obj_set_size(ui->scrChineseText_label_1, 340, 34);
 
     //Write style for scrChineseText_label_1, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.

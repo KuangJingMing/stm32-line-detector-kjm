@@ -116,9 +116,10 @@ static void scrComplete_event_handler (lv_event_t *e)
         if (get_current_mode() == STUDY_MODE) {
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "金样学习完成");
             lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
-        } else if (get_current_mode() == DETECTION_MODE_42 ||
-                   get_current_mode() == DETECTION_MODE_47 ||
-                   get_current_mode() == DETECTION_MODE_100) {
+        } else if (get_current_mode() == DETECTION_MODE_42  ||
+                   get_current_mode() == DETECTION_MODE_47  ||
+                   get_current_mode() == DETECTION_MODE_100 ||
+                   get_current_mode() == DETECTION_MODE_NORMAL) {
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "检测完成");
             lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
         }
@@ -182,7 +183,8 @@ static void scrLoader_event_handler (lv_event_t *e)
             int mode = get_current_mode();
             const char* line = (mode == DETECTION_MODE_42) ? "42线" :
                                (mode == DETECTION_MODE_47) ? "47线" :
-                               (mode == DETECTION_MODE_100) ? "100线" : "";
+                               (mode == DETECTION_MODE_100) ? "100线" :
+                               (mode == DETECTION_MODE_NORMAL) ? "样本数据" : "";
 
             static char temp_str[50];
             snprintf(temp_str, sizeof(temp_str), "正在检测%s中请稍后", line);
@@ -296,13 +298,29 @@ static void scrSetting_btnBack_event_handler (lv_event_t *e)
     }
 }
 
+static void scrSetting_btn_3_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        lv_obj_add_flag(guider_ui.scrSetting_cont_log, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
+
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 static void scrSetting_btn_1_event_handler (lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     switch (code) {
     case LV_EVENT_CLICKED:
     {
-        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置成功");
+        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置时间成功");
 
         break;
     }
@@ -319,6 +337,8 @@ static void scrSetting_btn_2_event_handler (lv_event_t *e)
     {
         lv_obj_add_flag(guider_ui.scrSetting_cont_time_setting, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
+        lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置模式");
+
         break;
     }
     default:
@@ -334,6 +354,7 @@ static void scrSetting_list_1_item0_event_handler (lv_event_t *e)
     {
         lv_obj_clear_flag(guider_ui.scrSetting_cont_time_setting, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
+
         break;
     }
     default:
@@ -347,19 +368,9 @@ static void scrSetting_list_1_item1_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_CLICKED:
     {
-        break;
-    }
-    default:
-        break;
-    }
-}
+        lv_obj_clear_flag(guider_ui.scrSetting_cont_log, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
 
-static void scrSetting_list_1_item2_event_handler (lv_event_t *e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    switch (code) {
-    case LV_EVENT_CLICKED:
-    {
         break;
     }
     default:
@@ -384,11 +395,11 @@ void events_init_scrSetting (lv_ui *ui)
 {
     lv_obj_add_event_cb(ui->scrSetting, scrSetting_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btnBack, scrSetting_btnBack_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrSetting_btn_3, scrSetting_btn_3_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_1, scrSetting_btn_1_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_2, scrSetting_btn_2_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item0, scrSetting_list_1_item0_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item1, scrSetting_list_1_item1_event_handler, LV_EVENT_ALL, ui);
-    lv_obj_add_event_cb(ui->scrSetting_list_1_item2, scrSetting_list_1_item2_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item3, scrSetting_list_1_item3_event_handler, LV_EVENT_ALL, ui);
 }
 
@@ -414,6 +425,23 @@ static void scrDetect_btn_1_event_handler (lv_event_t *e)
     case LV_EVENT_CLICKED:
     {
         ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrDetect_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_NONE, 200, 200, false, false);
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_width(guider_ui.scrDetect_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
+        ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_height(guider_ui.scrDetect_contBG), 105, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrDetect_cont_5_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        set_screen_mode(DETECTION_MODE_NORMAL);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrDetect_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_NONE, 200, 50, false, false);
         ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_width(guider_ui.scrDetect_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrDetect_contBG, 150, 0, lv_obj_get_height(guider_ui.scrDetect_contBG), 105, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
@@ -478,6 +506,7 @@ void events_init_scrDetect (lv_ui *ui)
 {
     lv_obj_add_event_cb(ui->scrDetect, scrDetect_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrDetect_btn_1, scrDetect_btn_1_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrDetect_cont_5, scrDetect_cont_5_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrDetect_cont_2, scrDetect_cont_2_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrDetect_cont_3, scrDetect_cont_3_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrDetect_cont_4, scrDetect_cont_4_event_handler, LV_EVENT_ALL, ui);

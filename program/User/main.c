@@ -8,7 +8,7 @@
 
 lv_ui guider_ui;
 
-#define UNIT_TEST 1
+#define UNIT_TEST 0
 
 void unit_test(void)
 {
@@ -44,6 +44,6 @@ int main(void)
     while (1)
     {
         lv_task_handler();
-        delay_ms(5);
+        delay_ms(20);
     }
 }

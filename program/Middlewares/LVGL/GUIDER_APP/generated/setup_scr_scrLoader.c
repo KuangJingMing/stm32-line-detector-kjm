@@ -30,7 +30,7 @@ void setup_scr_scrLoader(lv_ui *ui)
 
     //Write codes scrLoader_contBG
     ui->scrLoader_contBG = lv_obj_create(ui->scrLoader);
-    lv_obj_set_pos(ui->scrLoader_contBG, 0, -1);
+    lv_obj_set_pos(ui->scrLoader_contBG, 0, 0);
     lv_obj_set_size(ui->scrLoader_contBG, 800, 480);
     lv_obj_set_scrollbar_mode(ui->scrLoader_contBG, LV_SCROLLBAR_MODE_OFF);
 

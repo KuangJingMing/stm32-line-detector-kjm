@@ -111,10 +111,71 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_pad_right(ui->scrDetect_cont_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_width(ui->scrDetect_cont_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
+    //Write codes scrDetect_cont_5
+    ui->scrDetect_cont_5 = lv_obj_create(ui->scrDetect_cont_1);
+    lv_obj_set_pos(ui->scrDetect_cont_5, 10, 75);
+    lv_obj_set_size(ui->scrDetect_cont_5, 166, 211);
+    lv_obj_set_scrollbar_mode(ui->scrDetect_cont_5, LV_SCROLLBAR_MODE_OFF);
+
+    //Write style for scrDetect_cont_5, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_border_width(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui->scrDetect_cont_5, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui->scrDetect_cont_5, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui->scrDetect_cont_5, LV_GRAD_DIR_NONE, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_5, &_btn_bg_4_166x211, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_opa(ui->scrDetect_cont_5, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui->scrDetect_cont_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+
+    //Write codes scrDetect_img_4
+    ui->scrDetect_img_4 = lv_img_create(ui->scrDetect_cont_5);
+    lv_obj_add_flag(ui->scrDetect_img_4, LV_OBJ_FLAG_CLICKABLE);
+    lv_img_set_src(ui->scrDetect_img_4, &_line_2_alpha_66x66);
+    lv_img_set_pivot(ui->scrDetect_img_4, 50,50);
+    lv_img_set_angle(ui->scrDetect_img_4, 0);
+    lv_obj_set_pos(ui->scrDetect_img_4, 75, 33);
+    lv_obj_set_size(ui->scrDetect_img_4, 66, 66);
+    lv_obj_add_flag(ui->scrDetect_img_4, LV_OBJ_FLAG_EVENT_BUBBLE);
+
+    //Write style for scrDetect_img_4, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_img_recolor_opa(ui->scrDetect_img_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_img_opa(ui->scrDetect_img_4, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrDetect_img_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_clip_corner(ui->scrDetect_img_4, true, LV_PART_MAIN|LV_STATE_DEFAULT);
+
+    //Write codes scrDetect_label_5
+    ui->scrDetect_label_5 = lv_label_create(ui->scrDetect_cont_5);
+    lv_label_set_text(ui->scrDetect_label_5, "样本线束");
+    lv_label_set_long_mode(ui->scrDetect_label_5, LV_LABEL_LONG_WRAP);
+    lv_obj_set_pos(ui->scrDetect_label_5, 10, 157);
+    lv_obj_set_size(ui->scrDetect_label_5, 128, 33);
+    lv_obj_add_flag(ui->scrDetect_label_5, LV_OBJ_FLAG_EVENT_BUBBLE);
+
+    //Write style for scrDetect_label_5, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_border_width(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui->scrDetect_label_5, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrDetect_label_5, &lv_font_SourceHanSerifSC_Regular_25, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui->scrDetect_label_5, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_letter_space(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_line_space(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(ui->scrDetect_label_5, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui->scrDetect_label_5, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+
     //Write codes scrDetect_cont_2
     ui->scrDetect_cont_2 = lv_obj_create(ui->scrDetect_cont_1);
-    lv_obj_set_pos(ui->scrDetect_cont_2, 40, 42);
-    lv_obj_set_size(ui->scrDetect_cont_2, 200, 250);
+    lv_obj_set_pos(ui->scrDetect_cont_2, 174, 75);
+    lv_obj_set_size(ui->scrDetect_cont_2, 159, 214);
     lv_obj_set_scrollbar_mode(ui->scrDetect_cont_2, LV_SCROLLBAR_MODE_OFF);
 
     //Write style for scrDetect_cont_2, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -127,7 +188,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_pad_bottom(ui->scrDetect_cont_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui->scrDetect_cont_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui->scrDetect_cont_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_2, &_btn_bg_1_200x250, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_2, &_btn_bg_1_159x214, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_opa(ui->scrDetect_cont_2, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor_opa(ui->scrDetect_cont_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_width(ui->scrDetect_cont_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -150,9 +211,9 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_label_2
     ui->scrDetect_label_2 = lv_label_create(ui->scrDetect_cont_2);
-    lv_label_set_text(ui->scrDetect_label_2, "42线");
+    lv_label_set_text(ui->scrDetect_label_2, "TEG5951-42");
     lv_label_set_long_mode(ui->scrDetect_label_2, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrDetect_label_2, 5, 157);
+    lv_obj_set_pos(ui->scrDetect_label_2, 10, 157);
     lv_obj_set_size(ui->scrDetect_label_2, 128, 33);
     lv_obj_add_flag(ui->scrDetect_label_2, LV_OBJ_FLAG_EVENT_BUBBLE);
 
@@ -160,7 +221,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_border_width(ui->scrDetect_label_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui->scrDetect_label_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui->scrDetect_label_2, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui->scrDetect_label_2, &lv_font_SourceHanSerifSC_Regular_25, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrDetect_label_2, &lv_font_SourceHanSerifSC_Regular_20, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui->scrDetect_label_2, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui->scrDetect_label_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui->scrDetect_label_2, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -174,8 +235,8 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_cont_3
     ui->scrDetect_cont_3 = lv_obj_create(ui->scrDetect_cont_1);
-    lv_obj_set_pos(ui->scrDetect_cont_3, 249, 40);
-    lv_obj_set_size(ui->scrDetect_cont_3, 200, 250);
+    lv_obj_set_pos(ui->scrDetect_cont_3, 353, 75);
+    lv_obj_set_size(ui->scrDetect_cont_3, 159, 214);
     lv_obj_set_scrollbar_mode(ui->scrDetect_cont_3, LV_SCROLLBAR_MODE_OFF);
 
     //Write style for scrDetect_cont_3, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -188,7 +249,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_pad_bottom(ui->scrDetect_cont_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui->scrDetect_cont_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui->scrDetect_cont_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_3, &_btn_bg_2_200x250, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_3, &_btn_bg_2_159x214, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_opa(ui->scrDetect_cont_3, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor_opa(ui->scrDetect_cont_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_width(ui->scrDetect_cont_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -211,9 +272,9 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_label_3
     ui->scrDetect_label_3 = lv_label_create(ui->scrDetect_cont_3);
-    lv_label_set_text(ui->scrDetect_label_3, "47线");
+    lv_label_set_text(ui->scrDetect_label_3, "TEG5951-47");
     lv_label_set_long_mode(ui->scrDetect_label_3, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrDetect_label_3, 5, 157);
+    lv_obj_set_pos(ui->scrDetect_label_3, 10, 157);
     lv_obj_set_size(ui->scrDetect_label_3, 128, 33);
     lv_obj_add_flag(ui->scrDetect_label_3, LV_OBJ_FLAG_EVENT_BUBBLE);
 
@@ -221,7 +282,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_border_width(ui->scrDetect_label_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui->scrDetect_label_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui->scrDetect_label_3, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui->scrDetect_label_3, &lv_font_SourceHanSerifSC_Regular_25, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrDetect_label_3, &lv_font_SourceHanSerifSC_Regular_20, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui->scrDetect_label_3, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui->scrDetect_label_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui->scrDetect_label_3, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -235,8 +296,8 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_cont_4
     ui->scrDetect_cont_4 = lv_obj_create(ui->scrDetect_cont_1);
-    lv_obj_set_pos(ui->scrDetect_cont_4, 469, 44);
-    lv_obj_set_size(ui->scrDetect_cont_4, 200, 250);
+    lv_obj_set_pos(ui->scrDetect_cont_4, 526, 76);
+    lv_obj_set_size(ui->scrDetect_cont_4, 159, 214);
     lv_obj_set_scrollbar_mode(ui->scrDetect_cont_4, LV_SCROLLBAR_MODE_OFF);
 
     //Write style for scrDetect_cont_4, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -249,7 +310,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_pad_bottom(ui->scrDetect_cont_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui->scrDetect_cont_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui->scrDetect_cont_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_4, &_btn_bg_3_200x250, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui->scrDetect_cont_4, &_btn_bg_3_159x214, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_opa(ui->scrDetect_cont_4, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor_opa(ui->scrDetect_cont_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_width(ui->scrDetect_cont_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -272,9 +333,9 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_label_4
     ui->scrDetect_label_4 = lv_label_create(ui->scrDetect_cont_4);
-    lv_label_set_text(ui->scrDetect_label_4, "100线");
+    lv_label_set_text(ui->scrDetect_label_4, "TEG5951-100");
     lv_label_set_long_mode(ui->scrDetect_label_4, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrDetect_label_4, 5, 157);
+    lv_obj_set_pos(ui->scrDetect_label_4, 10, 157);
     lv_obj_set_size(ui->scrDetect_label_4, 128, 33);
     lv_obj_add_flag(ui->scrDetect_label_4, LV_OBJ_FLAG_EVENT_BUBBLE);
 
@@ -282,7 +343,7 @@ void setup_scr_scrDetect(lv_ui *ui)
     lv_obj_set_style_border_width(ui->scrDetect_label_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui->scrDetect_label_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui->scrDetect_label_4, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui->scrDetect_label_4, &lv_font_SourceHanSerifSC_Regular_25, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrDetect_label_4, &lv_font_SourceHanSerifSC_Regular_20, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui->scrDetect_label_4, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui->scrDetect_label_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui->scrDetect_label_4, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
