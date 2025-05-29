@@ -74,17 +74,6 @@ typedef struct
 	lv_obj_t *scrSetting_labelTitle;
 	lv_obj_t *scrSetting_btnBack;
 	lv_obj_t *scrSetting_btnBack_label;
-	lv_obj_t *scrSetting_cont_log;
-	lv_obj_t *scrSetting_cont_1;
-	lv_obj_t *scrSetting_list_3;
-	lv_obj_t *scrSetting_list_3_item0;
-	lv_obj_t *scrSetting_list_3_item1;
-	lv_obj_t *scrSetting_sw_1;
-	lv_obj_t *scrSetting_ta_8;
-	lv_obj_t *scrSetting_btn_3;
-	lv_obj_t *scrSetting_btn_3_label;
-	lv_obj_t *scrSetting_btn_4;
-	lv_obj_t *scrSetting_btn_4_label;
 	lv_obj_t *scrSetting_cont_time_setting;
 	lv_obj_t *scrSetting_cont_year;
 	lv_obj_t *scrSetting_label_8;
@@ -108,6 +97,20 @@ typedef struct
 	lv_obj_t *scrSetting_btn_1_label;
 	lv_obj_t *scrSetting_btn_2;
 	lv_obj_t *scrSetting_btn_2_label;
+	lv_obj_t *scrSetting_cont_log;
+	lv_obj_t *scrSetting_list_3;
+	lv_obj_t *scrSetting_list_3_item0;
+	lv_obj_t *scrSetting_list_3_item1;
+	lv_obj_t *scrSetting_sw_1;
+	lv_obj_t *scrSetting_ta_8;
+	lv_obj_t *scrSetting_btn_4;
+	lv_obj_t *scrSetting_btn_4_label;
+	lv_obj_t *scrSetting_btn_3;
+	lv_obj_t *scrSetting_btn_3_label;
+	lv_obj_t *scrSetting_cont_line;
+	lv_obj_t *scrSetting_label_14;
+	lv_obj_t *scrSetting_btn_5;
+	lv_obj_t *scrSetting_btn_5_label;
 	lv_obj_t *scrSetting_list_1;
 	lv_obj_t *scrSetting_list_1_item0;
 	lv_obj_t *scrSetting_list_1_item1;
@@ -209,10 +212,10 @@ LV_FONT_DECLARE(lv_font_montserratMedium_41)
 LV_FONT_DECLARE(lv_font_montserratMedium_16)
 LV_FONT_DECLARE(lv_font_montserratMedium_33)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_20)
-LV_FONT_DECLARE(lv_font_montserratMedium_12)
+LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_12)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_18)
-LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
+LV_FONT_DECLARE(lv_font_montserratMedium_12)
 
 
 #ifdef __cplusplus
