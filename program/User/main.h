@@ -5,6 +5,8 @@
 #include "stdio.h"
 
 #include "../App/line_detector_app.h"
+#include "../App/gui_backend.h"
+#include "../App/gui_fs.h"
 
 #include "./SYSTEM/sys/sys.h"
 #include "./SYSTEM/usart/usart.h"

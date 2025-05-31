@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>5</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -558,6 +558,16 @@
               <FileName>line_detector_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\App\line_detector_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui_backend.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\gui_backend.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui_fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\gui_fs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1838,6 +1848,11 @@
               <FileName>_wifi_alpha_55x44.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\images\_wifi_alpha_55x44.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_Abel_regular_20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Middlewares\LVGL\GUIDER_APP\generated\guider_fonts\lv_font_Abel_regular_20.c</FilePath>
             </File>
           </Files>
         </Group>

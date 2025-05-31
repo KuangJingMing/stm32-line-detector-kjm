@@ -50,11 +50,9 @@ typedef struct
 	bool scrComplete_del;
 	lv_obj_t *scrComplete_contBG;
 	lv_obj_t *scrComplete_labelTitle;
-	lv_obj_t *scrComplete_btnNext;
-	lv_obj_t *scrComplete_btnNext_label;
 	lv_obj_t *scrComplete_btnBack;
 	lv_obj_t *scrComplete_btnBack_label;
-	lv_obj_t *scrComplete_label_1;
+	lv_obj_t *scrComplete_ta_1;
 	lv_obj_t *scrLoader;
 	bool scrLoader_del;
 	lv_obj_t *scrLoader_contBG;
@@ -111,6 +109,10 @@ typedef struct
 	lv_obj_t *scrSetting_label_14;
 	lv_obj_t *scrSetting_btn_5;
 	lv_obj_t *scrSetting_btn_5_label;
+	lv_obj_t *scrSetting_cont_sys;
+	lv_obj_t *scrSetting_btnm_1;
+	lv_obj_t *scrSetting_btn_6;
+	lv_obj_t *scrSetting_btn_6_label;
 	lv_obj_t *scrSetting_list_1;
 	lv_obj_t *scrSetting_list_1_item0;
 	lv_obj_t *scrSetting_list_1_item1;
@@ -206,16 +208,16 @@ LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_25)
 LV_FONT_DECLARE(lv_font_montserratMedium_26)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_23)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_33)
-LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_30)
-LV_FONT_DECLARE(lv_font_montserratMedium_20)
 LV_FONT_DECLARE(lv_font_montserratMedium_41)
-LV_FONT_DECLARE(lv_font_montserratMedium_16)
+LV_FONT_DECLARE(lv_font_montserratMedium_20)
+LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
+LV_FONT_DECLARE(lv_font_montserratMedium_12)
 LV_FONT_DECLARE(lv_font_montserratMedium_33)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_20)
-LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_16)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_12)
 LV_FONT_DECLARE(lv_font_SourceHanSerifSC_Regular_18)
-LV_FONT_DECLARE(lv_font_montserratMedium_12)
+LV_FONT_DECLARE(lv_font_montserratMedium_16)
+LV_FONT_DECLARE(lv_font_Abel_regular_20)
 
 
 #ifdef __cplusplus

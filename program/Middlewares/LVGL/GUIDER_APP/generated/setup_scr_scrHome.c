@@ -13,6 +13,11 @@
 #include "events_init.h"
 #include "widgets_init.h"
 #include "custom.h"
+#ifdef STM32H743xx
+
+#include "main.h"
+
+#endif
 
 
 
@@ -386,7 +391,7 @@ void setup_scr_scrHome(lv_ui *ui)
 
     //Write codes scrHome_labelDate
     ui->scrHome_labelDate = lv_label_create(ui->scrHome_contTop);
-    lv_label_set_text(ui->scrHome_labelDate, "22 Aug 2023  14:30");
+    lv_label_set_text(ui->scrHome_labelDate, "正在加载中");
     lv_label_set_long_mode(ui->scrHome_labelDate, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrHome_labelDate, 366, 44);
     lv_obj_set_size(ui->scrHome_labelDate, 363, 49);
@@ -395,7 +400,7 @@ void setup_scr_scrHome(lv_ui *ui)
     lv_obj_set_style_border_width(ui->scrHome_labelDate, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui->scrHome_labelDate, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui->scrHome_labelDate, lv_color_hex(0xe9e9e9), LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui->scrHome_labelDate, &lv_font_montserratMedium_26, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrHome_labelDate, &lv_font_SourceHanSerifSC_Regular_25, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui->scrHome_labelDate, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui->scrHome_labelDate, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui->scrHome_labelDate, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -532,7 +537,7 @@ void setup_scr_scrHome(lv_ui *ui)
 
     //The custom code of scrHome.
     lv_keyboard_set_mode(guider_ui.g_kb_top_layer, LV_KEYBOARD_MODE_NUMBER);
-
+    custom_init(&guider_ui);
 
     //Update current screen layout.
     lv_obj_update_layout(ui->scrHome);

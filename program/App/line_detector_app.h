@@ -11,23 +11,20 @@
 // 检测器状态枚举
 typedef enum {
     LINE_DETECTOR_OK = 0,
-    LINE_DETECTOR_ERROR = 1,
-    LINE_DETECTOR_BUSY = 2
+    LINE_DETECTOR_ERROR = 1
 } LineDetector_Status_t;
-
-// 测试电压枚举
-typedef enum {
-    TEST_VOLTAGE_3V3 = 0,
-    TEST_VOLTAGE_5V = 1
-} LineDetector_Voltage_t;
 
 // 检测配置结构体
 typedef struct {
     uint8_t total_pins;               // 总引脚数
-    LineDetector_Voltage_t test_voltage; // 测试电压
     uint8_t delay_ms;                 // 延时时间(ms)
-    uint8_t retry_count;              // 重试次数
 } LineDetector_Config_t;
+
+// 引脚映射关系结构体
+typedef struct {
+    uint8_t a_pin;  // A端引脚
+    uint8_t b_pin;  // B端引脚
+} LineDetector_PinMapping_t;
 
 // 错位连接信息
 typedef struct {
@@ -55,20 +52,33 @@ typedef struct {
     MisplacedPin_t misplaced_pins[MAX_PINS]; // 错位信息列表
 } LineDetector_Result_t;
 
+
+// 新增：用于存储每个A端引脚的响应模式
+typedef struct {
+    uint8_t a_pin;
+    uint8_t response_pins[MAX_PINS];  // 响应的B端引脚列表
+    uint8_t response_count;           // 响应的B端引脚数量
+    uint32_t response_pattern;        // 响应模式的位掩码表示
+} PinResponsePattern_t;
+
+
 // 函数声明
 LineDetector_Status_t LineDetector_Init(void);
-LineDetector_Status_t LineDetector_LearnGolden(void);
+LineDetector_Status_t LineDetector_LearnMapping(char *report_buffer, size_t buffer_size);
+LineDetector_Status_t LineDetector_SetMapping(const LineDetector_PinMapping_t* mappings, uint16_t count);
 LineDetector_Status_t LineDetector_RunTest(void);
 LineDetector_Status_t LineDetector_TestSinglePin(uint8_t a_pin, uint8_t* result_b_pin);
+
+LineDetector_Result_t* LineDetector_GetResult(void);
+LineDetector_Config_t* LineDetector_GetConfig(void);
 LineDetector_Status_t LineDetector_SetConfig(const LineDetector_Config_t* config);
 
-LineDetector_Config_t* LineDetector_GetConfig(void);
-LineDetector_Result_t* LineDetector_GetResult(void);
+static void LineDetector_AnalyzePinResult(uint8_t a_pin, uint8_t expected_b_pin, uint8_t* b_input);
+static int LineDetector_GenerateReport(char *buffer, size_t buffer_size);
 
 void LineDetector_App_Main(void);
 
-// 内部函数声明
-static void LineDetector_AnalyzePinResult(uint8_t a_pin, uint8_t* b_input);
-static void LineDetector_GenerateReport(void);
+extern char report_buffer[2048];
+extern LineDetector_Status_t study_state;
 
 #endif /* __LINE_DETECTOR_APP_H__ */

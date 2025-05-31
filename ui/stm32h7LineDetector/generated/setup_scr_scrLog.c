@@ -112,7 +112,7 @@ void setup_scr_scrLog(lv_ui *ui)
     lv_obj_set_style_shadow_width(ui->scrLog_cont_list, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
     //The custom code of scrLog.
-
+    init_custom_log_list(&guider_ui);
 
     //Update current screen layout.
     lv_obj_update_layout(ui->scrLog);

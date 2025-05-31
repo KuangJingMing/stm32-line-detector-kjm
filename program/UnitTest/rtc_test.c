@@ -137,6 +137,7 @@ void rtc_unit_test(void)
     // Ö÷Ñ­»·
     while (1)
     {
+
         HAL_RTC_GetTime(&RTC_Handler, &RTC_TimeStruct, RTC_FORMAT_BIN);
         HAL_RTC_GetDate(&RTC_Handler, &RTC_DateStruct, RTC_FORMAT_BIN);
 

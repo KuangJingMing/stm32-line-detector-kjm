@@ -211,7 +211,7 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_label_2
     ui->scrDetect_label_2 = lv_label_create(ui->scrDetect_cont_2);
-    lv_label_set_text(ui->scrDetect_label_2, "TEG5951-42");
+    lv_label_set_text(ui->scrDetect_label_2, "TEB8283-42");
     lv_label_set_long_mode(ui->scrDetect_label_2, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrDetect_label_2, 10, 157);
     lv_obj_set_size(ui->scrDetect_label_2, 128, 33);
@@ -333,7 +333,7 @@ void setup_scr_scrDetect(lv_ui *ui)
 
     //Write codes scrDetect_label_4
     ui->scrDetect_label_4 = lv_label_create(ui->scrDetect_cont_4);
-    lv_label_set_text(ui->scrDetect_label_4, "TEG5951-100");
+    lv_label_set_text(ui->scrDetect_label_4, "TEG-100");
     lv_label_set_long_mode(ui->scrDetect_label_4, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrDetect_label_4, 10, 157);
     lv_obj_set_size(ui->scrDetect_label_4, 128, 33);

@@ -80,7 +80,7 @@ extern _ltdc_dev lcdltdc;   /* 管理LCD LTDC参数 */
 
 /******************************************************************************************/
 
-
+extern uint32_t *g_ltdc_framebuf[2];   
 
 void ltdc_switch(uint8_t sw);
 void ltdc_layer_switch(uint8_t layerx, uint8_t sw);

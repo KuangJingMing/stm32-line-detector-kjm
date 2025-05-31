@@ -41,7 +41,7 @@ static void scrHome_contSetup_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrSetting, guider_ui.scrSetting_del, &guider_ui.scrHome_del, setup_scr_scrSetting, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrSetting, guider_ui.scrSetting_del, &guider_ui.scrHome_del, setup_scr_scrSetting, LV_SCR_LOAD_ANIM_FADE_ON, 200, 500, false, false);
         break;
     }
     default:
@@ -57,7 +57,7 @@ static void scrHome_contPrint_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrLog, guider_ui.scrLog_del, &guider_ui.scrHome_del, setup_scr_scrLog, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLog, guider_ui.scrLog_del, &guider_ui.scrHome_del, setup_scr_scrLog, LV_SCR_LOAD_ANIM_FADE_ON, 200, 500, false, false);
         break;
     }
     default:
@@ -73,7 +73,7 @@ static void scrHome_contCopy_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrLoader, guider_ui.scrLoader_del, &guider_ui.scrHome_del, setup_scr_scrLoader, LV_SCR_LOAD_ANIM_FADE_ON, 200, 500, false, false);
         set_screen_mode(STUDY_MODE);
         break;
     }
@@ -90,7 +90,7 @@ static void scrHome_contScan_event_handler (lv_event_t *e)
     {
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_width(guider_ui.scrHome_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrHome_contBG, 200, 0, lv_obj_get_height(guider_ui.scrHome_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrDetect, guider_ui.scrDetect_del, &guider_ui.scrHome_del, setup_scr_scrDetect, LV_SCR_LOAD_ANIM_FADE_ON, 200, 50, false, false);
+        ui_load_scr_animation(&guider_ui, &guider_ui.scrDetect, guider_ui.scrDetect_del, &guider_ui.scrHome_del, setup_scr_scrDetect, LV_SCR_LOAD_ANIM_FADE_ON, 200, 500, false, false);
         break;
     }
     default:
@@ -115,32 +115,21 @@ static void scrComplete_event_handler (lv_event_t *e)
     {
         if (get_current_mode() == STUDY_MODE) {
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "金样学习完成");
-            lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
         } else if (get_current_mode() == DETECTION_MODE_42  ||
                    get_current_mode() == DETECTION_MODE_47  ||
                    get_current_mode() == DETECTION_MODE_100 ||
                    get_current_mode() == DETECTION_MODE_NORMAL) {
+
             lv_label_set_text(guider_ui.scrComplete_labelTitle, "检测完成");
-            lv_label_set_text(guider_ui.scrComplete_label_1, "0错误0警告");
         }
+
+#ifdef STM32H743xx
+
+        lv_textarea_set_text(guider_ui.scrComplete_ta_1, report_buffer);
+
+#endif
         ui_animation(guider_ui.scrComplete_contBG, 150, 0, lv_obj_get_width(guider_ui.scrComplete_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrComplete_contBG, 159, 0, lv_obj_get_height(guider_ui.scrComplete_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
-        break;
-    }
-    default:
-        break;
-    }
-}
-
-static void scrComplete_btnNext_event_handler (lv_event_t *e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    switch (code) {
-    case LV_EVENT_CLICKED:
-    {
-        ui_load_scr_animation(&guider_ui, &guider_ui.scrHome, guider_ui.scrHome_del, &guider_ui.scrComplete_del, setup_scr_scrHome, LV_SCR_LOAD_ANIM_FADE_ON, 200, 200, false, false);
-        ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_width(guider_ui.scrComplete_contBG), 800, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
-        ui_animation(guider_ui.scrComplete_contBG, 200, 0, lv_obj_get_height(guider_ui.scrComplete_contBG), 105, &lv_anim_path_ease_in, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
     }
     default:
@@ -164,11 +153,55 @@ static void scrComplete_btnBack_event_handler (lv_event_t *e)
     }
 }
 
+static void scrComplete_ta_1_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_SCROLL:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_SCROLL_BEGIN:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_SCROLL_END:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_PRESSED:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_PRESSING:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    case LV_EVENT_VALUE_CHANGED:
+    {
+        disable_keyboard(&guider_ui);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 void events_init_scrComplete (lv_ui *ui)
 {
     lv_obj_add_event_cb(ui->scrComplete, scrComplete_event_handler, LV_EVENT_ALL, ui);
-    lv_obj_add_event_cb(ui->scrComplete_btnNext, scrComplete_btnNext_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrComplete_btnBack, scrComplete_btnBack_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrComplete_ta_1, scrComplete_ta_1_event_handler, LV_EVENT_ALL, ui);
 }
 
 static void scrLoader_event_handler (lv_event_t *e)
@@ -177,8 +210,40 @@ static void scrLoader_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
+#define LOADER_ANIM_TIME    500
+#define LOADER_ANIM_DELAY   50
+
+        // 弧形加载器动画
+        lv_anim_t loader_arc;
+        lv_anim_t loader_tp;
+
+        // ✅ 先清空内容
+        lv_arc_set_end_angle(guider_ui.scrLoader_arcLoader, 0);           // 清空弧形进度
+        lv_textprogress_set_value(guider_ui.scrLoader_tpLoader, 0);       // 清空文本进度
+        lv_label_set_text(guider_ui.scrLoader_labelPrompt, "");
+
+        // 弧形加载器动画
+        lv_anim_init(&loader_arc);
+        lv_anim_set_exec_cb(&loader_arc, (lv_anim_exec_xcb_t)lv_arc_set_end_angle);
+        lv_anim_set_values(&loader_arc, 0, 360);
+        lv_anim_set_time(&loader_arc, LOADER_ANIM_TIME);
+        lv_anim_set_delay(&loader_arc, LOADER_ANIM_DELAY);
+        lv_anim_set_var(&loader_arc, guider_ui.scrLoader_arcLoader);
+        lv_anim_start(&loader_arc);
+
+        // 文本进度条动画
+        lv_anim_init(&loader_tp);
+        lv_anim_set_exec_cb(&loader_tp, (lv_anim_exec_xcb_t)lv_textprogress_set_value);
+        lv_anim_set_values(&loader_tp, 0, 100);
+        lv_anim_set_time(&loader_tp, LOADER_ANIM_TIME);
+        lv_anim_set_delay(&loader_tp, LOADER_ANIM_DELAY);
+        lv_anim_set_var(&loader_tp, guider_ui.scrLoader_tpLoader);
+        lv_anim_start(&loader_tp);
         if (get_current_mode() == STUDY_MODE) {
             lv_label_set_text(guider_ui.scrLoader_labelPrompt, "正在学习中请稍后");
+#ifdef STM32H743xx
+            study_state = LineDetector_LearnMapping(report_buffer, sizeof(report_buffer));
+#endif
         } else {
             int mode = get_current_mode();
             const char* line = (mode == DETECTION_MODE_42) ? "42线" :
@@ -189,30 +254,43 @@ static void scrLoader_event_handler (lv_event_t *e)
             static char temp_str[50];
             snprintf(temp_str, sizeof(temp_str), "正在检测%s中请稍后", line);
             lv_label_set_text(guider_ui.scrLoader_labelPrompt, temp_str);
+#ifdef STM32H743xx
+            LineDetector_PinMapping_t map[100] = {0};
+            switch (mode) {
+            case DETECTION_MODE_42:
+                for (int i = 0; i < 42; i++) {
+                    map[i].a_pin = i;
+                    map[i].b_pin = i;
+                }
+                LineDetector_SetMapping(map, 42);
+                break;
+            case DETECTION_MODE_47:
+                for (int i = 0; i < 47; i++) {
+                    map[i].a_pin = i;
+                    map[i].b_pin = i;
+                }
+                LineDetector_SetMapping(map, 47);
+                break;
+            case DETECTION_MODE_100:
+                for (int i = 0; i < 100; i++) {
+                    map[i].a_pin = i;
+                    map[i].b_pin = i;
+                }
+                LineDetector_SetMapping(map, 100);
+                break;
+            case DETECTION_MODE_NORMAL:
+#ifdef STM32H743xx
+                if (study_state == LINE_DETECTOR_ERROR) {
+                    strncpy(report_buffer, "金样学习失败无法检测", sizeof(report_buffer) - 1);
+                    report_buffer[sizeof(report_buffer) - 1] = '\0';
+                }
+#endif
+                break;
+            }
+            LineDetector_RunTest();
+#endif
         }
 
-#define LOADER_ANIM_TIME    500
-#define LOADER_ANIM_DELAY   50
-
-        // 弧形加载器动画
-        lv_anim_t loader_arc;
-        lv_anim_init(&loader_arc);
-        lv_anim_set_exec_cb(&loader_arc, (lv_anim_exec_xcb_t)lv_arc_set_end_angle);
-        lv_anim_set_values(&loader_arc, 0, 360);
-        lv_anim_set_time(&loader_arc, LOADER_ANIM_TIME);
-        lv_anim_set_delay(&loader_arc, LOADER_ANIM_DELAY);
-        lv_anim_set_var(&loader_arc, guider_ui.scrLoader_arcLoader);
-        lv_anim_start(&loader_arc);
-
-        // 文本进度条动画
-        lv_anim_t loader_tp;
-        lv_anim_init(&loader_tp);
-        lv_anim_set_exec_cb(&loader_tp, (lv_anim_exec_xcb_t)lv_textprogress_set_value);
-        lv_anim_set_values(&loader_tp, 0, 100);
-        lv_anim_set_time(&loader_tp, LOADER_ANIM_TIME);
-        lv_anim_set_delay(&loader_tp, LOADER_ANIM_DELAY);
-        lv_anim_set_var(&loader_tp, guider_ui.scrLoader_tpLoader);
-        lv_anim_start(&loader_tp);
 
         ui_load_scr_animation(&guider_ui, &guider_ui.scrComplete, guider_ui.scrComplete_del, &guider_ui.scrLoader_del, setup_scr_scrComplete, LV_SCR_LOAD_ANIM_NONE, 200, 700, false, false);
         break;
@@ -233,7 +311,6 @@ static void scrLog_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_SCREEN_LOADED:
     {
-        init_custom_log_list(&guider_ui);
         ui_animation(guider_ui.scrLog_contBG, 150, 0, lv_obj_get_width(guider_ui.scrLog_contBG), 800, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_width, NULL, NULL, NULL);
         ui_animation(guider_ui.scrLog_contBG, 150, 0, lv_obj_get_height(guider_ui.scrLog_contBG), 150, &lv_anim_path_ease_out, 0, 0, 0, 0, (lv_anim_exec_xcb_t)lv_obj_set_height, NULL, NULL, NULL);
         break;
@@ -305,6 +382,9 @@ static void scrSetting_btn_1_event_handler (lv_event_t *e)
     case LV_EVENT_CLICKED:
     {
         lv_label_set_text(guider_ui.scrSetting_labelTitle, "设置时间成功");
+#ifdef STM32H743xx
+        gui_set_time();
+#endif
 
         break;
     }
@@ -354,6 +434,22 @@ static void scrSetting_btn_5_event_handler (lv_event_t *e)
     {
 
         lv_obj_add_flag(guider_ui.scrSetting_cont_line, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+static void scrSetting_btn_6_event_handler (lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code) {
+    case LV_EVENT_CLICKED:
+    {
+
+        lv_obj_add_flag(guider_ui.scrSetting_cont_sys, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
         break;
     }
@@ -415,6 +511,9 @@ static void scrSetting_list_1_item3_event_handler (lv_event_t *e)
     switch (code) {
     case LV_EVENT_CLICKED:
     {
+
+        lv_obj_clear_flag(guider_ui.scrSetting_cont_sys, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(guider_ui.scrSetting_list_1, LV_OBJ_FLAG_HIDDEN);
         break;
     }
     default:
@@ -430,6 +529,7 @@ void events_init_scrSetting (lv_ui *ui)
     lv_obj_add_event_cb(ui->scrSetting_btn_2, scrSetting_btn_2_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_3, scrSetting_btn_3_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_btn_5, scrSetting_btn_5_event_handler, LV_EVENT_ALL, ui);
+    lv_obj_add_event_cb(ui->scrSetting_btn_6, scrSetting_btn_6_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item0, scrSetting_list_1_item0_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item1, scrSetting_list_1_item1_event_handler, LV_EVENT_ALL, ui);
     lv_obj_add_event_cb(ui->scrSetting_list_1_item2, scrSetting_list_1_item2_event_handler, LV_EVENT_ALL, ui);

@@ -2,6 +2,9 @@
 #include "./BSP/QSPI/qspi.h"
 #include "stdio.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Winvalid-source-encoding"
+
 // 条件编译开关：设置为1进行写入测试，设置为0仅读取验证
 #define ENABLE_WRITE_TEST   0   // 第一次测试时设为1，第二次上电测试时设为0
 
@@ -74,3 +77,5 @@ void test_flash_step_by_step(void)
     }
 #endif
 }
+
+#pragma GCC diagnostic pop

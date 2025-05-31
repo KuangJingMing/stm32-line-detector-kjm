@@ -689,6 +689,7 @@ void setup_scr_scrSetting(lv_ui *ui)
     lv_obj_set_pos(ui->scrSetting_cont_log, 44, 82);
     lv_obj_set_size(ui->scrSetting_cont_log, 712, 347);
     lv_obj_set_scrollbar_mode(ui->scrSetting_cont_log, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_add_flag(ui->scrSetting_cont_log, LV_OBJ_FLAG_HIDDEN);
 
     //Write style for scrSetting_cont_log, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
     lv_obj_set_style_border_width(ui->scrSetting_cont_log, 2, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -983,6 +984,106 @@ void setup_scr_scrSetting(lv_ui *ui)
     lv_obj_set_style_text_opa(ui->scrSetting_btn_5, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui->scrSetting_btn_5, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN|LV_STATE_DEFAULT);
 
+    //Write codes scrSetting_cont_sys
+    ui->scrSetting_cont_sys = lv_obj_create(ui->scrSetting);
+    lv_obj_set_pos(ui->scrSetting_cont_sys, 44, 82);
+    lv_obj_set_size(ui->scrSetting_cont_sys, 712, 347);
+    lv_obj_set_scrollbar_mode(ui->scrSetting_cont_sys, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_add_flag(ui->scrSetting_cont_sys, LV_OBJ_FLAG_HIDDEN);
+
+    //Write style for scrSetting_cont_sys, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_border_width(ui->scrSetting_cont_sys, 2, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui->scrSetting_cont_sys, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui->scrSetting_cont_sys, lv_color_hex(0x2f3243), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(ui->scrSetting_cont_sys, LV_BORDER_SIDE_FULL, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrSetting_cont_sys, 20, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui->scrSetting_cont_sys, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui->scrSetting_cont_sys, lv_color_hex(0xe1e6ee), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui->scrSetting_cont_sys, LV_GRAD_DIR_NONE, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui->scrSetting_cont_sys, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui->scrSetting_cont_sys, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui->scrSetting_cont_sys, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui->scrSetting_cont_sys, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui->scrSetting_cont_sys, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+
+    //Write codes scrSetting_btnm_1
+    ui->scrSetting_btnm_1 = lv_btnmatrix_create(ui->scrSetting_cont_sys);
+    static const char *scrSetting_btnm_1_text_map[] = {"系统版本", "V1.0", "\n", "主控芯片", "STM32H743IIT6", "\n", "系统时钟", "480MHZ", "",};
+    lv_btnmatrix_set_map(ui->scrSetting_btnm_1, scrSetting_btnm_1_text_map);
+    lv_obj_set_pos(ui->scrSetting_btnm_1, 101, 69);
+    lv_obj_set_size(ui->scrSetting_btnm_1, 476, 150);
+
+    //Write style for scrSetting_btnm_1, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_border_width(ui->scrSetting_btnm_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui->scrSetting_btnm_1, 16, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui->scrSetting_btnm_1, 16, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui->scrSetting_btnm_1, 16, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui->scrSetting_btnm_1, 16, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_row(ui->scrSetting_btnm_1, 8, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_column(ui->scrSetting_btnm_1, 8, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrSetting_btnm_1, 4, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui->scrSetting_btnm_1, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui->scrSetting_btnm_1, lv_color_hex(0xe1e6ee), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui->scrSetting_btnm_1, LV_GRAD_DIR_NONE, LV_PART_MAIN|LV_STATE_DEFAULT);
+
+    //Write style for scrSetting_btnm_1, Part: LV_PART_ITEMS, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_border_width(ui->scrSetting_btnm_1, 0, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui->scrSetting_btnm_1, lv_color_hex(0x0c2b49), LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrSetting_btnm_1, &lv_font_SourceHanSerifSC_Regular_20, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui->scrSetting_btnm_1, 255, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrSetting_btnm_1, 4, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui->scrSetting_btnm_1, 255, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui->scrSetting_btnm_1, lv_color_hex(0xfafbfb), LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui->scrSetting_btnm_1, LV_GRAD_DIR_NONE, LV_PART_ITEMS|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui->scrSetting_btnm_1, 0, LV_PART_ITEMS|LV_STATE_DEFAULT);
+
+    //Write style for scrSetting_btnm_1, Part: LV_PART_ITEMS, State: LV_STATE_PRESSED.
+    lv_obj_set_style_border_width(ui->scrSetting_btnm_1, 0, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_text_color(ui->scrSetting_btnm_1, lv_color_hex(0xffffff), LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_text_font(ui->scrSetting_btnm_1, &lv_font_Abel_regular_20, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_text_opa(ui->scrSetting_btnm_1, 255, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_radius(ui->scrSetting_btnm_1, 4, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_bg_opa(ui->scrSetting_btnm_1, 255, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(ui->scrSetting_btnm_1, lv_color_hex(0x93e3ff), LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_bg_grad_dir(ui->scrSetting_btnm_1, LV_GRAD_DIR_NONE, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_width(ui->scrSetting_btnm_1, 2, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_color(ui->scrSetting_btnm_1, lv_color_hex(0x93e3ff), LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_opa(ui->scrSetting_btnm_1, 255, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_spread(ui->scrSetting_btnm_1, 2, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_ofs_x(ui->scrSetting_btnm_1, 0, LV_PART_ITEMS|LV_STATE_PRESSED);
+    lv_obj_set_style_shadow_ofs_y(ui->scrSetting_btnm_1, 1, LV_PART_ITEMS|LV_STATE_PRESSED);
+
+    //Write codes scrSetting_btn_6
+    ui->scrSetting_btn_6 = lv_btn_create(ui->scrSetting_cont_sys);
+    ui->scrSetting_btn_6_label = lv_label_create(ui->scrSetting_btn_6);
+    lv_label_set_text(ui->scrSetting_btn_6_label, "返回");
+    lv_label_set_long_mode(ui->scrSetting_btn_6_label, LV_LABEL_LONG_WRAP);
+    lv_obj_align(ui->scrSetting_btn_6_label, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_style_pad_all(ui->scrSetting_btn_6, 0, LV_STATE_DEFAULT);
+    lv_obj_set_width(ui->scrSetting_btn_6_label, LV_PCT(100));
+    lv_obj_set_pos(ui->scrSetting_btn_6, 111, 251);
+    lv_obj_set_size(ui->scrSetting_btn_6, 352, 50);
+
+    //Write style for scrSetting_btn_6, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
+    lv_obj_set_style_bg_opa(ui->scrSetting_btn_6, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui->scrSetting_btn_6, lv_color_hex(0xffffff), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui->scrSetting_btn_6, LV_GRAD_DIR_NONE, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui->scrSetting_btn_6, 1, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui->scrSetting_btn_6, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui->scrSetting_btn_6, lv_color_hex(0x2f3243), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(ui->scrSetting_btn_6, LV_BORDER_SIDE_FULL, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_radius(ui->scrSetting_btn_6, 25, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui->scrSetting_btn_6, 2, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui->scrSetting_btn_6, lv_color_hex(0x000000), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui->scrSetting_btn_6, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui->scrSetting_btn_6, 1, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_ofs_x(ui->scrSetting_btn_6, 1, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_ofs_y(ui->scrSetting_btn_6, 1, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui->scrSetting_btn_6, lv_color_hex(0x191717), LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui->scrSetting_btn_6, &lv_font_SourceHanSerifSC_Regular_18, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui->scrSetting_btn_6, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(ui->scrSetting_btn_6, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN|LV_STATE_DEFAULT);
+
     //Write codes scrSetting_list_1
     ui->scrSetting_list_1 = lv_list_create(ui->scrSetting);
     ui->scrSetting_list_1_item0 = lv_list_add_btn(ui->scrSetting_list_1, &_time64_alpha_30x30, "时间设置");
@@ -1067,8 +1168,7 @@ void setup_scr_scrSetting(lv_ui *ui)
 
     //The custom code of scrSetting.
     custom_scr_setting_init(&guider_ui);
-    lv_obj_clear_flag(guider_ui.scrSetting_cont_log, LV_OBJ_FLAG_SCROLLABLE);
-
+    lv_obj_clear_flag(guider_ui.scrSetting_btnm_1, LV_OBJ_FLAG_CLICKABLE);
 
     //Update current screen layout.
     lv_obj_update_layout(ui->scrSetting);

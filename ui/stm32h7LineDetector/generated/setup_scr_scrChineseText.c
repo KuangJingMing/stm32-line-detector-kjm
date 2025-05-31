@@ -53,9 +53,9 @@ void setup_scr_scrChineseText(lv_ui *ui)
 
     //Write codes scrChineseText_label_2
     ui->scrChineseText_label_2 = lv_label_create(ui->scrChineseText);
-    lv_label_set_text(ui->scrChineseText_label_2, "错误警告");
+    lv_label_set_text(ui->scrChineseText_label_2, "错误警告年月日时分秒日期：");
     lv_label_set_long_mode(ui->scrChineseText_label_2, LV_LABEL_LONG_WRAP);
-    lv_obj_set_pos(ui->scrChineseText_label_2, 128, 92);
+    lv_obj_set_pos(ui->scrChineseText_label_2, 127, 92);
     lv_obj_set_size(ui->scrChineseText_label_2, 136, 37);
 
     //Write style for scrChineseText_label_2, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -99,7 +99,7 @@ void setup_scr_scrChineseText(lv_ui *ui)
 
     //Write codes scrChineseText_label_4
     ui->scrChineseText_label_4 = lv_label_create(ui->scrChineseText);
-    lv_label_set_text(ui->scrChineseText_label_4, "结果: 系统启动完成设备正常运行日志：错位短路断年月时间小分钟秒检测到个警告");
+    lv_label_set_text(ui->scrChineseText_label_4, "结果: 结果全局变量定义引脚映射表数线束检测器初始化输出锁存入配金样学习成功置参清空响法应模式关系（自动）逐一激励每个端进行设所有为高电平默认状态只将当前低到延时稳读取分析，寻找对的示连通判断逻辑正常：恢复完以上率验证编号效性制改比较函首先不匹假已排序便于简单冒泡收集记录统计包括短路情况防止组越界位掩码仅支持调试列用标经处理过查是否在多可能具相同其他使主打印信息或无后续中修第步二三故障类型、错非期望接生报告缓冲区大小实际写字符头部总开详细涉及影算合格快速指获等待户准备品执循环下次此添加交互针重✓失败✗");
     lv_label_set_long_mode(ui->scrChineseText_label_4, LV_LABEL_LONG_WRAP);
     lv_obj_set_pos(ui->scrChineseText_label_4, 31, 271);
     lv_obj_set_size(ui->scrChineseText_label_4, 329, 37);

@@ -20,15 +20,23 @@ void HC595_HC165_SimpleTest(void)
     memset(hc595_output, 1, sizeof(hc595_output));
     memset(hc165_input, 0, sizeof(hc165_input));
     
+//		hc595_output[2] = 0;
+//		hc595_output[3] = 0;
+//		hc595_output[96] = 0;
+		hc595_output[97] = 0;
 		HC595_SetPins(hc595_output);
-    
+   
     // 短暂延时确保输出稳定
     HAL_Delay(100);
     
     // 读取HC165输入
     HC165_ReadPins(hc165_input);
 
-		
+		for (int i = 0; i < 100; i++) {
+			printf("%d ", hc165_input[i]);
+		}
+		printf("\n");
+		return ;
     // 比较输出和输入
     uint8_t mismatch_count = 0;
     for (int i = 0; i < HC595_TOTAL_PINS && i < 100; i++)

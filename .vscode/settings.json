@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "rtc.h": "c",
+        "gui_backend.h": "c"
+    }
+}

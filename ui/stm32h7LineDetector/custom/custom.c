@@ -17,20 +17,14 @@ INCLUDES
 #include <string.h>
 #include "gui_guider.h"
 #include <stdlib.h> // for atoi
+#include "stdint.h"
+
+#define printf(fmt, ...) do {} while (0)
 
 /*********************
 DEFINES
 *********************/
-#define MAX_LOGS 10
-
-/**********************
-TYPEDEFS
-**********************/
-typedef struct {
-    char text[100];           // 日志文本
-    lv_obj_t *item_obj;      // 对应的UI对象
-    int index;               // 日志索引
-} log_item_t;
+uint8_t MAX_LOGS = 10;
 
 /**********************
 STATIC PROTOTYPES
@@ -51,11 +45,11 @@ static lv_style_t delete_btn_style;
 static lv_style_t delete_btn_hover_style;
 
 // 日志数据变量
-static log_item_t log_items[MAX_LOGS];
-static int log_count = 0;
-static int next_index = 1;
-static lv_obj_t *log_list;
-static SCREEN_MODE current_mode; 
+log_item_t log_items[100];
+int log_count = 0;
+int next_index = 1;
+lv_obj_t *log_list;
+SCREEN_MODE current_mode; 
 
 
 void custom_scr_setting_init(lv_ui *ui) {
@@ -86,6 +80,12 @@ void custom_scr_setting_init(lv_ui *ui) {
     lv_obj_set_flex_flow(ui->scrSetting_cont_line, LV_FLEX_FLOW_COLUMN);  // 改为列布局
     lv_obj_set_flex_align(ui->scrSetting_cont_line, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);  // 主轴、交叉轴、内容都居中
     // scrSetting_cont_line END
+
+    // scrSetting_cont_sys START
+    lv_obj_set_layout(ui->scrSetting_cont_sys, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(ui->scrSetting_cont_sys, LV_FLEX_FLOW_COLUMN);  // 改为列布局
+    lv_obj_set_flex_align(ui->scrSetting_cont_sys, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);  // 主轴、交叉轴、内容都居中
+    // scrSetting_cont_sys END
 }
 
 void custom_scr_detect_init(lv_ui *ui) {
@@ -135,12 +135,39 @@ void reload_ink_bar_animations(lv_ui *ui) {
 }
 
 
+// 禁用键盘（隐藏）
+void disable_keyboard(lv_ui *ui) {
+    if(ui->g_kb_top_layer) {
+        // 隐藏键盘
+        lv_obj_add_flag(ui->g_kb_top_layer, LV_OBJ_FLAG_HIDDEN);
+        
+        // 禁用点击事件
+        lv_obj_add_flag(ui->g_kb_top_layer, LV_OBJ_FLAG_EVENT_BUBBLE);
+        
+        printf("键盘功能完全禁用\n");
+    }
+}
+
+// 启用键盘（显示）
+void enable_keyboard(lv_ui *ui) {
+    if(ui->g_kb_top_layer) {
+        // 显示键盘
+        lv_obj_clear_flag(ui->g_kb_top_layer, LV_OBJ_FLAG_HIDDEN);
+        
+        // 启用点击事件
+        lv_obj_clear_flag(ui->g_kb_top_layer, LV_OBJ_FLAG_EVENT_BUBBLE);
+        
+        printf("键盘功能完全启用\n");
+    }
+}
+
+
 /**
 @brief Create a demo application
 */
 void custom_init(lv_ui *ui)
 {
-
+     lv_obj_clear_flag(ui->scrHome_contTop, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 void set_screen_mode(SCREEN_MODE mode) {
@@ -278,16 +305,22 @@ static void delete_btn_handler(lv_event_t *e)
     }
     log_count--;
 
+#ifdef STM32H743xx
+    delete_from_fatfs(log_index);
+#endif 
+
+
     printf("删除日志项，索引: %d, 剩余日志数: %d\n", log_index, log_count);
 }
 
 /**
-@brief       添加一条新日志
+@brief       添加日志项但不保存到文件（用于加载时）- 修复版本
 @param       ui: UI 结构体指针
 @param       text: 日志文本
+@param       index: 指定的日志索引
 @retval      无
 */
-void add_log_item(lv_ui *ui, const char *text)
+void add_log_item_without_save_with_index(lv_ui *ui, const char *text, int index)
 {
     // 如果日志数量达到上限，删除最早的日志
     if (log_count >= MAX_LOGS) {
@@ -300,8 +333,8 @@ void add_log_item(lv_ui *ui, const char *text)
         log_count = MAX_LOGS - 1;
     }
 
-    // 添加新日志到数组
-    log_items[log_count].index = next_index++;
+    // 使用指定的索引而不是next_index
+    log_items[log_count].index = index;
     strncpy(log_items[log_count].text, text, sizeof(log_items[log_count].text) - 1);
     log_items[log_count].text[sizeof(log_items[log_count].text) - 1] = '\0';
 
@@ -340,16 +373,46 @@ void add_log_item(lv_ui *ui, const char *text)
     lv_obj_set_style_text_font(btn_icon, &lv_font_montserrat_14, LV_PART_MAIN);
     lv_obj_center(btn_icon);
 
-    // 绑定删除事件
+    // 绑定删除事件，使用指定的索引
     lv_obj_add_event_cb(delete_btn, delete_btn_handler, LV_EVENT_CLICKED,
-                         (void *)(intptr_t)log_items[log_count].index);
+                         (void *)(intptr_t)index);
 
     log_count++;
 
     // 滚动到最新日志
     lv_obj_scroll_to_view(item, LV_ANIM_ON);
 
-    printf("添加日志项，索引: %d, 当前日志数: %d\n", log_items[log_count - 1].index, log_count);
+    printf("添加日志项，索引: %d, 当前日志数: %d\n", index, log_count);
+}
+
+/**
+@brief       添加日志项但不保存到文件（用于新日志）- 保持原接口
+@param       ui: UI 结构体指针
+@param       text: 日志文本
+@retval      无
+*/
+void add_log_item_without_save(lv_ui *ui, const char *text)
+{
+    add_log_item_without_save_with_index(ui, text, next_index);
+}
+/**
+@brief       添加一条新日志（会保存到文件）
+@param       ui: UI 结构体指针
+@param       text: 日志文本
+@retval      无
+*/
+void add_log_item(lv_ui *ui, const char *text)
+{
+    // 递增索引
+    next_index++;
+    
+    // 调用不保存版本来创建UI
+    add_log_item_without_save(ui, text);
+
+    // 保存到文件
+#ifdef STM32H743xx
+    save_to_fatfs(log_items[log_count - 1].text);
+#endif 
 }
 
 /**
@@ -380,11 +443,15 @@ void init_custom_log_list(lv_ui *ui)
     // 初始化变量
     log_count = 0;
     next_index = 1;
-      // 添加初始日志项（示例）
-    add_log_item(ui, "系统启动完成 - 设备正常运行");
-    add_log_item(ui, "日志：2025-1-15 13:16 - 0错位0短路0断路");
-    add_log_item(ui, "日志：2025-1-15 13:17 - 0错位0短路0断路");
-    add_log_item(ui, "日志：2025-1-15 13:18 - 检测到1个警告");
+
+#ifdef STM32H743xx
+    load_from_fatfs(ui);
+		char buffer[256];
+		snprintf(buffer, sizeof(buffer) - 1, "%s 系统启动完成 - 设备正常运行", date_time_buffer);
+    add_log_item(ui, buffer);
+#endif 
+
+
 }
 
 /**

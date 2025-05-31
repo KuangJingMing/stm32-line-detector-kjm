@@ -58,8 +58,8 @@ u8 RTC_Init(void)
       
     if(HAL_RTCEx_BKUPRead(&RTC_Handler,RTC_BKP_DR0)!=0X5050)//是否第一次配置
     { 
-        RTC_Set_Time(10,50,0,RTC_HOURFORMAT12_AM);	        //设置时间 ,根据实际时间修改
-				RTC_Set_Date(17,8,13,2);		                    //设置日期
+        RTC_Set_Time(0,0,0,RTC_HOURFORMAT12_AM);	        //设置时间 ,根据实际时间修改
+		RTC_Set_Date(25,6,1,7);		                    //设置日期
         HAL_RTCEx_BKUPWrite(&RTC_Handler,RTC_BKP_DR0,0X5050);//标记已经初始化过了
     }
     return 0;

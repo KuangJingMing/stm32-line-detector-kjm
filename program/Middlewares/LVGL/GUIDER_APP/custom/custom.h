@@ -13,6 +13,19 @@
 extern "C" {
 #endif
 
+#ifdef STM32H743xx
+    #include "main.h"
+#endif 
+
+/**********************
+TYPEDEFS
+**********************/
+typedef struct {
+    char text[100];           // 日志文本
+    lv_obj_t *item_obj;      // 对应的UI对象
+    int index;               // 日志索引
+} log_item_t;
+
 typedef enum {
     STUDY_MODE,
     DETECTION_MODE_42,
@@ -32,6 +45,8 @@ void custom_init(lv_ui *ui);
  **********************/
 void set_screen_mode(SCREEN_MODE mode);
 SCREEN_MODE get_current_mode(void);
+void add_log_item_without_save(lv_ui *ui, const char *text);
+void add_log_item_without_save_with_index(lv_ui *ui, const char *text, int index);
 
 void init_custom_log_list(lv_ui *ui);
 
@@ -39,6 +54,9 @@ void reload_ink_bar_animations(lv_ui *ui);
 
 void custom_scr_setting_init(lv_ui *ui);
 void custom_scr_detect_init(lv_ui *ui);
+
+void disable_keyboard(lv_ui *ui);
+void enable_keyboard(lv_ui *ui);
 
 
 #ifdef __cplusplus
